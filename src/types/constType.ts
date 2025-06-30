@@ -55,13 +55,13 @@ export interface ISupportOptions {
 }
 
 export interface ITestimonial {
-    id: number;
+    id: string | number;
     name: string;
     role: string;
     company: string;
+    text: string;
     image: string;
     rating: number;
-    text: string;
     course: string;
 }
 

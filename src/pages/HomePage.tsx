@@ -1,29 +1,18 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Star, Quote, Sparkles, CheckCircle } from "lucide-react";
+import { ArrowRight,  Sparkles } from "lucide-react";
 import { howItWorksSteps } from "../constants/howitwork";
 import { featuredEvents } from "../constants/featuredEvent";
-import { faqs } from "../constants/faqs";
 import { visionPoints } from "../constants/visionpoints";
 import { statsConst } from "../constants/stats";
-import { useState } from "react";
-import { testimonials } from "../constants/testimonials";
 import { supportOptions } from "../constants/supportOptions";
 import { sponsors } from "../constants/sponsor";
 import { IHowItWorksStep, IFeaturedEvent } from "../types/constType";
 import CardEvent from "../components/CardEvent";
+import FrequentlyAQ from "../components/FrequentlyAQ";
+import Testimonials from "../components/Testimonials";
 
 export default function HomePage() {
-  // State untuk melacak FAQ yang terbuka
-  const [openFAQ, setOpenFAQ] = useState(null);
 
-  // Fungsi untuk menangani toggle FAQ
-  const toggleFAQ = (id) => {
-    if (openFAQ === id) {
-      setOpenFAQ(null); // Tutup jika sudah terbuka
-    } else {
-      setOpenFAQ(id); // Buka FAQ yang dipilih
-    }
-  };
 
   return (
     <>
@@ -292,83 +281,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Testimonials Section - Enhanced */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-blue-600 dark:text-blue-400 text-sm px-4 py-2 rounded-full font-medium shadow-lg">
-              <Star className="w-4 h-4" />
-              Testimonials
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Apa Kata Mereka?
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Dengarkan pengalaman nyata dari learners yang telah merasakan
-              manfaat sistem commitment-based learning
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {testimonials.map((testimonial) => (
-              <div
-                key={testimonial.id}
-                className="group p-8 bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-700"
-              >
-                <div className="flex items-center mb-6">
-                  <img
-                    src={testimonial.image}
-                    alt={testimonial.name}
-                    className="w-16 h-16 rounded-2xl object-cover mr-4 ring-4 ring-gray-100 dark:ring-gray-700"
-                  />
-                  <div className="flex-1">
-                    <h4 className="font-bold text-gray-900 dark:text-white text-lg">
-                      {testimonial.name}
-                    </h4>
-                    <p className="text-gray-600 dark:text-gray-400">
-                      {testimonial.role} at {testimonial.company}
-                    </p>
-                  </div>
-                  <div className="flex items-center">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 text-yellow-400 fill-current"
-                      />
-                    ))}
-                  </div>
-                </div>
-
-                <div className="relative mb-6">
-                  <Quote className="absolute -top-2 -left-2 w-10 h-10 text-blue-500/20 dark:text-blue-400/20" />
-                  <p className="text-gray-700 dark:text-gray-300 italic pl-8 leading-relaxed text-lg">
-                    "{testimonial.text}"
-                  </p>
-                </div>
-
-                <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
-                  <div className="flex items-center gap-2">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span className="text-sm text-blue-600 dark:text-blue-400 font-semibold">
-                      {testimonial.course}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="text-center mt-16">
-            <Link
-              to="/testimonials"
-              className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-            >
-              Lihat Semua Testimoni
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </Link>
-          </div>
-        </div>
-      </section>
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* Support Us & Sponsors Section - Enhanced */}
       <section className="py-20 bg-white dark:bg-gray-950">
@@ -462,144 +376,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* FAQ - Enhanced */}
-      <section className="py-20 bg-gradient-to-br from-gray-50 to-blue-50/30 dark:from-gray-900 dark:to-blue-900/10">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 mb-6 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm text-blue-600 dark:text-blue-400 text-sm px-4 py-2 rounded-full font-medium shadow-lg">
-              <CheckCircle className="w-4 h-4" />
-              FAQ
-            </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Frequently Asked Questions
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Temukan jawaban atas pertanyaan yang sering diajukan seputar
-              LetsCommit!
-            </p>
-          </div>
-
-          <div className="max-w-4xl mx-auto">
-            {faqs.map((faq, index) => (
-              <div key={faq.id} className="group mb-6 last:mb-0">
-                <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl border border-gray-200/50 dark:border-gray-700/50 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden">
-                  <div
-                    className="flex justify-between items-center p-6 md:p-8 cursor-pointer group-hover:bg-blue-50/50 dark:group-hover:bg-blue-900/10 transition-colors duration-300"
-                    onClick={() => toggleFAQ(faq.id)}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-xl flex items-center justify-center text-sm font-bold flex-shrink-0">
-                        {index + 1}
-                      </div>
-                      <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white pr-4">
-                        {faq.question}
-                      </h3>
-                    </div>
-                    <div
-                      className={`flex-shrink-0 p-2 rounded-xl transition-all duration-300 ${
-                        openFAQ === faq.id
-                          ? "bg-blue-100 dark:bg-blue-900/30 rotate-180"
-                          : "bg-gray-100 dark:bg-gray-700 hover:bg-blue-100 dark:hover:bg-blue-900/30"
-                      }`}
-                    >
-                      <ArrowRight className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-                    </div>
-                  </div>
-
-                  <div
-                    className={`overflow-hidden transition-all duration-500 ease-in-out ${
-                      openFAQ === faq.id
-                        ? "max-h-96 opacity-100"
-                        : "max-h-0 opacity-0"
-                    }`}
-                  >
-                    <div className="px-6 md:px-8 pb-6 md:pb-8">
-                      <div className="pl-12 border-l-4 border-blue-200 dark:border-blue-800">
-                        <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
-                          {faq.answer}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* CTA at bottom of FAQ */}
-          <div className="text-center mt-16">
-            <div className="inline-flex flex-col sm:flex-row gap-4 items-center">
-              <p className="text-gray-600 dark:text-gray-400">
-                Masih ada pertanyaan?
-              </p>
-              <Link
-                to="/contact"
-                className="group inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300"
-              >
-                Hubungi Kami
-                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer CTA Section - New Enhanced Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 relative overflow-hidden">
-        {/* Background Effects */}
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-10 right-10 w-60 h-60 bg-white/10 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-white/5 rounded-full blur-3xl"></div>
-        </div>
-
-        <div className="container mx-auto px-6 relative z-10 text-center text-white">
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-4xl md:text-6xl font-black mb-8 leading-tight">
-              Siap Memulai Perjalanan{" "}
-              <span className="text-yellow-300">Commitment-Based Learning</span>
-              ?
-            </h2>
-            <p className="text-xl md:text-2xl mb-12 opacity-90 leading-relaxed">
-              Bergabunglah dengan ribuan learner yang telah membuktikan bahwa
-              komitmen adalah kunci kesuksesan dalam pembelajaran.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12">
-              <Link
-                to="/register"
-                className="group inline-flex items-center px-10 py-5 bg-white text-blue-600 font-bold rounded-2xl shadow-2xl hover:shadow-3xl transform hover:scale-105 transition-all duration-300 text-lg"
-              >
-                Mulai Sekarang
-                <ArrowRight className="ml-3 w-6 h-6 group-hover:translate-x-1 transition-transform" />
-              </Link>
-              <Link
-                to="/explore"
-                className="group inline-flex items-center px-10 py-5 border-2 border-white text-white font-bold rounded-2xl hover:bg-white/10 transition-all duration-300 text-lg backdrop-blur-sm"
-              >
-                Jelajahi Event
-                <Sparkles className="ml-3 w-6 h-6 group-hover:rotate-12 transition-transform" />
-              </Link>
-            </div>
-
-            {/* Trust indicators */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16 opacity-80">
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">10,000+</div>
-                <div className="text-sm opacity-75">Learners Aktif</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">95%</div>
-                <div className="text-sm opacity-75">Tingkat Penyelesaian</div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold mb-2">$2M+</div>
-                <div className="text-sm opacity-75">Cashback Dibagikan</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* faqs */}
+      <FrequentlyAQ />
     </>
   );
 }

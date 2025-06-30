@@ -1,8 +1,8 @@
 // src/layout/Navbar.jsx
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate, Outlet, useLocation } from "react-router-dom";
-import { RiMenuLine, RiCloseLine, RiSunLine, RiMoonFill, RiWallet3Line } from "react-icons/ri";
-import { Sparkles, Settings, Zap, Bell, ChevronDown } from "lucide-react";
+import {  RiCloseLine, RiSunLine, RiMoonFill, RiWallet3Line } from "react-icons/ri";
+import { Sparkles, Settings,  Bell, ChevronDown } from "lucide-react";
 
 import Footer from "../components/Footer";
 import ScrollToTheTop from "../components/ScrollToTheTop";

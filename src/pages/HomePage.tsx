@@ -10,6 +10,7 @@ import { testimonials } from "../constants/testimonials";
 import { supportOptions } from "../constants/supportOptions";
 import { sponsors } from "../constants/sponsor";
 import { IHowItWorksStep, IFeaturedEvent } from "../types/constType";
+import CardEvent from "../components/CardEvent";
 
 export default function HomePage() {
   // State untuk melacak FAQ yang terbuka
@@ -282,61 +283,10 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {featuredEvents.map((event: IFeaturedEvent) => (
-              <div
-                key={event.id}
-                className="group bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-gray-100 dark:border-gray-700"
-              >
-                <div className="p-8">
-                  <div className="flex items-start justify-between mb-6">
-                    <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-semibold rounded-full">
-                      {event.category}
-                    </span>
-                    <div className="text-right">
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-                        Cashback
-                      </p>
-                      <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                        ${event.potentialCashback}
-                      </p>
-                    </div>
-                  </div>
-
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white leading-tight mb-2">
-                    {event.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-6">
-                    by {event.organizer}
-                  </p>
-                </div>
-
-                <div className="px-8 py-6 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-700">
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">
-                        Total Cost:
-                      </span>
-                      <span className="font-semibold text-gray-900 dark:text-white">
-                        ${event.totalCost}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between text-sm">
-                      <span className="text-gray-600 dark:text-gray-400">
-                        Commitment Fee:
-                      </span>
-                      <span className="font-semibold text-orange-600 dark:text-orange-400">
-                        ${event.commitmentFee}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-
-                <Link
-                  to="#"
-                  className="block w-full text-center py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold transition-all duration-300 group-hover:shadow-lg"
-                >
-                  Daftar Sekarang
-                </Link>
-              </div>
+                <CardEvent
+                    key={event.id} 
+                    event={event}
+                />
             ))}
           </div>
         </div>

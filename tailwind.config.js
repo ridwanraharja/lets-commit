@@ -6,63 +6,80 @@ export default {
   ],
   darkMode: "class",
   theme: {
-    extend: {
-      colors: {
-        first: {
-          DEFAULT: "hsl(18, 76%, 54%)", // Normal theme
-          dark: "hsl(19, 64%, 58%)", // Dark theme
-        },
-        "first-alt": {
-          DEFAULT: "hsl(19, 64%, 52%)",
-          dark: "hsl(19, 64%, 54%)",
-        },
-        title: {
-          DEFAULT: "hsl(19, 16%, 15%)",
-          dark: "hsl(19, 24%, 85%)",
-        },
-        text: {
-          DEFAULT: "hsl(19, 16%, 35%)",
-          dark: "hsl(19, 16%, 65%)",
-        },
-        "text-light": {
-          DEFAULT: "hsl(19, 8%, 55%)",
-        },
-        body: {
-          DEFAULT: "hsl(19, 100%, 96%)",
-          dark: "hsl(19, 12%, 8%)",
-        },
-        container: {
-          DEFAULT: "hsl(19, 100%, 97%)",
-          dark: "hsl(19, 10%, 10%)",
-        },
-      },
-      fontFamily: {
-        body: ["Poppins", "sans-serif"],
-        title: ["Lora", "serif"],
-        subtitle: ["Dancing Script", "cursive"],
-      },
-      fontSize: {
-        biggest: "2.25rem",
-        h1: "1.5rem",
-        h2: "1.25rem",
-        h3: "1rem",
-        normal: ".938rem",
-        small: ".813rem",
-        smaller: ".75rem",
-        "2rem": "2rem",
-      },
-      fontWeight: {
-        medium: 500,
-        "semi-bold": 600,
-      },
-      zIndex: {
-        tooltip: "10",
-        fixed: "100",
-      },
-      height: {
-        header: "3.5rem",
-      },
-    },
+		extend: {
+			colors: {
+				border: 'hsl(var(--border))',
+				input: 'hsl(var(--input))',
+				ring: 'hsl(var(--ring))',
+				background: 'hsl(var(--background))',
+				foreground: 'hsl(var(--foreground))',
+				primary: {
+					DEFAULT: 'hsl(var(--primary))',
+					foreground: 'hsl(var(--primary-foreground))'
+				},
+				secondary: {
+					DEFAULT: 'hsl(var(--secondary))',
+					foreground: 'hsl(var(--secondary-foreground))'
+				},
+				destructive: {
+					DEFAULT: 'hsl(var(--destructive))',
+					foreground: 'hsl(var(--destructive-foreground))'
+				},
+				muted: {
+					DEFAULT: 'hsl(var(--muted))',
+					foreground: 'hsl(var(--muted-foreground))'
+				},
+				accent: {
+					DEFAULT: 'hsl(var(--accent))',
+					foreground: 'hsl(var(--accent-foreground))'
+				},
+				popover: {
+					DEFAULT: 'hsl(var(--popover))',
+					foreground: 'hsl(var(--popover-foreground))'
+				},
+				card: {
+					DEFAULT: 'hsl(var(--card))',
+					foreground: 'hsl(var(--card-foreground))'
+				},
+				sidebar: {
+					DEFAULT: 'hsl(var(--sidebar-background))',
+					foreground: 'hsl(var(--sidebar-foreground))',
+					primary: 'hsl(var(--sidebar-primary))',
+					'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+					accent: 'hsl(var(--sidebar-accent))',
+					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+					border: 'hsl(var(--sidebar-border))',
+					ring: 'hsl(var(--sidebar-ring))'
+				}
+			},
+			borderRadius: {
+				lg: 'var(--radius)',
+				md: 'calc(var(--radius) - 2px)',
+				sm: 'calc(var(--radius) - 4px)'
+			},
+			keyframes: {
+				'accordion-down': {
+					from: {
+						height: '0'
+					},
+					to: {
+						height: 'var(--radix-accordion-content-height)'
+					}
+				},
+				'accordion-up': {
+					from: {
+						height: 'var(--radix-accordion-content-height)'
+					},
+					to: {
+						height: '0'
+					}
+				}
+			},
+			animation: {
+				'accordion-down': 'accordion-down 0.2s ease-out',
+				'accordion-up': 'accordion-up 0.2s ease-out'
+			}
+		},
   },
   plugins: [],
 }

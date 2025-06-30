@@ -22,3 +22,270 @@
   --body-color: hsl(19, 12%, 8%);
   --container-color: hsl(19, 10%, 10%);
 }
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 217 33% 17%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 217 33% 17%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 217 33% 17%;
+
+    /* Commitment Blue #2563EB */
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Light Blue #DBEAFE */
+    --secondary: 219 100% 94%;
+    --secondary-foreground: 217 33% 17%;
+
+    --muted: 220 13% 97%;
+    --muted-foreground: 215 20% 42%;
+
+    --accent: 219 100% 94%;
+    --accent-foreground: 217 33% 17%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 221 83% 53%;
+
+    --radius: 0.75rem;
+
+    /* Custom colors for "Lets Commit!" */
+    --commitment-blue: 221 83% 53%;
+    --success-green: 158 64% 52%;
+    --warning-orange: 43 96% 56%;
+    --deep-navy: 229 84% 32%;
+    --light-blue: 219 100% 94%;
+    --mint-green: 158 64% 89%;
+    --soft-orange: 48 100% 89%;
+    --charcoal: 217 33% 17%;
+    --gray: 215 20% 42%;
+    --light-gray: 220 13% 97%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 217 33% 17%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 219 100% 94%;
+    --sidebar-accent-foreground: 217 33% 17%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 221 83% 53%;
+  }
+
+  .dark {
+    --background: 229 84% 5%;
+    --foreground: 0 0% 98%;
+
+    --card: 229 84% 8%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 229 84% 8%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 221 83% 53%;
+    --primary-foreground: 0 0% 98%;
+
+    --secondary: 229 84% 12%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 229 84% 12%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 229 84% 16%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 229 84% 16%;
+    --input: 229 84% 16%;
+    --ring: 221 83% 53%;
+
+    --sidebar-background: 229 84% 5%;
+    --sidebar-foreground: 0 0% 98%;
+    --sidebar-primary: 221 83% 53%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 229 84% 12%;
+    --sidebar-accent-foreground: 0 0% 98%;
+    --sidebar-border: 229 84% 16%;
+    --sidebar-ring: 221 83% 53%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Typography hierarchy */
+  h1 {
+    font-size: 3rem; /* 48px */
+    font-weight: 700;
+    line-height: 1.1;
+  }
+
+  h2 {
+    font-size: 2.25rem; /* 36px */
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  .body-text {
+    font-size: 1rem; /* 16px */
+    line-height: 1.6;
+  }
+
+  .small-text {
+    font-size: 0.875rem; /* 14px */
+    line-height: 1.5;
+  }
+
+  /* Accent text using Poppins */
+  .accent-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+  }
+}
+
+@layer utilities {
+  /* Custom color utilities */
+  .bg-commitment-blue {
+    background-color: hsl(var(--commitment-blue));
+  }
+  
+  .bg-success-green {
+    background-color: hsl(var(--success-green));
+  }
+  
+  .bg-warning-orange {
+    background-color: hsl(var(--warning-orange));
+  }
+  
+  .bg-deep-navy {
+    background-color: hsl(var(--deep-navy));
+  }
+  
+  .bg-light-blue {
+    background-color: hsl(var(--light-blue));
+  }
+  
+  .bg-mint-green {
+    background-color: hsl(var(--mint-green));
+  }
+  
+  .bg-soft-orange {
+    background-color: hsl(var(--soft-orange));
+  }
+
+  /* Text color utilities */
+  .text-commitment-blue {
+    color: hsl(var(--commitment-blue));
+  }
+  
+  .text-success-green {
+    color: hsl(var(--success-green));
+  }
+  
+  .text-warning-orange {
+    color: hsl(var(--warning-orange));
+  }
+  
+  .text-deep-navy {
+    color: hsl(var(--deep-navy));
+  }
+  
+  .text-charcoal {
+    color: hsl(var(--charcoal));
+  }
+  
+  .text-gray {
+    color: hsl(var(--gray));
+  }
+
+  /* Glass effects with new design system */
+  .glass {
+    @apply bg-white/90 backdrop-blur-md border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply bg-card/90 backdrop-blur-md border border-border/40;
+  }
+  
+  /* Commitment-themed gradients */
+  .gradient-commitment {
+    background: linear-gradient(135deg, hsl(var(--commitment-blue)) 0%, hsl(var(--success-green)) 100%);
+  }
+  
+  .gradient-success {
+    background: linear-gradient(135deg, hsl(var(--success-green)) 0%, hsl(158, 64%, 60%) 100%);
+  }
+
+  .gradient-warning {
+    background: linear-gradient(135deg, hsl(var(--warning-orange)) 0%, hsl(43, 96%, 65%) 100%);
+  }
+
+  /* Trust & Achievement theme styling */
+  .commitment-glow {
+    box-shadow: 0 0 20px hsl(var(--commitment-blue), 0.3);
+  }
+
+  .success-glow {
+    box-shadow: 0 0 20px hsl(var(--success-green), 0.3);
+  }
+
+  /* Progress-oriented animations */
+  .animate-progress {
+    animation: progress 2s ease-in-out infinite;
+  }
+
+  .animate-achievement {
+    animation: achievement 0.6s ease-out;
+  }
+
+  @keyframes progress {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  @keyframes achievement {
+    0% { transform: scale(0.8) rotate(-5deg); opacity: 0; }
+    50% { transform: scale(1.1) rotate(2deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  /* Rounded corners following design system */
+  .rounded-commitment {
+    border-radius: 12px;
+  }
+
+  .rounded-card {
+    border-radius: 16px;
+  }
+
+  /* Professional shadows */
+  .shadow-commitment {
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.1), 0 2px 4px -1px rgba(37, 99, 235, 0.06);
+  }
+
+  .shadow-success {
+    box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.1), 0 2px 4px -1px rgba(16, 185, 129, 0.06);
+  }
+}

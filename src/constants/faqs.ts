@@ -1,7 +1,7 @@
-// Data FAQ
+import { IFaqs } from "../types/constType";
 
 
-export const faqs = [
+export const faqs:IFaqs[] = [
     {
       id: 1,
       question: "Apa itu LetsCommit?",

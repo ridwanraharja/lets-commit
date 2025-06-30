@@ -1,5 +1,8 @@
-  // Data Sponsors
-  export const sponsors = [
+import { ISponsor } from "../types/constType";
+
+
+
+  export const sponsors: ISponsor[] = [
     {
       id: 1,
       name: "TechCorp Indonesia",

@@ -1,6 +1,9 @@
   // Support options
- import { Heart, Coffee, DollarSign } from "lucide-react";
-  export const supportOptions = [
+ import { Heart, Coffee, DollarSign} from "lucide-react";
+import { ISupportOptions } from "../types/constType";
+
+
+  export const supportOptions: ISupportOptions[] = [
     {
       icon: Heart,
       title: "Donasi",

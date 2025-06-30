@@ -1,13 +1,7 @@
-// src/models/howItWorks.ts
+import { Coins,Handshake,Calendar} from "lucide-react";
+import { IHowItWorksStep } from "../types/constType";
 
-import { Coins,Handshake,Calendar,LucideIcon} from "lucide-react";
 
-export interface IHowItWorksStep {
-  step: string;
-  title: string;
-  description: string;
-  icon: LucideIcon;
-}
 
 export const howItWorksSteps: IHowItWorksStep[] = [
   {

@@ -2,8 +2,8 @@
 
 import { Link } from "react-router-dom";
 import { ArrowRight, Star, Quote } from "lucide-react";
-import { howItWorksSteps, IHowItWorksStep } from "../constants/howitwork";
-import { featuredEvents, IFeaturedEvent } from "../constants/featuredEvent";
+import { howItWorksSteps } from "../constants/howitwork";
+import { featuredEvents } from "../constants/featuredEvent";
 import { faqs } from "../constants/faqs";
 import { visionPoints } from "../constants/visionpoints";
 import { statsConst } from "../constants/stats";
@@ -11,6 +11,7 @@ import  { useState } from 'react';
 import { testimonials } from "../constants/testimonials";
 import { supportOptions } from "../constants/supportOptions";
 import { sponsors } from "../constants/sponsor";
+import { IHowItWorksStep, IFeaturedEvent } from "../types/constType";
 
 export default function HomePage() {
   // State untuk melacak FAQ yang terbuka

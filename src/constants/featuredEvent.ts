@@ -1,19 +1,4 @@
-// src/models/featuredEvents.ts
-
-export interface IFeaturedEvent {
-  id: string;
-  title: string;
-  organizer: string;
-  category: string;
-  duration: string;
-  totalCost: number;
-  commitmentFee: number;
-  potentialCashback: number;
-  date: string;
-  time: string;
-  participants: number;
-  maxParticipants: number;
-}
+import { IFeaturedEvent } from "../types/constType";
 
 export const featuredEvents: IFeaturedEvent[] = [
   {

@@ -1,6 +1,8 @@
-import {  Trophy, Calendar, Coins, Users } from "lucide-react";
+ import { Calendar, Users, Trophy, Coins,  } from "lucide-react";
+import { IStats } from "../types/constType";
 
-export const statsConst = [
+
+export const statsConst:IStats[] = [
     {
         title: "Total Events",
         value: "2,847",

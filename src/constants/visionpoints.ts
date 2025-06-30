@@ -1,6 +1,9 @@
-import { Target, Lightbulb, Users, Award } from "lucide-react";
+import { Target, Lightbulb, Users, Award} from "lucide-react";
+import { IVisionPoints } from "../types/constType";
 
-export const visionPoints = [
+
+
+export const visionPoints: IVisionPoints[] = [
     {
         icon: Target,
         title: "Transformasi Pembelajaran",

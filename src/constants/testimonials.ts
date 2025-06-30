@@ -1,13 +1,4 @@
-  export interface ITestimonial {
-  id: number;
-  name: string;
-  role: string;
-  company: string;
-  image: string;
-  rating: number;
-  text: string;
-  course: string;
-}
+import { ITestimonial } from "../types/constType";
   
   export const testimonials: ITestimonial[] = [
     {

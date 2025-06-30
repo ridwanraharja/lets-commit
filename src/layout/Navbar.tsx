@@ -44,6 +44,9 @@ export default function Navbar() {
             className="flex items-center gap-4 cursor-pointer"
             onClick={() => navigate("/")}
           >
+            <div className="w-8 h-8 gradient-primary rounded-lg flex items-center justify-center">
+              <span className="text-white font-bold text-lg">E</span>
+            </div>
             {/* <img src={} alt="logo" className="w-8 h-8" /> */}
             <h1 className="font-subtitle text-xl font-bold hover:text-orange-400">
               Let'sCommit!

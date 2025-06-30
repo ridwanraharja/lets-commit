@@ -1,0 +1,61 @@
+// src/models/featuredEvents.ts
+
+export interface IFeaturedEvent {
+  id: string;
+  title: string;
+  organizer: string;
+  category: string;
+  duration: string;
+  totalCost: number;
+  commitmentFee: number;
+  potentialCashback: number;
+  date: string;
+  time: string;
+  participants: number;
+  maxParticipants: number;
+}
+
+export const featuredEvents: IFeaturedEvent[] = [
+  {
+    id: "1",
+    title: "Web3 Development Bootcamp",
+    organizer: "TechMaster Academy",
+    category: "Technology",
+    duration: "8 weeks",
+    totalCost: 299,
+    commitmentFee: 100,
+    potentialCashback: 80,
+    date: "15 Jan 2024",
+    time: "19:00 WIB",
+    participants: 28,
+    maxParticipants: 30,
+  },
+  {
+    id: "2",
+    title: "Digital Marketing Mastery",
+    organizer: "Growth Academy",
+    category: "Marketing",
+    duration: "6 weeks",
+    totalCost: 199,
+    commitmentFee: 75,
+    potentialCashback: 60,
+    date: "22 Jan 2024",
+    time: "20:00 WIB",
+    participants: 15,
+    maxParticipants: 25,
+  },
+  {
+    id: "3",
+    title: "Blockchain Fundamentals",
+    organizer: "CryptoEdu",
+    category: "Blockchain",
+    duration: "4 weeks",
+    totalCost: 149,
+    commitmentFee: 50,
+    potentialCashback: 40,
+    date: "29 Jan 2024",
+    time: "19:30 WIB",
+    participants: 22,
+    maxParticipants: 30,
+  },
+];

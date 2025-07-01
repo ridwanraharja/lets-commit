@@ -1,28 +1,26 @@
-import { Coins,Handshake,Calendar} from "lucide-react";
+import { Coins, Handshake, Calendar } from "lucide-react";
 import { IHowItWorksStep } from "../types/constType";
-
-
 
 export const howItWorksSteps: IHowItWorksStep[] = [
   {
     step: "1",
-    title: "Pilih & Daftar Event",
+    title: "Create or Join Events",
     description:
-      "Telusuri berbagai event edukasi dan daftar dengan membayar biaya event + biaya komitmen",
+      "Anyone can create learning events as an organizer, or browse and join existing events as a participant. Both roles require commitment payment.",
     icon: Calendar,
   },
   {
-    step: "2",
-    title: "Hadiri Sesi & Berkomitmen",
+    step: "2", 
+    title: "Attend & Commit Together",
     description:
-      "Ikuti setiap sesi dengan check-in real-time untuk membuktikan kehadiran Anda",
+      "Organizers run sessions while participants attend. Both parties use real-time check-ins to prove their commitment and active participation.",
     icon: Handshake,
   },
   {
     step: "3",
-    title: "Dapatkan Reward",
+    title: "Earn Session-Based Rewards",
     description:
-      "Klaim cashback USDT setiap sesi yang Anda hadiri. Semakin konsisten, semakin besar reward!",
+      "Both organizers and participants earn USDT cashback for each session they fulfill. Consistency = Maximum rewards for everyone!",
     icon: Coins,
   },
 ];

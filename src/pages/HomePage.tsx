@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 import { ArrowRight,  Sparkles } from "lucide-react";
-import { howItWorksSteps } from "../constants/howitwork";
 import { featuredEvents } from "../constants/featuredEvent";
 import { supportOptions } from "../constants/supportOptions";
 import { sponsors } from "../constants/sponsor";
-import { IHowItWorksStep, IFeaturedEvent } from "../types/constType";
+import { IFeaturedEvent } from "../types/constType";
 import CardEvent from "../components/CardEvent";
 import FrequentlyAQ from "../components/FrequentlyAQ";
 import Testimonials from "../components/Testimonials";
@@ -12,6 +11,7 @@ import OurVision from "../components/OurVision";
 import QuoteBanner from "../components/QuoteBanner";
 import HeroSection from "../components/HeroSection";
 import StatsSection from "../components/StatsSection";
+import HowItWork from "../components/HowItWork";
 
 export default function HomePage() {
 
@@ -28,48 +28,7 @@ export default function HomePage() {
         <QuoteBanner />
 
       {/* How It Works - Enhanced */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6 text-center">
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Bagaimana Cara Kerjanya?
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Sistem sederhana namun efektif untuk memastikan komitmen dan hasil
-              pembelajaran yang optimal
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {howItWorksSteps.map((item: IHowItWorksStep, index) => (
-              <div
-                key={item.step}
-                className="group relative p-8 bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-700"
-              >
-                {/* Step connector line for desktop */}
-                {index < howItWorksSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-20 -right-4 w-8 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500"></div>
-                )}
-
-                <div className="flex flex-col items-center">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-3xl flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300">
-                    <item.icon className="w-10 h-10 text-white" />
-                  </div>
-                  <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-purple-600 text-white rounded-2xl flex items-center justify-center font-black text-xl mb-4 shadow-lg">
-                    {item.step}
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-center leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <HowItWork />
 
       {/* Featured Events - Enhanced */}
       <section className="py-20 bg-white dark:bg-gray-950">

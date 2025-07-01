@@ -42,7 +42,7 @@ export default function StatsSection() {
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8 }}
                     >
-                        <motion.div 
+                        {/* <motion.div 
                             className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg border border-blue-200/50 dark:border-blue-700/50"
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
@@ -50,7 +50,7 @@ export default function StatsSection() {
                         >
                             <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                             Platform Analytics
-                        </motion.div>
+                        </motion.div> */}
                         
                         <motion.h2 
                             className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4 md:mb-6"

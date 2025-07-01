@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight,  Sparkles } from "lucide-react";
 import { howItWorksSteps } from "../constants/howitwork";
 import { featuredEvents } from "../constants/featuredEvent";
-import { visionPoints } from "../constants/visionpoints";
 import { statsConst } from "../constants/stats";
 import { supportOptions } from "../constants/supportOptions";
 import { sponsors } from "../constants/sponsor";
@@ -11,6 +10,7 @@ import CardEvent from "../components/CardEvent";
 import FrequentlyAQ from "../components/FrequentlyAQ";
 import Testimonials from "../components/Testimonials";
 import OurVision from "../components/OurVision";
+import QuoteBanner from "../components/QuoteBanner";
 
 export default function HomePage() {
 
@@ -115,21 +115,7 @@ export default function HomePage() {
 
 
       {/* Quote Banner - Enhanced */}
-      <section className="py-20">
-        <div className="container mx-auto px-6">
-          <div className="relative bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 rounded-3xl p-16 md:p-24 text-center text-white shadow-2xl overflow-hidden">
-            <div className="absolute inset-0 bg-black/10"></div>
-            <div className="absolute top-10 left-10 w-20 h-20 bg-white/10 rounded-full blur-xl"></div>
-            <div className="absolute bottom-10 right-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-6xl font-black max-w-5xl mx-auto leading-tight">
-                Commit to Win - Get your money back by completing what you
-                started.
-              </h2>
-            </div>
-          </div>
-        </div>
-      </section>
+        <QuoteBanner />
 
       {/* How It Works - Enhanced */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900">

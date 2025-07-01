@@ -1,27 +1,25 @@
 import { Target, Lightbulb, Users, Award} from "lucide-react";
 import { IVisionPoints } from "../types/constType";
 
-
-
 export const visionPoints: IVisionPoints[] = [
     {
         icon: Target,
-        title: "Transformasi Pembelajaran",
-        description: "Mengubah cara orang belajar dengan sistem accountability yang mendorong konsistensi dan hasil nyata melalui komitmen finansial."
+        title: "Learning Transformation",
+        description: "Revolutionizing how people learn through an accountability system that drives consistency and real results via financial commitment."
     },
     {
         icon: Lightbulb,
-        title: "Inovasi Teknologi",
-        description: "Memanfaatkan teknologi blockchain dan smart contract untuk menciptakan ekosistem pembelajaran yang transparan dan trustless."
+        title: "Technology Innovation",
+        description: "Leveraging blockchain technology and smart contracts to create a transparent and trustless learning ecosystem for everyone."
     },
     {
         icon: Users,
-        title: "Komunitas Pembelajar",
-        description: "Membangun komunitas global pembelajar yang saling mendukung dan termotivasi untuk mencapai tujuan pengembangan diri."
+        title: "Global Community",
+        description: "Building a worldwide community of learners who support and motivate each other to achieve personal and professional development goals."
     },
     {
         icon: Award,
-        title: "Hasil yang Terukur",
-        description: "Memastikan setiap peserta mendapatkan hasil pembelajaran yang optimal dengan sistem reward yang mendorong penyelesaian program."
+        title: "Measurable Results",
+        description: "Ensuring every participant achieves optimal learning outcomes through a reward system that incentivizes program completion and success."
     }
 ];

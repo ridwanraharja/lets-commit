@@ -327,7 +327,7 @@ export default function HowItWork() {
                                                                 <span className="text-sm font-medium text-blue-600 dark:text-blue-400">
                                                                     Step {item.step}
                                                                 </span>
-                                                                <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
+                                                                <h3 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
                                                                     {item.title}
                                                                 </h3>
                                                             </div>

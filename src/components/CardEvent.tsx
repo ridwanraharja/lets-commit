@@ -1,140 +1,249 @@
-
 import { Link } from "react-router-dom";
-import { Calendar, Clock, Users } from "lucide-react";
+import { Calendar, MapPin, Users, Clock, Info } from "lucide-react";
+import { motion } from "framer-motion";
 import { IFeaturedEvent } from "../types/constType";
+import ImgFake from '../assets/BlockDevId.jpg'
 
 interface CardEventProps {
   event: IFeaturedEvent;
+  index?: number;
 }
 
-export default function CardEvent({ event }: CardEventProps) {
+export default function CardEvent({ event, index = 0 }: CardEventProps) {
   // Calculate participant percentage
-  const participantPercentage = (event.participants / event.maxParticipants) * 100;
+  const participantPercentage = (event.participant / event.maxParticipant) * 100;
   
-  // Determine popularity badge
-  const getPopularityBadge = () => {
-    if (participantPercentage >= 90) return { text: "Almost Full", color: "bg-red-500" };
-    if (participantPercentage >= 70) return { text: "Popular", color: "bg-orange-500" };
-    if (participantPercentage >= 50) return { text: "Trending", color: "bg-yellow-500" };
-    return null;
+  // Calculate total price
+  const totalPrice = event.eventPrice + event.commitmentPrice;
+
+  // Format date range with year
+  const formatDateRange = () => {
+    const startDate = new Date(event.startDate);
+    const endDate = new Date(event.endDate);
+    
+    const options: Intl.DateTimeFormatOptions = { 
+      day: 'numeric', 
+      month: 'short',
+      year: 'numeric'
+    };
+    
+    if (event.startDate === event.endDate) {
+      return startDate.toLocaleDateString('en-US', options);
+    }
+    
+    return `${startDate.toLocaleDateString('en-US', options)} - ${endDate.toLocaleDateString('en-US', options)}`;
   };
 
-  const popularityBadge = getPopularityBadge();
+  // Calculate duration in days
+  const calculateDuration = () => {
+    const startDate = new Date(event.startDate);
+    const endDate = new Date(event.endDate);
+    const diffTime = Math.abs(endDate.getTime() - startDate.getTime());
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+    return diffDays === 1 ? "1 day" : `${diffDays} days`;
+  };
+
+  // Status badge styling
+  const getStatusBadge = () => {
+    switch (event.StatusTags) {
+      case "ON_SALE":
+        return { 
+          text: "On Sale", 
+          color: "bg-gradient-to-r from-green-500 to-emerald-500",
+          textColor: "text-white",
+          glow: "shadow-green-500/25"
+        };
+      case "ON_GOING":
+        return { 
+          text: "Live", 
+          color: "bg-gradient-to-r from-blue-500 to-cyan-500",
+          textColor: "text-white",
+          glow: "shadow-blue-500/25"
+        };
+      case "FINISHED":
+        return { 
+          text: "Ended", 
+          color: "bg-gradient-to-r from-gray-500 to-gray-600",
+          textColor: "text-white",
+          glow: "shadow-gray-500/25"
+        };
+      default:
+        return { 
+          text: event.StatusTags, 
+          color: "bg-gradient-to-r from-gray-500 to-gray-600",
+          textColor: "text-white",
+          glow: "shadow-gray-500/25"
+        };
+    }
+  };
+
+  const statusBadge = getStatusBadge();
 
   return (
-    <div className="group bg-white dark:bg-gray-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 overflow-hidden border border-gray-100 dark:border-gray-700 relative">
-      {/* Popularity Badge */}
-      {popularityBadge && (
-        <div className="absolute top-4 right-4 z-10">
-          <span className={`${popularityBadge.color} text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg`}>
-            {popularityBadge.text}
-          </span>
-        </div>
-      )}
+    <motion.div
+      initial={{ opacity: 0, y: 30, scale: 0.95 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ 
+        duration: 0.6, 
+        delay: index * 0.1,
+        type: "spring",
+        stiffness: 100
+      }}
+      whileHover={{ y: -5, scale: 1.01 }}
+      className="group relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300/50 dark:hover:border-blue-600/50 w-full h-full"
+    >
+      {/* Background Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-pink-50/30 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out" />
+      
+      {/* Top Accent Line */}
+      <motion.div 
+        className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-t-2xl"
+        initial={{ width: 0 }}
+        animate={{ width: "100%" }}
+        transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
+      />
 
-      {/* Header Section */}
-      <div className="p-8">
-        <div className="flex items-start justify-between mb-6">
-          <div className="flex flex-col gap-2">
-            <span className="px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 text-blue-700 dark:text-blue-300 text-sm font-semibold rounded-full w-fit">
-              {event.category}
-            </span>
-            {/* Duration Badge */}
-            <div className="flex items-center gap-1 text-gray-500 dark:text-gray-400 text-sm">
-              <Clock className="w-4 h-4" />
-              <span>{event.duration}</span>
-            </div>
-          </div>
-          <div className="text-right">
-            <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">
-              Cashback
-            </p>
-            <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-              ${event.potentialCashback}
-            </p>
+      {/* Image Section - Responsive Height */}
+      <div className="relative h-48 sm:h-52 md:h-48 lg:h-52 overflow-hidden">
+        <img 
+          src={ImgFake} 
+          alt={event.title}
+          className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
+        />
+        
+        {/* Image Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent transition-all duration-700 ease-in-out" />
+        
+        {/* Status Badge */}
+        <div className="absolute top-3 left-3 z-10">
+          <div className={`${statusBadge.color} ${statusBadge.textColor} text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm border border-white/20 transition-all duration-700 ease-in-out`}>
+            {statusBadge.text}
           </div>
         </div>
 
-        <h3 className="text-2xl font-bold text-gray-900 dark:text-white leading-tight mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+        {/* Duration Badge */}
+        <div className="absolute top-3 right-3 z-10">
+          <div className="bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full border border-white/20 flex items-center gap-1.5 transition-all duration-700 ease-in-out">
+            <Clock className="w-3 h-3 transition-all duration-700 ease-in-out" />
+            <span>{calculateDuration()}</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Content Section */}
+      <div className="relative z-10 p-4 sm:p-5 flex flex-col flex-1">
+        {/* Event Title */}
+        <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-700 ease-in-out line-clamp-2">
           {event.title}
         </h3>
-        <p className="text-gray-600 dark:text-gray-400 mb-4">
-          by <span className="font-semibold">{event.organizer}</span>
+        
+        {/* Description - Hidden on mobile, visible on larger screens */}
+        <p className="hidden sm:block text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2 leading-relaxed transition-colors duration-700 ease-in-out">
+          {event.description}
+        </p>
+        
+        {/* Organizer */}
+        <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 transition-colors duration-700 ease-in-out">
+          by <span className="font-semibold text-gray-900 dark:text-white transition-colors duration-700 ease-in-out">{event.organizerName}</span>
         </p>
 
         {/* Event Details */}
-        <div className="space-y-3 mb-6">
-          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
-            <Calendar className="w-4 h-4" />
-            <span>{event.date} • {event.time}</span>
+        <div className="space-y-3 mb-5 flex-1">
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">
+            <Calendar className="w-4 h-4 text-blue-500 transition-colors duration-700 ease-in-out flex-shrink-0" />
+            <span className="line-clamp-1">{formatDateRange()}</span>
           </div>
           
-          {/* Participants Progress */}
+          <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">
+            <MapPin className="w-4 h-4 text-purple-500 transition-colors duration-700 ease-in-out flex-shrink-0" />
+            <span className="line-clamp-1">{event.location}</span>
+          </div>
+          
+          {/* Participants */}
+          <div className="flex items-center justify-between transition-colors duration-700 ease-in-out">
+            <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">
+              <Users className="w-4 h-4 text-green-500 transition-colors duration-700 ease-in-out" />
+              <span>Participants</span>
+            </div>
+            <span className="text-sm font-semibold text-gray-900 dark:text-white transition-colors duration-700 ease-in-out">
+              {event.participant}/{event.maxParticipant}
+            </span>
+          </div>
+          
+          {/* Progress Bar */}
+          <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 transition-colors duration-700 ease-in-out">
+            <motion.div 
+              className="bg-gradient-to-r from-green-500 to-emerald-500 h-full rounded-full transition-colors duration-700 ease-in-out"
+              initial={{ width: 0 }}
+              animate={{ width: `${participantPercentage}%` }}
+              transition={{ duration: 1, delay: index * 0.1 + 0.5, ease: "easeOut" }}
+            />
+          </div>
+        </div>
+
+        {/* Pricing Section */}
+        <div className="px-4 py-3 bg-gradient-to-r from-gray-50/80 to-blue-50/80 dark:from-gray-900/50 dark:to-blue-900/30 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50 -mx-4 sm:-mx-5 mb-4 transition-all duration-700 ease-in-out">
           <div className="space-y-2">
-            <div className="flex items-center justify-between text-sm">
-              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
-                <Users className="w-4 h-4" />
-                <span>Participants</span>
+            {/* Price Breakdown */}
+            <div className="flex justify-between items-center text-sm transition-colors duration-700 ease-in-out">
+              <span className="text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">Event Price:</span>
+              <span className="font-semibold text-gray-900 dark:text-white transition-colors duration-700 ease-in-out">${event.eventPrice}</span>
+            </div>
+            <div className="flex justify-between items-center text-sm transition-colors duration-700 ease-in-out">
+              <span className="text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">Commitment Fee:</span>
+              <span className="font-semibold text-orange-600 dark:text-orange-400 transition-colors duration-700 ease-in-out">${event.commitmentPrice}</span>
+            </div>
+            <div className="border-t border-gray-200 dark:border-gray-700 pt-2 flex justify-between items-center transition-colors duration-700 ease-in-out">
+              <span className="font-semibold text-gray-900 dark:text-white text-sm transition-colors duration-700 ease-in-out">Total:</span>
+              <span className="text-lg font-bold text-blue-600 dark:text-blue-400 transition-colors duration-700 ease-in-out">${totalPrice}</span>
+            </div>
+            
+            {/* Commitment Info */}
+            <div className="flex items-start gap-2 p-3 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg transition-all duration-700 ease-in-out hover:bg-blue-100/80 dark:hover:bg-blue-900/30">
+              <Info className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0 transition-colors duration-700 ease-in-out" />
+              <div className="text-xs text-blue-700 dark:text-blue-300 transition-colors duration-700 ease-in-out">
+                <p className="font-medium mb-1">💰 Commitment Cashback:</p>
+                <p>• Attend sessions → Get commitment fee back</p>
+                <p>• Complete all sessions → 100% cashback!</p>
               </div>
-              <span className="font-semibold text-gray-900 dark:text-white">
-                {event.participants}/{event.maxParticipants}
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
-              <div 
-                className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-500"
-                style={{ width: `${participantPercentage}%` }}
-              />
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Pricing Section */}
-      <div className="px-8 py-6 bg-gray-50 dark:bg-gray-900/50 border-t border-gray-100 dark:border-gray-700">
-        <div className="space-y-3">
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600 dark:text-gray-400">
-              Total Cost:
-            </span>
-            <span className="font-semibold text-gray-900 dark:text-white">
-              ${event.totalCost}
-            </span>
-          </div>
-          <div className="flex items-center justify-between text-sm">
-            <span className="text-gray-600 dark:text-gray-400">
-              Commitment Fee:
-            </span>
-            <span className="font-semibold text-orange-600 dark:text-orange-400">
-              ${event.commitmentFee}
-            </span>
-          </div>
-          <div className="pt-2 border-t border-gray-200 dark:border-gray-600">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-900 dark:text-gray-100">
-                Max Cashback:
-              </span>
-              <span className="text-lg font-bold text-green-600 dark:text-green-400">
-                ${event.potentialCashback}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Action Button */}
-      <div className="p-6">
-        <Link
-          to={`/events/${event.id}`}
-          className="group/btn relative w-full inline-flex items-center justify-center py-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-2xl transition-all duration-300 overflow-hidden"
+        {/* Action Button */}
+        <motion.div
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          transition={{ duration: 0.2 }}
+          className="mt-auto"
         >
-          <span className="relative z-10">Daftar Sekarang</span>
-          <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />
-        </Link>
+          <Link
+            to={`/events/${event.id}`}
+            className={`group/btn relative w-full inline-flex items-center justify-center py-3 font-semibold text-base rounded-xl transition-all duration-700 ease-in-out overflow-hidden ${
+              event.StatusTags === "FINISHED" 
+                ? "bg-gray-400 text-white cursor-not-allowed" 
+                : "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl"
+            }`}
+          >
+            {/* Animated background */}
+            {event.StatusTags !== "FINISHED" && (
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
+                initial={{ x: "100%" }}
+                whileHover={{ x: 0 }}
+                transition={{ duration: 0.4 }}
+              />
+            )}
+            
+            <span className="relative z-10 transition-colors duration-700 ease-in-out">
+              {event.StatusTags === "FINISHED" ? "Event Ended" : "Join Event"}
+            </span>
+          </Link>
+        </motion.div>
       </div>
 
-      {/* Hover Glow Effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
-    </div>
+      {/* Corner Accent */}
+      <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-tr-2xl pointer-events-none transition-all duration-700 ease-in-out" />
+    </motion.div>
   );
 }

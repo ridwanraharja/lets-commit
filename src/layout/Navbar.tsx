@@ -124,7 +124,7 @@ export default function Navbar() {
     <>
       {/* Desktop/Tablet Top Navigation - NOW STARTS FROM lg: */}
       <nav
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 ${
+        className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ease-in-out ${
           isScrolled
             ? "bg-white/95 dark:bg-gray-900/95 backdrop-blur-2xl shadow-2xl border-b border-gray-200/30 dark:border-gray-700/30"
             : "bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg"
@@ -135,28 +135,28 @@ export default function Navbar() {
             
             {/* Enhanced Logo with Animation - Responsive sizing */}
             <div
-              className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-300 ${
+              className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-700 ease-in-out ${
                 isHome ? "scale-105" : ""
               }`}
               onClick={() => handleNavigation("/")}
             >
               <div className="relative">
-                <div className={`w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 ${
+                <div className={`w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-in-out ${
                   isHome ? "ring-2 ring-blue-300 dark:ring-blue-600 ring-offset-2 dark:ring-offset-gray-900" : ""
                 }`}>
-                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white group-hover:rotate-12 transition-transform duration-500" />
+                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white group-hover:rotate-12 transition-transform duration-700 ease-in-out" />
                 </div>
                 <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full animate-pulse shadow-md sm:shadow-lg">
                   <div className="w-full h-full bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-ping"></div>
                 </div>
               </div>
               <div className="hidden xs:block">
-                <h1 className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-blue-600 transition-all duration-500 ${
+                <h1 className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-blue-600 transition-all duration-700 ease-in-out ${
                   isHome ? "from-purple-600 via-pink-600 to-blue-600" : ""
                 }`}>
                   Let'sCommit!
                 </h1>
-                <p className={`text-xs sm:text-xs md:text-xs text-gray-500 dark:text-gray-400 -mt-0.5 sm:-mt-1 font-medium transition-colors duration-300 ${
+                <p className={`text-xs sm:text-xs md:text-xs text-gray-500 dark:text-gray-400 -mt-0.5 sm:-mt-1 font-medium transition-colors duration-700 ease-in-out ${
                   isHome ? "text-blue-600 dark:text-blue-400" : ""
                 }`}>
                   🚀 Commitment-based Learning
@@ -171,7 +171,7 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   className={({ isActive }) =>
-                    `relative px-3 py-2 lg:px-4 lg:py-3 xl:px-5 xl:py-3 rounded-xl lg:rounded-2xl font-semibold transition-all duration-300 group flex items-center gap-2 text-base ${
+                    `relative px-3 py-2 lg:px-4 lg:py-3 xl:px-5 xl:py-3 rounded-xl lg:rounded-2xl font-semibold transition-all duration-700 ease-in-out group flex items-center gap-2 text-base ${
                       isActive
                         ? "text-blue-600 dark:text-blue-400 shadow-lg"
                         : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
@@ -187,9 +187,9 @@ export default function Navbar() {
                         <span className="xl:hidden">{link.shortLabel}</span>
                       </span>
                       {isActive && (
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 rounded-xl lg:rounded-2xl"></div>
+                        <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 rounded-xl lg:rounded-2xl transition-all duration-700 ease-in-out"></div>
                       )}
-                      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl lg:rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl lg:rounded-2xl opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out"></div>
                     </>
                   )}
                 </NavLink>
@@ -199,8 +199,8 @@ export default function Navbar() {
             {/* Desktop Right Section - NOW STARTS FROM lg: ONLY */}
             <div className="hidden lg:flex items-center gap-3 xl:gap-4">
               {/* Notifications */}
-              <button className="relative p-2.5 lg:p-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl lg:rounded-2xl transition-all duration-300 group">
-                <Bell className="w-5 h-5 group-hover:ring-2 group-hover:ring-blue-300 rounded transition-all duration-300" />
+              <button className="relative p-2.5 lg:p-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl lg:rounded-2xl transition-all duration-700 ease-in-out group">
+                <Bell className="w-5 h-5 group-hover:ring-2 group-hover:ring-blue-300 rounded transition-all duration-700 ease-in-out" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse">
                   <div className="w-full h-full bg-red-400 rounded-full animate-ping"></div>
                 </div>
@@ -209,12 +209,12 @@ export default function Navbar() {
               {/* Enhanced Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2.5 lg:p-3 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-xl lg:rounded-2xl transition-all duration-300 group"
+                className="p-2.5 lg:p-3 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-xl lg:rounded-2xl transition-all duration-700 ease-in-out group"
               >
                 {theme === "dark" ? (
-                  <RiSunLine className="w-5 h-5 group-hover:rotate-180 group-hover:scale-110 transition-transform duration-500" />
+                  <RiSunLine className="w-5 h-5 group-hover:rotate-180 group-hover:scale-110 transition-transform duration-700 ease-in-out" />
                 ) : (
-                  <RiMoonFill className="w-5 h-5 group-hover:-rotate-12 group-hover:scale-110 transition-transform duration-500" />
+                  <RiMoonFill className="w-5 h-5 group-hover:-rotate-12 group-hover:scale-110 transition-transform duration-700 ease-in-out" />
                 )}
               </button>
 
@@ -223,7 +223,7 @@ export default function Navbar() {
                 <div className="relative dropdown-container">
                   <button
                     onClick={() => setIsProfileOpen(!isProfileOpen)}
-                    className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 group text-base"
+                    className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out group text-base"
                   >
                     <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center">
                       <RiWallet3Line className="w-4 h-4" />
@@ -232,12 +232,12 @@ export default function Navbar() {
                       <div className="text-xs opacity-90">Connected</div>
                       <div className="text-sm font-semibold">{walletAddress}</div>
                     </div>
-                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isProfileOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`w-4 h-4 transition-transform duration-700 ease-in-out ${isProfileOpen ? 'rotate-180' : ''}`} />
                   </button>
 
                   {/* Profile Dropdown */}
                   {isProfileOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 z-[60]">
+                    <div className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 z-[60] transition-all duration-700 ease-in-out">
                       <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-3">
                           <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
@@ -255,7 +255,7 @@ export default function Navbar() {
                             handleNavigation("/dashboard");
                             setIsProfileOpen(false);
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-base"
+                          className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-700 ease-in-out text-base"
                         >
                           <i className="ri-dashboard-line text-lg"></i>
                           Dashboard
@@ -265,7 +265,7 @@ export default function Navbar() {
                             handleNavigation("/aboutus");
                             setIsProfileOpen(false);
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-base"
+                          className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-700 ease-in-out text-base"
                         >
                           <i className="ri-information-line text-lg"></i>
                           About Us
@@ -275,7 +275,7 @@ export default function Navbar() {
                             handleConnect();
                             setIsProfileOpen(false);
                           }}
-                          className="w-full flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200 text-base"
+                          className="w-full flex items-center gap-3 px-4 py-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-700 ease-in-out text-base"
                         >
                           <i className="ri-logout-box-line text-lg"></i>
                           Disconnect
@@ -287,14 +287,14 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={handleConnect}
-                  className="group relative px-4 py-3 lg:px-6 lg:py-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden text-base font-semibold"
+                  className="group relative px-4 py-3 lg:px-6 lg:py-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-700 ease-in-out overflow-hidden text-base font-semibold"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <RiWallet3Line className="w-5 h-5" />
                     <span className="hidden xl:inline">Connect Wallet</span>
                     <span className="xl:hidden">Connect</span>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out"></div>
                 </button>
               )}
             </div>
@@ -304,7 +304,7 @@ export default function Navbar() {
               {/* Mobile Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2 sm:p-2.5 text-gray-600 dark:text-gray-400 hover:text-orange-500 rounded-lg transition-colors duration-300 touch-manipulation"
+                className="p-2 sm:p-2.5 text-gray-600 dark:text-gray-400 hover:text-orange-500 rounded-lg transition-colors duration-700 ease-in-out touch-manipulation"
                 type="button"
               >
                 {theme === "dark" ? (
@@ -319,7 +319,7 @@ export default function Navbar() {
                 <div className="relative mobile-wallet-container">
                   <button
                     onClick={handleMobileWalletToggle}
-                    className="p-2 sm:p-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg transition-all duration-300 touch-manipulation"
+                    className="p-2 sm:p-2.5 bg-gradient-to-r from-green-500 to-emerald-500 text-white rounded-lg transition-all duration-700 ease-in-out touch-manipulation"
                     type="button"
                   >
                     <RiWallet3Line className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -327,7 +327,7 @@ export default function Navbar() {
 
                   {/* Mobile Wallet Dropdown */}
                   {isMobileWalletOpen && (
-                    <div className="absolute right-0 top-full mt-2 w-56 sm:w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 z-[65]">
+                    <div className="absolute right-0 top-full mt-2 w-56 sm:w-64 bg-white dark:bg-gray-800 rounded-2xl shadow-2xl border border-gray-200 dark:border-gray-700 py-2 z-[65] transition-all duration-700 ease-in-out">
                       <div className="px-3 py-2 sm:px-4 sm:py-3 border-b border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-2 sm:gap-3">
                           <div className="w-7 h-7 sm:w-8 sm:h-8 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
@@ -345,7 +345,7 @@ export default function Navbar() {
                             handleNavigation("/dashboard");
                             setIsMobileWalletOpen(false);
                           }}
-                          className="w-full flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-sm"
+                          className="w-full flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-700 ease-in-out text-sm"
                         >
                           <i className="ri-dashboard-line text-base"></i>
                           Dashboard
@@ -355,7 +355,7 @@ export default function Navbar() {
                             handleConnect();
                             setIsMobileWalletOpen(false);
                           }}
-                          className="w-full flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-200 text-sm"
+                          className="w-full flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors duration-700 ease-in-out text-sm"
                         >
                           <i className="ri-logout-box-line text-base"></i>
                           Disconnect
@@ -369,7 +369,7 @@ export default function Navbar() {
               {/* Mobile Menu Button */}
               <button
                 onClick={handleMobileMenuToggle}
-                className="mobile-menu-button p-2 sm:p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-300 touch-manipulation relative z-[60]"
+                className="mobile-menu-button p-2 sm:p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-700 ease-in-out touch-manipulation relative z-[60]"
                 type="button"
                 aria-label="Toggle mobile menu"
               >
@@ -384,12 +384,12 @@ export default function Navbar() {
 
           {/* Enhanced Mobile/Tablet Dropdown Menu - VISIBLE UP TO lg: */}
           <div
-            className={`mobile-dropdown lg:hidden overflow-hidden transition-all duration-500 ${
+            className={`mobile-dropdown lg:hidden overflow-hidden transition-all duration-700 ease-in-out ${
               isMenuOpen ? "max-h-96 opacity-100 mt-3 sm:mt-4" : "max-h-0 opacity-0"
             }`}
             style={{ zIndex: 55 }}
           >
-            <div className="bg-white/98 dark:bg-gray-800/98 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl p-4 sm:p-6">
+            <div className="bg-white/98 dark:bg-gray-800/98 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl p-4 sm:p-6 transition-all duration-700 ease-in-out">
               <div className="flex flex-col gap-2 sm:gap-3">
                 {/* All Navigation Links for Mobile/Tablet Dropdown */}
                 {links.map((link) => (
@@ -401,7 +401,7 @@ export default function Navbar() {
                       window.scrollTo(0, 0);
                     }}
                     className={({ isActive }) =>
-                      `flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl font-medium sm:font-semibold transition-all duration-300 touch-manipulation text-sm sm:text-base ${
+                      `flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl font-medium sm:font-semibold transition-all duration-700 ease-in-out touch-manipulation text-sm sm:text-base ${
                         isActive
                           ? "bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 text-blue-600 dark:text-blue-400"
                           : "text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700"
@@ -421,7 +421,7 @@ export default function Navbar() {
                         handleConnect();
                         setIsMenuOpen(false);
                       }}
-                      className="w-full px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-medium sm:font-bold rounded-xl sm:rounded-2xl shadow-lg transition-all duration-300 flex items-center justify-center gap-2 touch-manipulation text-sm sm:text-base"
+                      className="w-full px-4 py-3 sm:px-6 sm:py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-medium sm:font-bold rounded-xl sm:rounded-2xl shadow-lg transition-all duration-700 ease-in-out flex items-center justify-center gap-2 touch-manipulation text-sm sm:text-base"
                       type="button"
                     >
                       <RiWallet3Line className="w-4 h-4 sm:w-5 sm:h-5" />
@@ -436,7 +436,7 @@ export default function Navbar() {
       </nav>
 
       {/* Enhanced Mobile Bottom Navigation - VISIBLE UP TO lg: */}
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl border-t border-gray-200/50 dark:border-gray-700/50 shadow-2xl">
+      <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl border-t border-gray-200/50 dark:border-gray-700/50 shadow-2xl transition-all duration-700 ease-in-out">
         <div className="flex justify-around items-center py-2 sm:py-3 px-1 sm:px-2">
           {mobileNavLinks.map((link) => (
             <NavLink
@@ -444,7 +444,7 @@ export default function Navbar() {
               to={link.to}
               onClick={() => window.scrollTo(0, 0)}
               className={({ isActive }) =>
-                `relative flex flex-col items-center gap-0.5 sm:gap-1 py-1 sm:py-1 px-1 sm:px-2 transition-all duration-300 min-w-0 flex-1 touch-manipulation ${
+                `relative flex flex-col items-center gap-0.5 sm:gap-1 py-1 sm:py-1 px-1 sm:px-2 transition-all duration-700 ease-in-out min-w-0 flex-1 touch-manipulation ${
                   isActive
                     ? "text-blue-600 dark:text-blue-400"
                     : "text-gray-600 dark:text-gray-400"
@@ -453,7 +453,7 @@ export default function Navbar() {
             >
               {({ isActive }) => (
                 <>
-                  <div className={`relative w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl transition-all duration-500 flex items-center justify-center ${
+                  <div className={`relative w-8 h-8 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl transition-all duration-700 ease-in-out flex items-center justify-center ${
                     isActive 
                       ? "bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 scale-110 shadow-lg" 
                       : "hover:bg-gray-100 dark:hover:bg-gray-800"
@@ -466,7 +466,7 @@ export default function Navbar() {
                       <div className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-red-500 rounded-full animate-pulse"></div>
                     )}
                   </div>
-                  <span className={`text-xs pt-1 font-medium transition-all duration-300 text-center leading-tight ${
+                  <span className={`text-xs pt-1 font-medium transition-all duration-700 ease-in-out text-center leading-tight ${
                     isActive ? "font-bold" : ""
                   } ${link.highlight && !isActive ? "text-purple-600 dark:text-purple-400 font-semibold" : ""}`}>
                     {link.label}
@@ -479,7 +479,7 @@ export default function Navbar() {
       </nav>
 
       {/* Enhanced Main Content Area with responsive padding */}
-      <div className="pt-16 sm:pt-18 md:pt-20 lg:pt-24 pb-16 sm:pb-18 lg:pb-6 xl:pb-8 min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-purple-50/20 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-500">
+      <div className="pt-16 sm:pt-18 md:pt-20 lg:pt-24 pb-16 sm:pb-18 lg:pb-6 xl:pb-8 min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-purple-50/20 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
         <Outlet />
         <ScrollToTheTop />
         <Footer />

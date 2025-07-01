@@ -7,18 +7,19 @@ export interface IFaqs {
 }
 
 export interface IFeaturedEvent {
-  id: string;
-  title: string;
-  organizer: string;
-  category: string;
-  duration: string;
-  totalCost: number;
-  commitmentFee: number;
-  potentialCashback: number;
-  date: string;
-  time: string;
-  participants: number;
-  maxParticipants: number;
+    id: number;
+    title : string;
+    description: string;
+    startDate : string;
+    endDate: string;
+    location: string;
+    participant: number;
+    maxParticipant: number;
+    eventPrice: number;
+    commitmentPrice: number;
+    organizerName: string;
+    linkImg: string;
+    StatusTags: 'ON_SALE' | 'ON_GOING' | 'FINISHED';
 }
 
 export interface IHowItWorksStep {

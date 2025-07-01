@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { Heart, Star, ArrowRight } from "lucide-react";
 import { sponsors } from "../constants/sponsor";
 import { motion, useInView } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState} from "react";
 import { supportOptions } from "../constants/supportOptions";
+import imgEth from '../assets/ethereum-logo.svg';
 
 export default function SupportUs() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -516,7 +517,7 @@ export default function SupportUs() {
                   whileHover={{ scale: 1.05 }}
                 >
                   <img
-                    src={sponsor.logo}
+                    src={imgEth} // ini ubah
                     alt={sponsor.name}
                     className="w-full h-8 object-contain grayscale group-hover:grayscale-0 transition-all duration-300"
                   />

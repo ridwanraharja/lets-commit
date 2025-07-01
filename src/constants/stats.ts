@@ -1,4 +1,4 @@
- import { Calendar, Users, Trophy, Coins,  } from "lucide-react";
+ import { Calendar, Users, Coins,  } from "lucide-react";
 import { IStats } from "../types/constType";
 
 
@@ -6,31 +6,24 @@ export const statsConst:IStats[] = [
     {
         title: "Total Events",
         value: "2,847",
-        description: "Events berhasil diselesaikan",
+        description: "Successfully completed learning events this month",
         icon: Calendar,
         trend: "+12%",
         variant: 'commitment' as const
     },
     {
-        title: "Active Participants",
+        title: "Total Participants",
         value: "15,632",
-        description: "Learner aktif bulan ini",
+        description: "Total community members learning together",
         icon: Users,
         trend: "+23%",
         variant: 'success' as const
     },
+
     {
-        title: "Completion Rate",
-        value: "87.5%",
-        description: "Tingkat penyelesaian event",
-        icon: Trophy,
-        trend: "+5.2%",
-        variant: 'warning' as const
-    },
-    {
-        title: "Total Rewards",
+        title: "Total Cashback",
         value: "$127k", // Escaped dollar sign
-        description: "Commitment fee dikembalikan",
+        description: "Total Cashback to our participants",
         icon: Coins,
         trend: "+18%",
         variant: 'default' as const

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Heart, Shield, Globe, Zap } from "lucide-react";
+import { Sparkles, ArrowRight, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -22,7 +22,7 @@ export default function Footer() {
   const socialLinks = [
     { href: "#", icon: "ri-twitter-line", label: "Twitter", color: "hover:text-blue-400" },
     { href: "#", icon: "ri-discord-line", label: "Discord", color: "hover:text-purple-400" },
-    { href: "#", icon: "ri-github-line", label: "GitHub", color: "hover:text-gray-400" },
+    { href: "https://github.com/LetsCommit-BlockDevId", icon: "ri-github-line", label: "GitHub", color: "hover:text-gray-400" },
     { href: "#", icon: "ri-telegram-line", label: "Telegram", color: "hover:text-blue-500" },
   ];
 

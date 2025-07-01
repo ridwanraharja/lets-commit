@@ -1,26 +1,46 @@
-// src/layout/Navbar.jsx
+// src/layout/Navbar.tsx
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate, Outlet, useLocation } from "react-router-dom";
-import {  RiCloseLine, RiSunLine, RiMoonFill, RiWallet3Line } from "react-icons/ri";
-import { Sparkles, Settings,  Bell, ChevronDown } from "lucide-react";
+import { RiCloseLine, RiSunLine, RiMoonFill, RiWallet3Line } from "react-icons/ri";
+import { Sparkles, Settings, Bell, ChevronDown } from "lucide-react";
 
 import Footer from "../components/Footer";
 import ScrollToTheTop from "../components/ScrollToTheTop";
 import { useTheme } from "../hooks/useTheme";
 
+interface NavLinkInterface {
+  to: string;
+  label: string;
+  icon: string;
+  shortLabel: string;
+}
+
+interface MobileNavLink {
+  to: string;
+  icon: string;
+  label: string;
+  notification?: boolean;
+  highlight?: boolean;
+}
+
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isConnected, setIsConnected] = useState(false); // Wallet connection state
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
-  const [isMobileWalletOpen, setIsMobileWalletOpen] = useState(false); // New state for mobile wallet dropdown
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
+  const [isConnected, setIsConnected] = useState<boolean>(false); // Wallet connection state
+  const [isProfileOpen, setIsProfileOpen] = useState<boolean>(false);
+  const [isMobileWalletOpen, setIsMobileWalletOpen] = useState<boolean>(false); // New state for mobile wallet dropdown
   const navigate = useNavigate();
   const location = useLocation();
 
+  // Scroll to top when route changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
   // Enhanced scroll effect for glassmorphism
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 20);
+    const onScroll = (): void => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -34,13 +54,14 @@ export default function Navbar() {
 
   // Close dropdowns when clicking outside - Fixed
   useEffect(() => {
-    const handleClickOutside = (event) => {
+    const handleClickOutside = (event: MouseEvent): void => {
+      const target = event.target as HTMLElement;
       // Check if the click is outside both dropdown containers and mobile menu button
       if (
-        !event.target.closest('.dropdown-container') && 
-        !event.target.closest('.mobile-menu-button') &&
-        !event.target.closest('.mobile-dropdown') &&
-        !event.target.closest('.mobile-wallet-container')
+        !target.closest('.dropdown-container') && 
+        !target.closest('.mobile-menu-button') &&
+        !target.closest('.mobile-dropdown') &&
+        !target.closest('.mobile-wallet-container')
       ) {
         setIsProfileOpen(false);
         setIsMenuOpen(false);
@@ -52,7 +73,7 @@ export default function Navbar() {
   }, []);
 
   // Enhanced links without badges - removed Home as it's now handled by logo
-  const links = [
+  const links: NavLinkInterface[] = [
     { to: "/explore", label: "Explore Events", icon: "ri-compass-line", shortLabel: "Explore" },
     { to: "/create", label: "Create Event", icon: "ri-add-circle-line", shortLabel: "Create" },
     { to: "/dashboard", label: "Dashboard", icon: "ri-dashboard-line", shortLabel: "Dashboard" },
@@ -60,7 +81,7 @@ export default function Navbar() {
   ];
 
   // Mobile-only links for bottom nav - replaced Profile with About Us
-  const mobileNavLinks = [
+  const mobileNavLinks: MobileNavLink[] = [
     { to: "/", icon: "ri-home-line", label: "Home" },
     { to: "/explore", icon: "ri-compass-line", label: "Explore", notification: true },
     { to: "/create", icon: "ri-add-circle-line", label: "Create", highlight: true },
@@ -68,30 +89,36 @@ export default function Navbar() {
     { to: "/aboutus", icon: "ri-information-line", label: "About" }, // Changed from Profile to About Us
   ];
 
-  const handleConnect = () => {
+  const handleConnect = (): void => {
     // Simulate wallet connection
     setIsConnected(!isConnected);
     setIsMobileWalletOpen(false);
   };
 
   // Fixed mobile menu toggle
-  const handleMobileMenuToggle = (e) => {
+  const handleMobileMenuToggle = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     e.stopPropagation();
     setIsMenuOpen(!isMenuOpen);
   };
 
   // Handle mobile wallet toggle
-  const handleMobileWalletToggle = (e) => {
+  const handleMobileWalletToggle = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.preventDefault();
     e.stopPropagation();
     setIsMobileWalletOpen(!isMobileWalletOpen);
   };
 
-  const walletAddress = "0x1234...5678"; // Mock wallet address
+  // Navigate function with scroll to top
+  const handleNavigation = (path: string): void => {
+    navigate(path);
+    window.scrollTo(0, 0);
+  };
+
+  const walletAddress: string = "0x1234...5678"; // Mock wallet address
 
   // Check if current route is home
-  const isHome = location.pathname === "/";
+  const isHome: boolean = location.pathname === "/";
 
   return (
     <>
@@ -103,15 +130,15 @@ export default function Navbar() {
             : "bg-white/70 dark:bg-gray-900/70 backdrop-blur-lg"
         }`}
       >
-        <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3.5 md:py-5">
+        <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3.5 md:py-6">
           <div className="flex justify-between items-center">
             
             {/* Enhanced Logo with Animation - Responsive sizing */}
             <div
-              className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-50 ${
+              className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-300 ${
                 isHome ? "scale-105" : ""
               }`}
-              onClick={() => navigate("/")}
+              onClick={() => handleNavigation("/")}
             >
               <div className="relative">
                 <div className={`w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 ${
@@ -150,6 +177,7 @@ export default function Navbar() {
                         : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400"
                     }`
                   }
+                  onClick={() => window.scrollTo(0, 0)}
                 >
                   {({ isActive }) => (
                     <>
@@ -224,7 +252,7 @@ export default function Navbar() {
                       <div className="py-2">
                         <button
                           onClick={() => {
-                            navigate("/dashboard");
+                            handleNavigation("/dashboard");
                             setIsProfileOpen(false);
                           }}
                           className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-base"
@@ -234,7 +262,7 @@ export default function Navbar() {
                         </button>
                         <button
                           onClick={() => {
-                            navigate("/aboutus");
+                            handleNavigation("/aboutus");
                             setIsProfileOpen(false);
                           }}
                           className="w-full flex items-center gap-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-base"
@@ -259,7 +287,7 @@ export default function Navbar() {
               ) : (
                 <button
                   onClick={handleConnect}
-                  className="group relative px-4 py-3 lg:px-6 lg:py-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden text-base"
+                  className="group relative px-4 py-3 lg:px-6 lg:py-3 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white rounded-2xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden text-base font-semibold"
                 >
                   <span className="relative z-10 flex items-center gap-2">
                     <RiWallet3Line className="w-5 h-5" />
@@ -314,7 +342,7 @@ export default function Navbar() {
                       <div className="py-2">
                         <button
                           onClick={() => {
-                            navigate("/dashboard");
+                            handleNavigation("/dashboard");
                             setIsMobileWalletOpen(false);
                           }}
                           className="w-full flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 text-sm"
@@ -368,7 +396,10 @@ export default function Navbar() {
                   <NavLink
                     key={link.to}
                     to={link.to}
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() => {
+                      setIsMenuOpen(false);
+                      window.scrollTo(0, 0);
+                    }}
                     className={({ isActive }) =>
                       `flex items-center gap-2 sm:gap-3 px-3 py-2 sm:px-4 sm:py-3 rounded-xl sm:rounded-2xl font-medium sm:font-semibold transition-all duration-300 touch-manipulation text-sm sm:text-base ${
                         isActive
@@ -411,6 +442,7 @@ export default function Navbar() {
             <NavLink
               key={link.to}
               to={link.to}
+              onClick={() => window.scrollTo(0, 0)}
               className={({ isActive }) =>
                 `relative flex flex-col items-center gap-0.5 sm:gap-1 py-1 sm:py-1 px-1 sm:px-2 transition-all duration-300 min-w-0 flex-1 touch-manipulation ${
                   isActive

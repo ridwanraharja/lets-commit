@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import { ArrowRight,  Sparkles } from "lucide-react";
 import { howItWorksSteps } from "../constants/howitwork";
 import { featuredEvents } from "../constants/featuredEvent";
-import { statsConst } from "../constants/stats";
 import { supportOptions } from "../constants/supportOptions";
 import { sponsors } from "../constants/sponsor";
 import { IHowItWorksStep, IFeaturedEvent } from "../types/constType";
@@ -12,6 +11,7 @@ import Testimonials from "../components/Testimonials";
 import OurVision from "../components/OurVision";
 import QuoteBanner from "../components/QuoteBanner";
 import HeroSection from "../components/HeroSection";
+import StatsSection from "../components/StatsSection";
 
 export default function HomePage() {
 
@@ -22,58 +22,7 @@ export default function HomePage() {
       <HeroSection />
 
       {/* Stats Section - Enhanced */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6 text-center">
-          <div className="mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6">
-              Platform Terpercaya dengan Hasil Nyata
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Bergabung dengan ribuan learner yang telah merasakan manfaat
-              sistem commitment-based learning
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {statsConst.map((stat, i) => (
-              <div
-                key={i}
-                className="group relative p-8 bg-gradient-to-br from-white to-gray-50 dark:from-gray-800 dark:to-gray-900 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-700"
-              >
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 dark:from-blue-400/5 dark:to-purple-400/5 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div className="relative">
-                  <div className="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg">
-                    <stat.icon className="w-8 h-8 text-white" />
-                  </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">
-                    {stat.title}
-                  </h3>
-                  <p className="text-4xl font-black bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent mb-2">
-                    {stat.value}
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400 mb-3">
-                    {stat.description}
-                  </p>
-                  <p
-                    className={`text-sm font-medium text-${
-                      stat.variant === "green" ? "green" : stat.variant
-                    }-600 dark:text-${
-                      stat.variant === "green" ? "green" : stat.variant
-                    }-400`}
-                  >
-                    {stat.trend}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-
-
-
+      <StatsSection />
 
       {/* Quote Banner - Enhanced */}
         <QuoteBanner />

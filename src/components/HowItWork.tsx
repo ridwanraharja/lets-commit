@@ -179,11 +179,7 @@ export default function HowItWork() {
                                 <Sparkles className="w-4 h-4" />
                             
                             How It Works
-                            <motion.div
-                                className="w-2 h-2 bg-purple-500 rounded-full"
-                                animate={{ scale: [1, 1.2, 1] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                            />
+
                         </motion.div>
 
                         <motion.h2 
@@ -197,12 +193,7 @@ export default function HowItWork() {
                                 <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                                     Commitment System
                                 </span>
-                                <motion.div 
-                                    className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-0.5 md:h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full"
-                                    initial={{ width: 0 }}
-                                    animate={isInView ? { width: "100%" } : { width: 0 }}
-                                    transition={{ duration: 1, delay: 1 }}
-                                />
+
                             </span>{" "}
                             Works
                         </motion.h2>

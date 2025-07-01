@@ -46,12 +46,16 @@ export interface IStats {
 }
 
 export interface ISupportOptions {
-    icon: LucideIcon;
-    title: string;
-    description : string;
-    amount : string;
-    color: string;
-    link : string;
+id: string;
+  name: string;
+  icon: LucideIcon;
+  amount: string;
+  period: 'one-time' | 'monthly' | 'yearly';
+  description: string;
+  features: string[];
+  color: string;
+  bgColor: string;
+  link: string;
 }
 
 export interface ITestimonial {

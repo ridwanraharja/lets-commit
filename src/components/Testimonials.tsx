@@ -138,7 +138,7 @@ export default function Testimonials() {
                 <div className="container mx-auto px-4 md:px-6">
                     <div className="text-center mb-12 md:mb-16">
                         <motion.div 
-                            className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 text-green-700 dark:text-green-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg"
+                            className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6 }}
@@ -148,7 +148,7 @@ export default function Testimonials() {
                         </motion.div>
                         
                         <motion.h2 
-                            className="text-2xl md:text-4xl lg:text-6xl text-gray-900 dark:text-white mb-4 md:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent font-bold"
+                            className="text-2xl md:text-4xl lg:text-5xl text-gray-900 dark:text-white mb-4 md:mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent font-bold"
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.2 }}

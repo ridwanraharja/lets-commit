@@ -29,7 +29,7 @@ export default function Footer() {
 
 
   return (
-    <footer className="relative mt-20 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10">
+    <footer className="relative pt-20 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10">
       {/* Background Effects */}
       <div className="absolute inset-0">
         <motion.div 

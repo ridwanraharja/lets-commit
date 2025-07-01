@@ -1,6 +1,6 @@
 
 import { Link } from "react-router-dom";
-import { Calendar, Clock, Users, MapPin, Star } from "lucide-react";
+import { Calendar, Clock, Users } from "lucide-react";
 import { IFeaturedEvent } from "../types/constType";
 
 interface CardEventProps {

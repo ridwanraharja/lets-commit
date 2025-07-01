@@ -34,19 +34,134 @@ export default function OurVision() {
 
     return (
         <>
-            {/* Vision Section - Enhanced */}
-            <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 overflow-hidden">
-                <div className="container mx-auto px-4 md:px-6">
+            {/* Vision Section - Enhanced with Static Cool Background */}
+            <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10">
+                {/* Static Background Effects */}
+                <div className="absolute inset-0">
+                    {/* Large Static Blobs */}
+                    <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-blue-400/15 to-cyan-400/15 rounded-full blur-3xl"></div>
+                    <div className="absolute top-1/3 right-10 w-80 h-80 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-gradient-to-r from-green-400/15 to-emerald-400/15 rounded-full blur-3xl"></div>
+
+                    {/* Medium Static Orbs */}
+                    <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 rounded-full blur-2xl"></div>
+                    <div className="absolute bottom-1/3 right-1/4 w-28 h-28 bg-gradient-to-r from-indigo-400/15 to-blue-400/15 rounded-full blur-xl"></div>
+
+                    {/* Static Geometric Patterns */}
+                    <div 
+                        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.015]"
+                        style={{
+                            backgroundImage: `radial-gradient(circle at 2px 2px, rgb(59, 130, 246) 1px, transparent 1px)`,
+                            backgroundSize: '80px 80px'
+                        }}
+                    />
+
+                    {/* Static SVG Decorative Lines */}
+                    <svg className="absolute inset-0 w-full h-full opacity-30" style={{ zIndex: 1 }}>
+                        {/* Static Flowing Lines */}
+                        <path
+                            d="M 0 200 Q 300 100 600 250 T 1200 200"
+                            stroke="url(#staticGradient1)"
+                            strokeWidth="2"
+                            fill="none"
+                            strokeDasharray="6,6"
+                            opacity="0.3"
+                        />
+                        
+                        <path
+                            d="M 100 400 Q 400 300 700 450 T 1300 400"
+                            stroke="url(#staticGradient2)"
+                            strokeWidth="1.5"
+                            fill="none"
+                            strokeDasharray="4,8"
+                            opacity="0.25"
+                        />
+
+                        <path
+                            d="M 50 600 Q 350 500 650 650 T 1250 600"
+                            stroke="url(#staticGradient3)"
+                            strokeWidth="1"
+                            fill="none"
+                            strokeDasharray="3,12"
+                            opacity="0.2"
+                        />
+
+                        <defs>
+                            <linearGradient id="staticGradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.6" />
+                                <stop offset="50%" stopColor="#8B5CF6" stopOpacity="0.4" />
+                                <stop offset="100%" stopColor="#EC4899" stopOpacity="0.2" />
+                            </linearGradient>
+                            <linearGradient id="staticGradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#10B981" stopOpacity="0.5" />
+                                <stop offset="50%" stopColor="#3B82F6" stopOpacity="0.3" />
+                                <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.2" />
+                            </linearGradient>
+                            <linearGradient id="staticGradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" stopColor="#F59E0B" stopOpacity="0.4" />
+                                <stop offset="50%" stopColor="#EC4899" stopOpacity="0.3" />
+                                <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.2" />
+                            </linearGradient>
+                        </defs>
+                    </svg>
+
+                    {/* Static Constellation Points */}
+                    <div className="absolute top-1/4 left-1/5 w-1 h-1 bg-purple-400 rounded-full opacity-60"></div>
+                    <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-50"></div>
+                    <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-pink-400 rounded-full opacity-70"></div>
+                    <div className="absolute top-2/3 right-1/5 w-1.5 h-1.5 bg-indigo-400 rounded-full opacity-60"></div>
+                    <div className="absolute bottom-1/3 right-2/3 w-1 h-1 bg-cyan-400 rounded-full opacity-50"></div>
+                    <div className="absolute top-1/2 left-3/4 w-1.5 h-1.5 bg-green-400 rounded-full opacity-40"></div>
+                    <div className="absolute bottom-2/3 left-2/3 w-1 h-1 bg-yellow-400 rounded-full opacity-60"></div>
+                    <div className="absolute top-3/4 right-1/3 w-1.5 h-1.5 bg-orange-400 rounded-full opacity-50"></div>
+
+                    {/* Static Radial Gradient Overlays */}
+                    <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-radial from-blue-400/8 via-purple-400/4 to-transparent rounded-full blur-2xl"></div>
+                    <div className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-gradient-radial from-pink-400/8 via-purple-400/4 to-transparent rounded-full blur-3xl"></div>
+                    
+                    {/* Static Mesh Gradient Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 via-transparent via-purple-500/3 to-pink-500/3"></div>
+
+                    {/* Static Pattern Overlays */}
+                    <div 
+                        className="absolute top-0 left-0 w-full h-1/3 opacity-[0.02] dark:opacity-[0.01]"
+                        style={{
+                            background: `linear-gradient(45deg, transparent 40%, rgba(59, 130, 246, 0.1) 50%, transparent 60%)`
+                        }}
+                    />
+                    
+                    <div 
+                        className="absolute bottom-0 right-0 w-full h-1/3 opacity-[0.02] dark:opacity-[0.01]"
+                        style={{
+                            background: `linear-gradient(-45deg, transparent 40%, rgba(168, 85, 247, 0.1) 50%, transparent 60%)`
+                        }}
+                    />
+
+                    {/* Static Hexagon Pattern */}
+                    <div 
+                        className="absolute inset-0 opacity-[0.015] dark:opacity-[0.008]"
+                        style={{
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%233B82F6' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                        }}
+                    />
+                </div>
+
+                <div className="container mx-auto px-4 md:px-6 relative z-10">
                     {/* Header Section */}
                     <div ref={headerRef} className="text-center mb-16 md:mb-20">
                         <motion.div 
-                            className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg"
+                            className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg border border-purple-200/50 dark:border-purple-700/50"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6 }}
                         >
                             <Sparkles className="w-4 h-4" />
                             Our Vision
+                            {/* <motion.div
+                                className="w-2 h-2 bg-purple-500 rounded-full"
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                            /> */}
                         </motion.div>
                         
                         <motion.h2 
@@ -56,8 +171,16 @@ export default function OurVision() {
                             transition={{ duration: 0.6, delay: 0.2 }}
                         >
                             The Future of{" "}
-                            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
-                                Commitment-Based
+                            <span className="relative">
+                                <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+                                    Commitment-Based
+                                </span>
+                                {/* <motion.div 
+                                    className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full"
+                                    initial={{ width: 0 }}
+                                    animate={isHeaderInView ? { width: "100%" } : { width: 0 }}
+                                    transition={{ duration: 1, delay: 0.8 }}
+                                /> */}
                             </span>{" "}
                             Learning
                         </motion.h2>
@@ -130,7 +253,7 @@ export default function OurVision() {
                                         
                                         {/* Enhanced Content Card */}
                                         <motion.div 
-                                            className="flex-1 bg-white dark:bg-gray-800 rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 dark:border-gray-700 group-hover:border-blue-300 dark:group-hover:border-blue-600 overflow-hidden relative"
+                                            className="flex-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 group-hover:border-blue-300 dark:group-hover:border-blue-600 overflow-hidden relative"
                                             initial={{ opacity: 0, y: 30 }}
                                             animate={isCardInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                                             transition={{ duration: 0.6, delay: index * 0.2 + 0.4 }}

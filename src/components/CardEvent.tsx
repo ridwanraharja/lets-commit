@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, Clock, Info } from "lucide-react";
+import { Calendar, MapPin, Users, Clock, Info, Eye, UserPlus } from "lucide-react";
 import { motion } from "framer-motion";
 import { IFeaturedEvent } from "../types/constType";
 import ImgFake from '../assets/BlockDevId.jpg'
@@ -210,36 +210,59 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
           </div>
         </div>
 
-        {/* Action Button */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          transition={{ duration: 0.2 }}
-          className="mt-auto"
-        >
-          <Link
-            to={`/events/${event.id}`}
-            className={`group/btn relative w-full inline-flex items-center justify-center py-3 font-semibold text-base rounded-xl transition-all duration-700 ease-in-out overflow-hidden ${
-              event.StatusTags === "FINISHED" 
-                ? "bg-gray-400 text-white cursor-not-allowed" 
-                : "bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl"
-            }`}
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-3 mt-auto">
+          {/* View Details Button */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="flex-1"
           >
-            {/* Animated background */}
-            {event.StatusTags !== "FINISHED" && (
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.4 }}
-              />
+            <Link
+              to={`/events/${event.id}`}
+              className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-medium text-sm sm:text-base rounded-xl border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 bg-white dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all duration-700 ease-in-out overflow-hidden"
+            >
+              <Eye className="w-4 h-4 mr-2 transition-transform duration-300 group-hover/btn:scale-110" />
+              <span className="relative z-10">View Details</span>
+            </Link>
+          </motion.div>
+
+          {/* Register Button */}
+          <motion.div
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            transition={{ duration: 0.2 }}
+            className="flex-1"
+          >
+            {event.StatusTags === "FINISHED" ? (
+              <button
+                disabled
+                className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gray-400 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
+              >
+                <span className="relative z-10">Event Ended</span>
+              </button>
+            ) : (
+              <Link
+                to={`/events/${event.id}/register`}
+                className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden"
+              >
+                {/* Animated background */}
+                <motion.div 
+                  className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
+                  initial={{ x: "100%" }}
+                  whileHover={{ x: 0 }}
+                  transition={{ duration: 0.4 }}
+                />
+                
+                <UserPlus className="w-4 h-4 mr-2 relative z-10 transition-transform duration-300 group-hover/btn:scale-110" />
+                <span className="relative z-10">
+                  {event.StatusTags === "ON_GOING" ? "Join Now" : "Register"}
+                </span>
+              </Link>
             )}
-            
-            <span className="relative z-10 transition-colors duration-700 ease-in-out">
-              {event.StatusTags === "FINISHED" ? "Event Ended" : "Join Event"}
-            </span>
-          </Link>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
 
       {/* Corner Accent */}

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Heart, Sparkles, Coffee, Gift, Zap, Users, Award, Crown, DollarSign, CheckCircle } from "lucide-react";
+import { Heart, Sparkles, Coffee, Gift, Zap, Users, Award, Crown, DollarSign, CheckCircle, ArrowLeft, Home } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function DonateSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -134,12 +135,6 @@ export default function DonateSection() {
               <span className="bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 dark:from-pink-400 dark:via-purple-400 dark:to-blue-400 bg-clip-text text-transparent">
                 Transform Lives
               </span>
-              {/* <motion.div 
-                className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 rounded-full"
-                initial={{ width: 0 }}
-                animate={isInView ? { width: "100%" } : { width: 0 }}
-                transition={{ duration: 1.2, delay: 0.8 }}
-              /> */}
             </span>
             <br />Through Learning
           </motion.h2>
@@ -380,6 +375,53 @@ export default function DonateSection() {
             </div>
           </motion.div>
         </div>
+
+        {/* Back to Home Button */}
+        <motion.div
+          className="text-center mt-16 md:mt-20"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.8, delay: 1.6 }}
+        >
+          <Link
+            to="/"
+            className="group inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-gray-100 to-blue-100 dark:from-gray-800 dark:to-blue-900/30 hover:from-blue-100 hover:to-purple-100 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30 text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-400 font-semibold rounded-2xl shadow-lg hover:shadow-xl border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300/50 dark:hover:border-blue-600/50 transition-all duration-700 ease-in-out backdrop-blur-sm"
+          >
+            <motion.div
+              className="flex items-center justify-center w-10 h-10 bg-white/60 dark:bg-gray-700/60 rounded-full group-hover:bg-blue-100 dark:group-hover:bg-blue-900/50 transition-colors duration-700 ease-in-out"
+              whileHover={{ scale: 1.1, rotate: -10 }}
+            >
+              <Home className="w-5 h-5" />
+            </motion.div>
+            
+            <div className="text-left">
+              <div className="flex items-center gap-2 text-lg font-bold">
+                <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform duration-700 ease-in-out" />
+                Back to Home
+              </div>
+              <div className="text-sm opacity-75 group-hover:opacity-100 transition-opacity duration-700 ease-in-out">
+                Continue exploring CommitLearn!
+              </div>
+            </div>
+            
+            <motion.div
+              className="w-2 h-2 bg-blue-500 rounded-full"
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity, delay: 1 }}
+            />
+          </Link>
+
+          {/* Alternative Simple Button */}
+          {/* <div className="mt-4">
+            <Link
+              to="/"
+              className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-700 ease-in-out text-sm font-medium"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Or simply go back to homepage
+            </Link>
+          </div> */}
+        </motion.div>
       </div>
     </section>
   );

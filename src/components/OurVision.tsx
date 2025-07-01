@@ -347,7 +347,7 @@ export default function OurVision() {
                                     Your transformation begins with a single step.
                                 </p>
                             </motion.div>
-                            
+                             
                             <motion.div 
                                 className="flex flex-col sm:flex-row gap-4 justify-center items-center"
                                 initial={{ opacity: 0, y: 20 }}
@@ -355,7 +355,7 @@ export default function OurVision() {
                                 transition={{ duration: 0.6, delay: 0.4 }}
                             >
                                 <Link
-                                    to="/about"
+                                    to="/explore"
                                     className="group inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
                                 >
                                     Start Your Journey
@@ -365,7 +365,7 @@ export default function OurVision() {
                                     to="/join-community"
                                     className="px-8 py-4 border-2 border-white/50 text-white font-semibold rounded-xl hover:bg-white/10 hover:border-white transition-all duration-300 backdrop-blur-sm"
                                 >
-                                    Explore Features
+                                    Join Community
                                 </Link>
                             </motion.div>
                             

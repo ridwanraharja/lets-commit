@@ -1,16 +1,22 @@
-import { motion } from "framer-motion";
-
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 export default function QuoteBanner() {
+    const sectionRef = useRef<HTMLDivElement>(null);
+    const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+
     return (
         <>
             {/* Quote Banner - Simplified */}
-            <section className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10">
+            <section 
+                ref={sectionRef}
+                className="py-16 md:py-20 lg:py-24 bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10"
+            >
                 <div className="container mx-auto px-4 md:px-6">
                     <motion.div 
                         className="relative bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-2xl md:rounded-3xl p-8 md:p-12 lg:p-16 text-center text-white shadow-2xl overflow-hidden"
                         initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
+                        animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.8 }}
                     >
                         {/* Background Effects */}
@@ -32,15 +38,21 @@ export default function QuoteBanner() {
 
                         {/* Content */}
                         <div className="relative z-10 space-y-6 md:space-y-8">
-
-                            {/* Main Quote - Reduced Size */}
+                            {/* Main Quote - Scroll Triggered */}
                             <motion.h2 
                                 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold max-w-5xl mx-auto leading-tight"
                                 initial={{ opacity: 0, y: 30 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.4 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                                transition={{ duration: 0.8, delay: 0.2 }}
                             >
-                                <span className="text-yellow-300 font-semibold">Commit to Win</span>
+                                <motion.span 
+                                    className="text-yellow-300 font-semibold"
+                                    initial={{ opacity: 0, x: -20 }}
+                                    animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                                    transition={{ duration: 0.6, delay: 0.4 }}
+                                >
+                                    Commit to Win
+                                </motion.span>
                                 <span className="text-white/80 font-medium"> - </span>
                                 <span className="text-white font-semibold">Get your money back by completing what you </span>
                                 <span className="relative text-yellow-300 font-semibold">
@@ -48,19 +60,19 @@ export default function QuoteBanner() {
                                     <motion.div 
                                         className="absolute -bottom-1 left-0 w-full h-0.5 md:h-1 bg-yellow-300 rounded-full"
                                         initial={{ width: 0 }}
-                                        animate={{ width: "100%" }}
-                                        transition={{ duration: 1, delay: 1.2 }}
+                                        animate={isInView ? { width: "100%" } : { width: 0 }}
+                                        transition={{ duration: 1, delay: 0.8 }}
                                     />
                                 </span>
                                 <span className="text-white font-semibold">.</span>
                             </motion.h2>
 
-                            {/* Supporting Text - Reduced Size */}
+                            {/* Supporting Text - Scroll Triggered */}
                             <motion.p 
                                 className="text-lg md:text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed font-medium"
                                 initial={{ opacity: 0, y: 20 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: 0.8 }}
+                                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+                                transition={{ duration: 0.6, delay: 0.6 }}
                             >
                                 Put your money where your commitment is. Complete your learning journey and get a full refund - it's our way of betting on your success.
                             </motion.p>

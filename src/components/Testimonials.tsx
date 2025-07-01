@@ -1,7 +1,7 @@
 import { testimonials } from "../constants/testimonials";
 import { Star } from "lucide-react";
 import { motion } from "framer-motion";
-import React, { useRef, useState, useEffect, useMemo, useCallback } from "react";
+import  { useRef, useState, useEffect, useMemo, useCallback } from "react";
 import TestimonialCard from "./TestimonialCard"; // Import the separated component
 
 interface ResponsiveSettings {

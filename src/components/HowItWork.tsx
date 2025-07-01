@@ -421,7 +421,7 @@ export default function HowItWork() {
                                 Fair Rewards for Everyone
                             </h3>
                             <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed">
-                                Both organizers and participants earn USDT rewards based on their actual participation. 
+                                Both organizers and participants earn USDC rewards based on their actual participation. 
                                 The more sessions you complete, the higher your cashback percentage.
                             </p>
                         </div>

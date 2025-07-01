@@ -6,7 +6,7 @@ export const howItWorksSteps: IHowItWorksStep[] = [
     step: "1",
     title: "Create or Join Events",
     description:
-      "Anyone can create learning events as an organizer, or browse and join existing events as a participant. Both roles require commitment payment.",
+      "Anyone can create learning events as an organizer, or browse and join existing events as a participant. Participant require commitment payment.",
     icon: Calendar,
   },
   {
@@ -20,7 +20,7 @@ export const howItWorksSteps: IHowItWorksStep[] = [
     step: "3",
     title: "Earn Session-Based Rewards",
     description:
-      "Both organizers and participants earn USDT cashback for each session they fulfill. Consistency = Maximum rewards for everyone!",
+      "Both organizers and participants earn USDC cashback for each session they fulfill. Consistency = Maximum rewards for everyone!",
     icon: Coins,
   },
 ];

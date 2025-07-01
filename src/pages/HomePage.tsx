@@ -21,11 +21,11 @@ export default function HomePage() {
       {/* How It Works - Enhanced */}
       <HowItWork />
 
-      {/* Testimonials */}
-      <Testimonials />
-
       {/* Featured Events - Enhanced Design */}
       <FeaturedEvent />
+
+      {/* Testimonials */}
+      <Testimonials />
 
       {/* Our Vision */}
       <OurVision />

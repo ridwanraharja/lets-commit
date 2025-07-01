@@ -118,19 +118,16 @@ export default function HeroSection() {
                         transition={{ duration: 0.8, type: "spring" }}
                         whileHover={{ scale: 1.05 }}
                     >
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
-                        >
-                            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
-                        </motion.div>
+         
+                        <Sparkles className="w-3 h-3 sm:w-4 sm:h-4" />
+
                         <span className="hidden sm:inline">Revolutionary Learning Platform</span>
                         <span className="sm:hidden">Revolutionary Platform</span>
-                        <motion.div
+                        {/* <motion.div
                             className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full"
                             animate={{ scale: [1, 1.2, 1] }}
                             transition={{ duration: 2, repeat: Infinity }}
-                        />
+                        /> */}
                     </motion.div>
 
                     {/* Enhanced Main Heading - Better Mobile Responsive */}
@@ -141,7 +138,7 @@ export default function HeroSection() {
                         transition={{ duration: 1, delay: 0.3 }}
                     >
                         <motion.h1 
-                            className="text-4xl sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight"
+                            className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-7xl font-black leading-tight"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ duration: 0.8, delay: 0.5 }}
@@ -153,7 +150,7 @@ export default function HeroSection() {
                                 transition={{ duration: 3, repeat: Infinity, repeatType: "reverse" }}
                                 style={{ backgroundSize: "200% 200%" }}
                             >
-                                Let's Commit
+                                Commit Learn
                             </motion.span>
                             
                             <motion.span 
@@ -188,12 +185,12 @@ export default function HeroSection() {
                                 whileHover={{ scale: 1.05 }}
                             >
                                 escrow smart contracts
-                                <motion.div 
+                                {/* <motion.div 
                                     className="absolute -bottom-0.5 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 rounded-full"
                                     initial={{ width: 0 }}
                                     animate={{ width: "100%" }}
                                     transition={{ duration: 1, delay: 1.8 }}
-                                />
+                                /> */}
                             </motion.span>{" "}
                             with session-based rewards.
                         </p>

@@ -479,11 +479,11 @@ export default function Navbar() {
       </nav>
 
       {/* Enhanced Main Content Area with responsive padding */}
-      <div className="pt-16 sm:pt-18 md:pt-20 lg:pt-24 pb-16 sm:pb-18 lg:pb-6 xl:pb-8 min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-purple-50/20 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
+      <div className="pt-16 sm:pt-18 md:pt-20 lg:pt-24  min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-purple-50/20 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
         <Outlet />
-        <ScrollToTheTop />
-        <Footer />
       </div>
+       <ScrollToTheTop />
+        <Footer />
     </>
   );
 }

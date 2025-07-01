@@ -165,7 +165,7 @@ export default function OurVision() {
                         </motion.div>
                         
                         <motion.h2 
-                            className="text-3xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 md:mb-8"
+                            className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 md:mb-8"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.2 }}
@@ -186,7 +186,7 @@ export default function OurVision() {
                         </motion.h2>
                         
                         <motion.p 
-                            className="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed px-4"
+                            className="text-md md:text-xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed px-4"
                             initial={{ opacity: 0, y: 20 }}
                             animate={isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
                             transition={{ duration: 0.6, delay: 0.4 }}

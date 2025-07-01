@@ -1,53 +1,52 @@
 import { IFaqs } from "../types/constType";
 
-
-export const faqs:IFaqs[] = [
+export const faqs: IFaqs[] = [
     {
       id: 1,
-      question: "Apa itu LetsCommit?",
+      question: "What is Let'sCommit?",
       answer:
-        "LetsCommit adalah platform pembelajaran berbasis komitmen yang menggunakan sistem escrow smart contract untuk memastikan peserta menyelesaikan program yang mereka ikuti dengan memberikan reward cashback.",
+        "Let'sCommit is a commitment-based learning platform that uses smart contract escrow systems to ensure participants complete the programs they join by providing cashback rewards.",
     },
     {
       id: 2,
-      question: "Bagaimana sistem komitmen bekerja?",
+      question: "How does the commitment system work?",
       answer:
-        "Peserta membayar biaya event plus biaya komitmen. Biaya komitmen akan dikembalikan secara bertahap setiap kali peserta hadir dalam sesi pembelajaran. Semakin konsisten, semakin besar cashback yang didapat.",
+        "Participants pay event fees plus a commitment fee. The commitment fee is gradually returned each time participants attend learning sessions. The more consistent you are, the bigger the cashback you receive.",
     },
     {
       id: 3,
-      question: "Apakah ada biaya tambahan untuk menggunakan platform?",
+      question: "Are there any additional fees for using the platform?",
       answer:
-        "LetsCommit tidak mengenakan biaya platform. Peserta hanya membayar biaya event dan biaya komitmen yang akan dikembalikan berdasarkan tingkat kehadiran.",
+        "Let'sCommit doesn't charge platform fees. Participants only pay event fees and commitment fees which will be returned based on attendance levels.",
     },
     {
       id: 4,
-      question: "Bagaimana cara kerja smart contract escrow?",
+      question: "How does the smart contract escrow work?",
       answer:
-        "Smart contract escrow mengamankan dana komitmen peserta dan secara otomatis mendistribusikan cashback berdasarkan kehadiran yang terverifikasi melalui sistem check-in real-time.",
+        "Smart contract escrow secures participants' commitment funds and automatically distributes cashback based on verified attendance through real-time check-in systems.",
     },
     {
       id: 5,
-      question: "Apa keuntungan bagi organizer event?",
+      question: "What are the benefits for event organizers?",
       answer:
-        "Organizer mendapatkan jaminan tingkat kehadiran yang tinggi, pembayaran yang aman, dan dapat fokus pada kualitas konten karena peserta sudah berkomitmen finansial.",
+        "Organizers get guaranteed high attendance rates, secure payments, and can focus on content quality because participants are already financially committed.",
     },
     {
       id: 6,
-      question: "Bagaimana sistem verifikasi kehadiran?",
+      question: "How does the attendance verification system work?",
       answer:
-        "Setiap sesi menggunakan sistem check-in real-time dengan teknologi yang memastikan peserta benar-benar hadir dan mengikuti pembelajaran secara aktif.",
+        "Each session uses a real-time check-in system with technology that ensures participants are actually present and actively participating in the learning process.",
     },
     {
       id: 7,
-      question: "Jenis event apa saja yang tersedia?",
+      question: "What types of events are available?",
       answer:
-        "Platform menyediakan berbagai event edukasi mulai dari teknologi, bisnis, skill development, hingga sertifikasi profesional dengan durasi dan tingkat kesulitan yang beragam.",
+        "The platform offers various educational events ranging from technology, business, skill development, to professional certifications with diverse durations and difficulty levels.",
     },
     {
       id: 8,
-      question: "Bagaimana cara memastikan event berkualitas?",
+      question: "How do you ensure event quality?",
       answer:
-        "Setiap organizer dan event melalui proses kurasi yang ketat. Kami juga memiliki sistem rating dan review dari peserta untuk memastikan kualitas pembelajaran yang optimal.",
+        "Every organizer and event goes through a strict curation process. We also have a rating and review system from participants to ensure optimal learning quality.",
     },
   ];

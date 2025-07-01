@@ -37,13 +37,13 @@ import { ISupportOptions } from "../types/constType";
     ],
     color: "from-amber-500 to-orange-500",
     bgColor: "bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20",
-    link: "/subscribe"
+    link: "/donate"
   },
   {
     id: "enterprise",
     name: "Platform Partner",
     icon: Zap,
-    amount: "$500",
+    amount: "$12,5000",
     period: "monthly",
     description: "Become a strategic partner in our mission",
     features: [

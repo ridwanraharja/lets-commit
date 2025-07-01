@@ -124,7 +124,7 @@ const TestimonialCard = React.memo<TestimonialCardProps>(({
                     <div className="relative flex-1 mb-5">
                         <Quote className="absolute -top-2 -left-2 w-7 h-7 md:w-8 md:h-8 text-blue-500/20 dark:text-blue-400/20" />
                         <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-gray-900/50 dark:to-blue-900/20 rounded-xl md:rounded-2xl h-full flex items-center p-4 ml-3">
-                            <p className="text-gray-700 dark:text-gray-300 italic leading-relaxed font-medium text-sm md:text-md line-clamp-7">
+                            <p className="text-gray-700 dark:text-gray-300 italic leading-relaxed d text-sm md:text-md line-clamp-6">
                                 "{testimonial.text}"
                             </p>
                         </div>

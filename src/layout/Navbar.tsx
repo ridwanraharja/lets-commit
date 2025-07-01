@@ -108,7 +108,7 @@ export default function Navbar() {
             
             {/* Enhanced Logo with Animation - Responsive sizing */}
             <div
-              className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-300 ${
+              className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-50 ${
                 isHome ? "scale-105" : ""
               }`}
               onClick={() => navigate("/")}

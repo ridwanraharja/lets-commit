@@ -213,7 +213,7 @@ export default function HeroSection() {
                         >
                             <Link
                                 to="/explore"
-                                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold text-sm sm:text-base lg:text-lg rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl overflow-hidden transition-all duration-500"
+                                className="group relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold text-sm sm:text-base lg:text-lg rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl overflow-hidden transition-all duration-50"
                             >
                                 {/* Animated background gradient */}
                                 <motion.div 
@@ -248,7 +248,7 @@ export default function HeroSection() {
                             whileTap={{ scale: 0.95 }}
                             className="w-full sm:w-auto"
                         >
-                            <button className="group relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-bold text-sm sm:text-base lg:text-lg rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl hover:shadow-3xl transition-all duration-500 overflow-hidden">
+                            <button className="group relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-bold text-sm sm:text-base lg:text-lg rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl hover:shadow-3xl transition-all duration-50 overflow-hidden">
                                 {/* Hover background */}
                                 <motion.div 
                                     className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20"

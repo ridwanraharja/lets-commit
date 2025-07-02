@@ -193,12 +193,7 @@ export default function ExplorePage() {
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                 Learning Events
               </span>
-              <motion.div 
-                className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full"
-                initial={{ width: 0 }}
-                animate={isInView ? { width: "100%" } : { width: 0 }}
-                transition={{ duration: 1.2, delay: 0.8 }}
-              />
+              
             </span>
           </motion.h1>
 

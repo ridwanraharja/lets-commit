@@ -1,151 +1,152 @@
 import { motion } from "framer-motion";
-import { Calendar, Clock, QrCode } from "lucide-react";
+import { Calendar, Clock, MapPin, Users, QrCode } from "lucide-react";
 
 export interface Session {
-  id: number;
-  eventTitle: string;
-  sessionTitle: string;
+  id: string;
+  title: string;
   date: string;
-  time?: string;
-  participants?: number;
-  maxParticipants?: number;
-  revenue?: number;
-  status?: string;
-  deposit?: number;
-  canClaim?: boolean;
-  claimed?: boolean;
-  attended?: boolean;
-  withdrawn?: boolean;
-  attendanceRate?: number;
+  time: string;
+  location: string;
+  participants: number;
+  maxParticipants: number;
+  status: "upcoming" | "completed" | "active";
+  deposit: number;
+  attendance?: number;
 }
 
 interface SessionCardProps {
   session: Session;
   type: "participant" | "organizer";
-  onGenerateQR?: (s: Session) => void;
+  onGenerateQR?: (session: Session) => void;
 }
 
 export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
-  if (type === "participant") {
-    return (
-      <motion.div
-        className="group relative bg-gray-50/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-2xl lg:rounded-3xl p-6 lg:p-8 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-xl transition-all duration-500 overflow-hidden"
-        initial={{ opacity: 0, x: -50 }}
-        whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        whileHover={{ scale: 1.02 }}
-      >
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between relative z-10">
-          <div className="flex-1">
-            <div className="flex items-start space-x-4 lg:space-x-6">
-              <motion.div
-                className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-tr from-blue-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.8 }}
-              >
-                <Clock className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-              </motion.div>
-              <div className="flex-1">
-                <h4 className="text-xl lg:text-2xl font-bold text-gray-900 dark:text-white mb-1 lg:mb-2">
-                  {session.eventTitle}
-                </h4>
-                <p className="text-gray-600 dark:text-gray-400 mb-3 lg:mb-4 text-base lg:text-lg">
-                  {session.sessionTitle}
-                </p>
-                <div className="flex flex-wrap gap-4 lg:gap-6 text-sm lg:text-base text-gray-600 dark:text-gray-400">
-                  <span>📅 {session.date}</span>
-                  {session.time && <span>🕐 {session.time}</span>}
-                  {session.deposit && (
-                    <span className="font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
-                      💰 ${session.deposit} USDT
-                    </span>
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-6 lg:mt-0 lg:ml-6">
-            <motion.button
-              className="group relative w-full lg:w-auto px-6 lg:px-8 py-3 lg:py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-bold rounded-xl lg:rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <span className="relative z-10">View Session</span>
-              <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600"
-                initial={{ x: "100%" }}
-                whileHover={{ x: 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
-          </div>
-        </div>
-      </motion.div>
-    );
-  }
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case "upcoming":
+        return "bg-blue-100/80 text-blue-800 dark:bg-blue-900/30 dark:text-blue-400";
+      case "active":
+        return "bg-green-100/80 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+      case "completed":
+        return "bg-purple-100/80 text-purple-800 dark:bg-purple-900/30 dark:text-purple-400";
+      default:
+        return "bg-gray-100/80 text-gray-800 dark:bg-gray-900/30 dark:text-gray-400";
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case "upcoming":
+        return "Upcoming";
+      case "active":
+        return "Active";
+      case "completed":
+        return "Completed";
+      default:
+        return "Unknown";
+    }
+  };
+
+  // Check if session is today
+  const today = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  });
+  const isToday = session.date === today;
 
   return (
-    <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-6 border border-gray-200 dark:border-gray-700 hover:shadow-md transition-shadow duration-300">
-      <div className="flex flex-col md:flex-row md:items-center justify-between">
+    <motion.div
+      className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 p-4 hover:shadow-md hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300"
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.5 }}
+      whileHover={{ scale: 1.01 }}
+    >
+      <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <div className="flex items-start space-x-4">
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                session.status === "today"
-                  ? "bg-gradient-to-tr from-orange-500 to-orange-600"
-                  : "bg-gradient-to-tr from-commitment-blue to-light-blue"
-              }`}
-            >
-              <Calendar className="w-5 h-5 text-white" />
+          <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-1">
+            {session.title}
+          </h3>
+          <div className="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-400">
+            <div className="flex items-center gap-1">
+              <Calendar className="w-3 h-3" />
+              <span>{session.date}</span>
             </div>
-            <div className="flex-1">
-              <h4 className="text-xl font-semibold text-deep-navy dark:text-foreground">
-                {session.eventTitle}
-              </h4>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">
-                {session.sessionTitle}
-              </p>
-              <div className="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
-                <span>
-                  📅 {session.date}
-                  {session.time && <> at {session.time}</>}
-                </span>
-                {session.participants && session.maxParticipants && (
-                  <span>
-                    👥 {session.participants}/{session.maxParticipants}
-                  </span>
-                )}
-                {session.revenue && (
-                  <span className="font-semibold text-commitment-blue">
-                    💰 ${session.revenue} USDT
-                  </span>
-                )}
-              </div>
-              {session.status === "today" && (
-                <span className="inline-block mt-2 px-3 py-1 bg-orange-100 dark:bg-orange-900 text-orange-800 dark:text-orange-200 text-xs font-medium rounded-full">
-                  Today
-                </span>
-              )}
+            <div className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              <span>{session.time}</span>
             </div>
           </div>
         </div>
-        <div className="mt-4 md:mt-0 flex items-center gap-2">
-          {session.status === "today" ? (
-            <button
-              onClick={() => onGenerateQR && onGenerateQR(session)}
-              className="inline-flex items-center justify-center px-6 py-2 bg-gradient-to-r from-commitment-blue to-light-blue text-white font-medium rounded-lg hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl"
+
+        <div className="flex items-center gap-2">
+          <span
+            className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${getStatusColor(
+              session.status
+            )}`}
+          >
+            {isToday ? "Today" : getStatusText(session.status)}
+          </span>
+
+          {type === "organizer" && isToday && onGenerateQR && (
+            <motion.button
+              onClick={() => onGenerateQR(session)}
+              className="p-1.5 bg-blue-100/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-200/80 dark:hover:bg-blue-900/50 transition-colors backdrop-blur-sm"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              title="Generate QR Code"
             >
-              <QrCode className="w-4 h-4 mr-2" />
-              Generate QR
-            </button>
-          ) : (
-            <button className="px-6 py-2 border-2 border-commitment-blue text-commitment-blue font-medium rounded-lg hover:bg-light-blue/10 transition-all duration-200">
-              Manage Session
-            </button>
+              <QrCode className="w-4 h-4" />
+            </motion.button>
           )}
         </div>
       </div>
-    </div>
+
+      <div className="flex items-center justify-between text-xs">
+        <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+          <div className="flex items-center gap-1">
+            <MapPin className="w-3 h-3" />
+            <span className="line-clamp-1">{session.location}</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <Users className="w-3 h-3" />
+            <span>
+              {session.participants}/{session.maxParticipants}
+            </span>
+          </div>
+        </div>
+
+        <div className="text-right">
+          <div className="font-semibold text-gray-900 dark:text-white">
+            ${session.deposit}
+          </div>
+          <div className="text-gray-500 dark:text-gray-400">Deposit</div>
+        </div>
+      </div>
+
+      {session.attendance !== undefined && (
+        <div className="mt-3 pt-3 border-t border-gray-100/50 dark:border-gray-700/50">
+          <div className="flex items-center justify-between text-xs">
+            <span className="text-gray-600 dark:text-gray-400">
+              Attendance Rate
+            </span>
+            <span className="font-semibold text-green-600 dark:text-green-400">
+              {session.attendance}%
+            </span>
+          </div>
+          <div className="mt-1 w-full bg-gray-200/50 dark:bg-gray-700/50 rounded-full h-1.5">
+            <motion.div
+              className="bg-green-500 h-1.5 rounded-full"
+              initial={{ width: 0 }}
+              whileInView={{ width: `${session.attendance}%` }}
+              viewport={{ once: true }}
+              transition={{ duration: 1, delay: 0.3 }}
+            />
+          </div>
+        </div>
+      )}
+    </motion.div>
   );
 }

@@ -11,7 +11,7 @@ interface StatCardProps {
 export function StatCard({ icon: Icon, title, value, color }: StatCardProps) {
   return (
     <motion.div
-      className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50 p-6 hover:shadow-md transition-all duration-300 overflow-hidden"
+      className="group relative bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50 p-4 sm:p-6 hover:shadow-md transition-all duration-300 overflow-hidden"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
@@ -29,9 +29,9 @@ export function StatCard({ icon: Icon, title, value, color }: StatCardProps) {
       />
 
       <div className="relative z-10">
-        <div className="flex items-center justify-between mb-4">
+        <div className="flex items-center justify-between mb-3 sm:mb-4">
           <motion.div
-            className={`w-10 h-10 rounded-lg flex items-center justify-center ${
+            className={`w-8 h-8 sm:w-10 sm:h-10 rounded-lg flex items-center justify-center ${
               color === "blue"
                 ? "bg-blue-100/80 dark:bg-blue-900/30"
                 : color === "green"
@@ -42,7 +42,7 @@ export function StatCard({ icon: Icon, title, value, color }: StatCardProps) {
             transition={{ duration: 0.6 }}
           >
             <Icon
-              className={`w-5 h-5 ${
+              className={`w-4 h-4 sm:w-5 sm:h-5 ${
                 color === "blue"
                   ? "text-blue-600 dark:text-blue-400"
                   : color === "green"
@@ -53,7 +53,7 @@ export function StatCard({ icon: Icon, title, value, color }: StatCardProps) {
           </motion.div>
 
           <motion.div
-            className={`w-2 h-2 rounded-full ${
+            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full ${
               color === "blue"
                 ? "bg-blue-400"
                 : color === "green"
@@ -72,11 +72,11 @@ export function StatCard({ icon: Icon, title, value, color }: StatCardProps) {
         </div>
 
         <div>
-          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
+          <h3 className="text-xs sm:text-sm font-medium text-gray-600 dark:text-gray-400 mb-1">
             {title}
           </h3>
           <motion.p
-            className={`text-2xl font-bold ${
+            className={`text-lg sm:text-2xl font-bold ${
               color === "blue"
                 ? "text-blue-600 dark:text-blue-400"
                 : color === "green"

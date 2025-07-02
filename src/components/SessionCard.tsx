@@ -47,7 +47,6 @@ export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
     }
   };
 
-  // Check if session is today
   const today = new Date().toLocaleDateString("en-US", {
     year: "numeric",
     month: "short",
@@ -57,33 +56,33 @@ export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
 
   return (
     <motion.div
-      className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 p-4 hover:shadow-md hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300"
+      className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 p-3 sm:p-4 hover:shadow-md hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300"
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       whileHover={{ scale: 1.01 }}
     >
-      <div className="flex items-start justify-between mb-3">
-        <div className="flex-1">
+      <div className="flex items-start justify-between mb-2 sm:mb-3">
+        <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-1">
             {session.title}
           </h3>
-          <div className="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-400">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs text-gray-600 dark:text-gray-400">
             <div className="flex items-center gap-1">
-              <Calendar className="w-3 h-3" />
-              <span>{session.date}</span>
+              <Calendar className="w-3 h-3 flex-shrink-0" />
+              <span className="truncate">{session.date}</span>
             </div>
             <div className="flex items-center gap-1">
-              <Clock className="w-3 h-3" />
+              <Clock className="w-3 h-3 flex-shrink-0" />
               <span>{session.time}</span>
             </div>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 flex-shrink-0 ml-2">
           <span
-            className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm ${getStatusColor(
+            className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm whitespace-nowrap ${getStatusColor(
               session.status
             )}`}
           >
@@ -93,7 +92,7 @@ export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
           {type === "organizer" && isToday && onGenerateQR && (
             <motion.button
               onClick={() => onGenerateQR(session)}
-              className="p-1.5 bg-blue-100/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-200/80 dark:hover:bg-blue-900/50 transition-colors backdrop-blur-sm"
+              className="p-1.5 bg-blue-100/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-200/80 dark:hover:bg-blue-900/50 transition-colors backdrop-blur-sm flex-shrink-0"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               title="Generate QR Code"
@@ -104,21 +103,21 @@ export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
         </div>
       </div>
 
-      <div className="flex items-center justify-between text-xs">
-        <div className="flex items-center gap-4 text-gray-600 dark:text-gray-400">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2 sm:gap-0">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-gray-600 dark:text-gray-400">
           <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3" />
+            <MapPin className="w-3 h-3 flex-shrink-0" />
             <span className="line-clamp-1">{session.location}</span>
           </div>
           <div className="flex items-center gap-1">
-            <Users className="w-3 h-3" />
+            <Users className="w-3 h-3 flex-shrink-0" />
             <span>
               {session.participants}/{session.maxParticipants}
             </span>
           </div>
         </div>
 
-        <div className="text-right">
+        <div className="text-right flex-shrink-0">
           <div className="font-semibold text-gray-900 dark:text-white">
             ${session.deposit}
           </div>

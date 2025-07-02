@@ -6,7 +6,6 @@ import {
   Users,
   TrendingUp,
   CheckCircle,
-  Sparkles,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import {
@@ -173,29 +172,19 @@ export default function UserDashboardPage() {
 
       <header className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl border-b border-gray-200/50 dark:border-gray-700/50 relative z-10">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center space-x-4">
-              <motion.div
-                className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center"
-                whileHover={{ rotate: 180 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Sparkles className="w-5 h-5 text-white" />
-              </motion.div>
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between py-4 sm:py-0 sm:h-16 space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-3 sm:space-x-4">
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-                  Learning Dashboard
+                <h1 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
+                  Dashboard
                 </h1>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Commitment-based learning platform
-                </p>
               </div>
             </div>
 
-            <div className="flex space-x-2">
+            <div className="flex gap-2 w-full sm:gap-4 sm:w-auto">
               <motion.button
                 onClick={() => setActiveTab("participant")}
-                className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ${
                   activeTab === "participant"
                     ? "bg-blue-600 text-white shadow-lg"
                     : "bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-700/70 backdrop-blur-sm"
@@ -203,12 +192,13 @@ export default function UserDashboardPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Users className="w-4 h-4 inline mr-2" />
-                Participant
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Participant</span>
+                <span className="sm:hidden">Part</span>
               </motion.button>
               <motion.button
                 onClick={() => setActiveTab("organizer")}
-                className={`px-4 py-2 rounded-lg font-medium text-sm transition-all duration-200 ${
+                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ${
                   activeTab === "organizer"
                     ? "bg-purple-600 text-white shadow-lg"
                     : "bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-700/70 backdrop-blur-sm"
@@ -216,27 +206,28 @@ export default function UserDashboardPage() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <TrendingUp className="w-4 h-4 inline mr-2" />
-                Organizer
+                <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Organizer</span>
+                <span className="sm:hidden">Org</span>
               </motion.button>
             </div>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 relative z-10">
         {activeTab === "participant" && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2">
                   Overview
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   Your learning progress and financial summary
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <StatCard
                   icon={DollarSign}
                   title="Total Deposits"
@@ -260,20 +251,20 @@ export default function UserDashboardPage() {
 
             <section>
               <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
                         Upcoming Sessions
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                         Your scheduled learning commitments
                       </p>
                     </div>
-                    <Calendar className="w-6 h-6 text-blue-600" />
+                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <SessionList
                     sessions={participantData.upcomingSessions}
                     type="participant"
@@ -284,20 +275,20 @@ export default function UserDashboardPage() {
 
             <section>
               <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
                         Completed Sessions
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                         Your learning history and achievements
                       </p>
                     </div>
-                    <CheckCircle className="w-6 h-6 text-green-600" />
+                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <SessionList
                     sessions={participantData.completedSessions}
                     type="participant"
@@ -309,17 +300,17 @@ export default function UserDashboardPage() {
         )}
 
         {activeTab === "organizer" && (
-          <div className="space-y-8">
+          <div className="space-y-6 sm:space-y-8">
             <section>
-              <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+              <div className="mb-4 sm:mb-6">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-1 sm:mb-2">
                   Revenue Overview
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
                   Your event revenue and withdrawal status
                 </p>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <StatCard
                   icon={DollarSign}
                   title="Total Revenue"
@@ -342,24 +333,24 @@ export default function UserDashboardPage() {
             </section>
 
             <section>
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50 p-6">
-                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50 p-4 sm:p-6">
+                <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Quick Actions
                 </h3>
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <motion.button
-                    className="flex-1 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium rounded-lg hover:shadow-lg transition-all duration-200"
+                    className="w-full sm:flex-1 px-4 sm:px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-medium rounded-lg hover:shadow-lg transition-all duration-200 text-sm sm:text-base"
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    <DollarSign className="w-5 h-5 inline mr-2" />
+                    <DollarSign className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />
                     Withdraw Funds
                   </motion.button>
                   <Link
                     to="/create"
-                    className="flex-1 px-6 py-3 bg-white/50 dark:bg-gray-700/50 border-2 border-gray-300/50 dark:border-gray-600/50 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200 text-center backdrop-blur-sm"
+                    className="w-full sm:flex-1 px-4 sm:px-6 py-3 bg-white/50 dark:bg-gray-700/50 border-2 border-gray-300/50 dark:border-gray-600/50 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200 text-center backdrop-blur-sm text-sm sm:text-base"
                   >
-                    <Users className="w-5 h-5 inline mr-2" />
+                    <Users className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />
                     Create New Event
                   </Link>
                 </div>
@@ -368,20 +359,20 @@ export default function UserDashboardPage() {
 
             <section>
               <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
                         Active Sessions
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                         Manage your upcoming and today's sessions
                       </p>
                     </div>
-                    <Users className="w-6 h-6 text-blue-600" />
+                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <SessionList
                     sessions={organizerData.activeSessions}
                     type="organizer"
@@ -393,20 +384,20 @@ export default function UserDashboardPage() {
 
             <section>
               <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
                   <div className="flex items-center justify-between">
                     <div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
+                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
                         Completed Sessions
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-400 text-sm">
+                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                         Session history with attendance rates
                       </p>
                     </div>
-                    <CheckCircle className="w-6 h-6 text-green-600" />
+                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
                   </div>
                 </div>
-                <div className="p-6">
+                <div className="p-4 sm:p-6">
                   <SessionList
                     sessions={organizerData.completedSessions}
                     type="organizer"

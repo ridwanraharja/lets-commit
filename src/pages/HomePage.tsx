@@ -12,28 +12,13 @@ export default function HomePage() {
 
   return (
     <>
-      {/* Hero Section - Enhanced */}
       <HeroSection />
-
-      {/* Stats Section - Enhanced */}
       <StatsSection />
-
-      {/* How It Works - Enhanced */}
       <HowItWork />
-
-      {/* Featured Events - Enhanced Design */}
       <FeaturedEvent />
-
-      {/* Testimonials */}
       <Testimonials />
-
-      {/* Our Vision */}
       <OurVision />
-
-      {/* Support Us & Sponsors Section - Enhanced */}
       <SupportUs />
-
-      {/* faqs */}
       <FrequentlyAQ />
     </>
   );

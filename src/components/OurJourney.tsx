@@ -8,7 +8,7 @@ export default function OurJourney() {
 
   return (
     <div className="pt-12 md:pt-16 lg:pt-18">
-      {/* Our Story Section */}
+
       <motion.div
         ref={storyRef}
         className="mb-16 md:mb-20"
@@ -45,9 +45,9 @@ export default function OurJourney() {
         </div>
 
         <div className="max-w-xs sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto">
-          {/* Desktop Timeline Layout */}
+
           <div className="hidden lg:block relative">
-            {/* Timeline Line */}
+
             <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 opacity-30"></div>
             
             {ourStory.map((story, index) => (
@@ -58,13 +58,13 @@ export default function OurJourney() {
                 animate={isStoryInView ? { opacity: 1, x: 0 } : { opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 transition={{ duration: 0.8, delay: 0.6 + index * 0.2 }}
               >
-                {/* Story Card */}
+
                 <div className={`w-5/12 ${index % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
                   <motion.div
                     className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-3xl p-8 shadow-xl border border-gray-200/50 dark:border-gray-700/50 transition-all duration-700 ease-in-out relative overflow-hidden"
                     whileHover={{ scale: 1.02, y: -8 }}
                   >
-                    {/* Background Pattern */}
+
                     <div className="absolute inset-0 opacity-5">
                       <div 
                         className="absolute inset-0"
@@ -107,7 +107,7 @@ export default function OurJourney() {
                   </motion.div>
                 </div>
 
-                {/* Timeline Node */}
+
                 <motion.div 
                   className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full border-4 border-white dark:border-gray-900 shadow-lg -z-10"
                   initial={{ scale: 0 }}
@@ -115,7 +115,7 @@ export default function OurJourney() {
                   transition={{ duration: 0.5, delay: 0.8 + index * 0.2 }}
                 />
                 
-                {/* Step Number */}
+
                 <div className="w-2/12 flex justify-center">
                   <motion.div 
                     className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg"
@@ -130,7 +130,7 @@ export default function OurJourney() {
             ))}
           </div>
 
-          {/* Mobile/Tablet Layout */}
+
           <div className="lg:hidden space-y-6">
             {ourStory.map((story, index) => (
               <motion.div
@@ -140,7 +140,7 @@ export default function OurJourney() {
                 animate={isStoryInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
                 transition={{ duration: 0.6, delay: 0.6 + index * 0.2 }}
               >
-                {/* Step Circle */}
+
                 <motion.div 
                   className="relative w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg z-10 flex-shrink-0"
                   initial={{ scale: 0, rotate: -180 }}
@@ -150,12 +150,12 @@ export default function OurJourney() {
                   <span className="text-white font-bold text-sm sm:text-lg">{story.step}</span>
                 </motion.div>
 
-                {/* Content Card */}
+
                 <motion.div 
                   className="flex-1 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50 transition-all duration-700 ease-in-out relative overflow-hidden"
                   whileHover={{ y: -3, scale: 1.01 }}
                 >
-                  {/* Background Pattern */}
+
                   <div className="absolute inset-0 opacity-5">
                     <div 
                       className="absolute inset-0"
@@ -166,7 +166,7 @@ export default function OurJourney() {
                     />
                   </div>
 
-                  {/* Header */}
+
                   <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-4 relative z-10">
                     <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-lg sm:rounded-xl flex items-center justify-center text-lg sm:text-xl shadow-md">
                       {story.icon}
@@ -181,7 +181,7 @@ export default function OurJourney() {
                     </div>
                   </div>
                   
-                  {/* Content */}
+
                   <div className="relative z-10">
                     <p className="text-gray-600 dark:text-gray-400 text-xs sm:text-sm md:text-base leading-relaxed mb-2 sm:mb-3 transition-colors duration-700 ease-in-out">
                       {story.description}
@@ -190,7 +190,7 @@ export default function OurJourney() {
                       {story.details}
                     </p>
                     
-                    {/* Emotion Badge */}
+
                     <div className="flex justify-end">
                       <span className="inline-flex items-center gap-1.5 sm:gap-2 text-xs px-2 sm:px-3 py-1 sm:py-1.5 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 rounded-full border border-purple-200/50 dark:border-purple-700/50">
                         <div className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-500 rounded-full animate-pulse"></div>
@@ -199,7 +199,7 @@ export default function OurJourney() {
                     </div>
                   </div>
 
-                  {/* Corner Accent */}
+ 
                   <div className="absolute top-0 right-0 w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-tr-xl sm:rounded-tr-2xl pointer-events-none"></div>
                 </motion.div>
               </motion.div>

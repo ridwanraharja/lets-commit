@@ -114,9 +114,9 @@ export default function ExplorePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
-      {/* Animated Background Elements */}
+  
       <div className="absolute inset-0 overflow-hidden">
-        {/* Floating Icons */}
+     
         <motion.div 
           className="absolute top-20 left-1/4 text-blue-400/20"
           animate={{ 
@@ -153,13 +153,13 @@ export default function ExplorePage() {
           <Sparkles className="w-7 h-7" />
         </motion.div>
 
-        {/* Gradient Orbs */}
+     
         <div className="absolute top-10 right-10 w-64 h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-10 w-80 h-80 bg-gradient-to-r from-purple-400/8 to-pink-400/8 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 py-16 md:py-20 lg:py-24 relative z-10">
-        {/* Header Section */}
+      
         <motion.div 
           ref={sectionRef}
           className="text-center mb-12 md:mb-16"
@@ -207,14 +207,14 @@ export default function ExplorePage() {
           </motion.p>
         </motion.div>
 
-        {/* Search and Filter Section */}
+        
         <motion.div
           className="mb-12"
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 0.6 }}
         >
-            {/* Search Bar */}
+           
             <div className="relative max-w-2xl mx-auto mb-8">
             <div className="relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400 pointer-events-none z-10" />
@@ -244,7 +244,7 @@ export default function ExplorePage() {
             </div>
             </div>
             
-          {/* Filter Pills */}
+      
           <div className="flex flex-wrap justify-center gap-3 mb-6">
             {statusFilters.map((filter, index) => (
               <motion.button
@@ -279,7 +279,7 @@ export default function ExplorePage() {
             ))}
           </div>
 
-          {/* Advanced Filters Toggle */}
+       
           <div className="text-center">
             <motion.button
               onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -298,7 +298,7 @@ export default function ExplorePage() {
             </motion.button>
           </div>
 
-          {/* Advanced Filters Panel */}
+        
           <AnimatePresence>
             {isFilterOpen && (
               <motion.div
@@ -310,7 +310,7 @@ export default function ExplorePage() {
               >
                 <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-200/50 dark:border-gray-700/50 shadow-lg">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* Sort Options */}
+             
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 transition-colors duration-700 ease-in-out">
                         Sort By
@@ -333,7 +333,6 @@ export default function ExplorePage() {
                       </div>
                     </div>
 
-                    {/* Quick Stats */}
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4 transition-colors duration-700 ease-in-out">
                         Quick Stats
@@ -357,7 +356,7 @@ export default function ExplorePage() {
                     </div>
                   </div>
 
-                  {/* Clear Filters */}
+                
                   <div className="mt-6 pt-6 border-t border-gray-200/50 dark:border-gray-700/50 text-center">
                     <button
                       onClick={clearFilters}
@@ -373,13 +372,13 @@ export default function ExplorePage() {
           </AnimatePresence>
         </motion.div>
 
-        {/* Results Section */}
+  
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
           transition={{ duration: 0.8, delay: 1 }}
         >
-          {/* Results Header */}
+    
           <div className="flex items-center justify-between mb-8">
             <div>
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white transition-colors duration-700 ease-in-out">
@@ -403,7 +402,7 @@ export default function ExplorePage() {
             )}
           </div>
 
-          {/* Events Grid */}
+
           {filteredEvents.length > 0 ? (
             <div className="grid grid-cols-1  lg:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-8">
               {filteredEvents.map((event, index) => (

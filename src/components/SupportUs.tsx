@@ -79,9 +79,9 @@ export default function SupportUs() {
   return (
     <>
       <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-white dark:bg-gray-950 transition-colors duration-700 ease-in-out">
-        {/* Enhanced Animated Background Elements */}
+
         <div className="absolute inset-0">
-          {/* Multiple Floating Circles */}
+
           <motion.div 
             className="absolute top-16 left-1/4 w-3 h-3 bg-blue-400/25 rounded-full"
             animate={{ 
@@ -128,9 +128,9 @@ export default function SupportUs() {
             transition={{ duration: 4.5, repeat: Infinity, delay: 4 }}
           />
 
-          {/* Background Lines - Desktop Only */}
+
           <svg className="absolute inset-0 w-full h-full hidden md:block" style={{ zIndex: 1 }}>
-            {/* Line 1 */}
+
             <motion.path
               d="M 50 150 Q 250 80 450 200 T 850 180"
               stroke="url(#gradient1)"
@@ -141,7 +141,7 @@ export default function SupportUs() {
               animate={isInView ? { pathLength: 1, opacity: 0.25 } : { pathLength: 0, opacity: 0 }}
               transition={{ duration: 3, delay: 0.5 }}
             />
-            {/* Line 2 */}
+
             <motion.path
               d="M 100 300 Q 300 200 500 350 T 900 300"
               stroke="url(#gradient2)"
@@ -152,7 +152,7 @@ export default function SupportUs() {
               animate={isInView ? { pathLength: 1, opacity: 0.2 } : { pathLength: 0, opacity: 0 }}
               transition={{ duration: 4, delay: 1 }}
             />
-            {/* Line 3 */}
+
             <motion.path
               d="M 0 250 Q 200 150 400 280 T 800 250"
               stroke="url(#gradient3)"
@@ -183,7 +183,7 @@ export default function SupportUs() {
             </defs>
           </svg>
 
-          {/* Simple Mobile Background Lines */}
+
           <svg className="absolute inset-0 w-full h-full md:hidden" style={{ zIndex: 1 }}>
             <motion.path
               d="M 20 100 Q 120 50 220 120 Q 300 180 380 140"
@@ -220,7 +220,7 @@ export default function SupportUs() {
         </div>
 
         <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-          {/* Support Us Section */}
+
           <motion.div 
             ref={sectionRef}
             className="text-center mb-20"
@@ -228,7 +228,7 @@ export default function SupportUs() {
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
             transition={{ duration: 0.8 }}
           >
-            {/* Badge */}
+
             <motion.div 
               className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg border border-purple-200/50 dark:border-purple-700/50 transition-colors duration-700 ease-in-out"
               initial={{ opacity: 0, scale: 0.8 }}
@@ -262,7 +262,7 @@ export default function SupportUs() {
               Every contribution helps us build better learning experiences and impact millions of learners worldwide
             </motion.p>
 
-            {/* Desktop Grid - LG and above */}
+
             <div className="hidden lg:grid lg:grid-cols-3 gap-8 mb-16">
               {supportOptions.map((tier, index) => (
                 <motion.div
@@ -274,15 +274,12 @@ export default function SupportUs() {
                   whileHover={{ y: -8 }}
                 >
                   <div className={`relative h-full ${tier.bgColor} border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm flex flex-col transition-colors duration-700 ease-in-out`}>
-                    {/* Background Gradient */}
+
                     <div className={`absolute inset-0 bg-gradient-to-br ${tier.color} opacity-0 group-hover:opacity-5 transition-opacity duration-700 ease-in-out`} />
-                    
-                    {/* Top Accent */}
+
                     <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${tier.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left`} />
-                    
-                    {/* Content Container - Flex Grow */}
                     <div className="relative p-8 flex flex-col flex-grow">
-                      {/* Icon & Name */}
+
                       <div className="text-center mb-6">
                         <motion.div
                           className={`w-16 h-16 bg-gradient-to-r ${tier.color} rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-xl`}
@@ -306,12 +303,12 @@ export default function SupportUs() {
                         </div>
                       </div>
 
-                      {/* Description */}
+
                       <p className="text-gray-600 dark:text-gray-400 text-center mb-6 font-medium transition-colors duration-700 ease-in-out">
                         {tier.description}
                       </p>
 
-                      {/* Features - Flex Grow */}
+
                       <ul className="space-y-3 mb-8 flex-grow">
                         {tier.features.map((feature, featureIndex) => (
                           <motion.li 
@@ -329,7 +326,7 @@ export default function SupportUs() {
                         ))}
                       </ul>
 
-                      {/* CTA Button - Always at Bottom */}
+
                       <div className="mt-auto">
                         <Link
                           to={tier.link}
@@ -344,16 +341,16 @@ export default function SupportUs() {
                       </div>
                     </div>
 
-                    {/* Bottom Glow */}
+
                     <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${tier.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out`} />
                   </div>
                 </motion.div>
               ))}
             </div>
 
-            {/* Mobile & Tablet Swipeable Slider - Below LG */}
+
             <div className="lg:hidden mb-16">
-              {/* Swipeable Cards Container */}
+
               <div 
                 ref={sliderRef} 
                 className="relative overflow-hidden cursor-grab active:cursor-grabbing select-none"
@@ -377,15 +374,15 @@ export default function SupportUs() {
                         transition={{ duration: 0.6, delay: 0.2 * index }}
                       >
                         <div className={`relative ${tier.bgColor} border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm flex flex-col transition-colors duration-700 ease-in-out`}>
-                          {/* Background Gradient */}
+
                           <div className={`absolute inset-0 bg-gradient-to-br ${tier.color} opacity-5`} />
                           
-                          {/* Top Accent */}
+     
                           <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${tier.color}`} />
                           
-                          {/* Content Container */}
+         
                           <div className="relative p-6 flex flex-col">
-                            {/* Icon & Name */}
+          
                             <div className="text-center mb-6">
                               <div className={`w-14 h-14 bg-gradient-to-r ${tier.color} rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-xl`}>
                                 <tier.icon className="w-7 h-7 text-white" />
@@ -405,12 +402,12 @@ export default function SupportUs() {
                               </div>
                             </div>
 
-                            {/* Description */}
+        
                             <p className="text-gray-600 dark:text-gray-400 text-center mb-6 font-medium text-sm transition-colors duration-700 ease-in-out">
                               {tier.description}
                             </p>
 
-                            {/* Features - First 3 only on mobile/tablet */}
+           
                             <ul className="space-y-3 mb-6">
                               {tier.features.slice(0, 3).map((feature, featureIndex) => (
                                 <li 
@@ -433,7 +430,7 @@ export default function SupportUs() {
                               )}
                             </ul>
 
-                            {/* CTA Button */}
+         
                             <Link
                               to={tier.link}
                               className={`group/btn relative block w-full px-6 py-3 bg-gradient-to-r ${tier.color} text-white font-semibold rounded-xl transition-all duration-700 ease-in-out text-center`}
@@ -445,7 +442,7 @@ export default function SupportUs() {
                             </Link>
                           </div>
 
-                          {/* Bottom Glow */}
+           
                           <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${tier.color}`} />
                         </div>
                       </motion.div>
@@ -454,9 +451,9 @@ export default function SupportUs() {
                 </div>
               </div>
 
-              {/* Mobile/Tablet Navigation - Only Dots */}
+
               <div className="flex items-center justify-center mt-6">
-                {/* Dots Indicator */}
+
                 <div className="flex gap-2">
                   {supportOptions.map((_, index) => (
                     <button
@@ -473,21 +470,21 @@ export default function SupportUs() {
                 </div>
               </div>
 
-              {/* Current Slide Info */}
+  
               <div className="text-center mt-4">
                 <span className="text-sm text-gray-500 dark:text-gray-400 font-medium transition-colors duration-700 ease-in-out">
                   {currentSlide + 1} of {maxSlides}
                 </span>
               </div>
 
-              {/* Swipe Hint */}
+
               <p className="text-center text-gray-500 dark:text-gray-400 text-sm mt-2 transition-colors duration-700 ease-in-out">
                 Swipe or tap dots to navigate between options
               </p>
             </div>
           </motion.div>
 
-          {/* Sponsors Section - Minimal */}
+
           <motion.div 
             ref={sponsorsRef}
             className="text-center"
@@ -514,7 +511,7 @@ export default function SupportUs() {
               Trusted by Amazing Organizations
             </motion.h3>
 
-            {/* Sponsors Grid - Simplified */}
+ 
             <div className="grid grid-cols-3 md:grid-cols-6 gap-6 opacity-60 hover:opacity-100 transition-opacity duration-700 ease-in-out">
               {sponsors.slice(0, 6).map((sponsor, index) => (
                 <motion.div

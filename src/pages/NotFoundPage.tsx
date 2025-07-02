@@ -52,9 +52,9 @@ export default function NotFoundPage() {
 
   return (
     <div className="pt-16 min-h-screen bg-gradient-to-br from-amber-50 via-rose-50 to-purple-50 dark:from-slate-900 dark:via-purple-900/10 dark:to-rose-900/10 transition-colors duration-700 ease-in-out relative overflow-hidden">
-      {/* Cozy Background Elements */}
+
       <div className="absolute inset-0">
-        {/* Soft Floating Orbs */}
+
         <motion.div 
           className="absolute top-16 left-8 w-40 h-40 bg-gradient-to-r from-amber-300/15 to-orange-300/15 rounded-full blur-2xl"
           animate={{ 
@@ -88,7 +88,7 @@ export default function NotFoundPage() {
           aria-hidden="true"
         />
         
-        {/* Cozy Floating Icons */}
+
         <motion.div 
           className="absolute top-1/4 left-1/6 text-amber-400/40"
           animate={floatingAnimation}
@@ -137,7 +137,7 @@ export default function NotFoundPage() {
           <Sparkles className="w-7 h-7" />
         </motion.div>
 
-        {/* Subtle Particles */}
+ 
         {Array.from({ length: 6 }, (_, i) => (
           <motion.div
             key={`particle-${i}`}
@@ -163,7 +163,7 @@ export default function NotFoundPage() {
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16 xl:py-20 relative z-10 text-center">
-        {/* Cozy 404 Design */}
+     
         <motion.div 
           className="relative inline-block mb-8"
           variants={scaleIn}
@@ -197,7 +197,7 @@ export default function NotFoundPage() {
             4
           </div>
           
-          {/* Soft glow effect */}
+  
           <motion.div
             className="absolute inset-0 text-7xl md:text-8xl lg:text-[10rem] font-black text-rose-300/90 leading-none blur-sm"
             animate={{
@@ -210,7 +210,7 @@ export default function NotFoundPage() {
           </motion.div>
         </motion.div>
 
-        {/* Warm and Cozy Title */}
+
         <motion.h1 
           className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-100 dark:to-gray-300 bg-clip-text text-transparent mb-6 leading-tight"
           variants={fadeInUp}
@@ -224,7 +224,7 @@ export default function NotFoundPage() {
           </motion.span>
         </motion.h1>
 
-        {/* Cozy Supporting Text */}
+    
         <motion.p 
           className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed mb-10 transition-colors duration-700 ease-in-out"
           variants={fadeInUp}
@@ -246,7 +246,7 @@ export default function NotFoundPage() {
           </motion.span>
         </motion.p>
 
-        {/* Cozy Action Buttons */}
+  
         <motion.div 
           className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10"
           initial={{ opacity: 0, y: 40 }}
@@ -275,7 +275,7 @@ export default function NotFoundPage() {
           </Link>
         </motion.div>
 
-        {/* Interactive Cozy Element */}
+       
         <motion.div
           className="mt-16"
           initial={{ opacity: 0 }}
@@ -315,7 +315,7 @@ export default function NotFoundPage() {
           </motion.div>
         </motion.div>
 
-        {/* Cozy Footer Message */}
+
         <motion.div
           className="mt-12 text-xs text-gray-400 dark:text-gray-500"
           initial={{ opacity: 0 }}

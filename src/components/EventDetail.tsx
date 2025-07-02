@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom'; // Tambahkan Link
+import { useParams, Link } from 'react-router-dom'; 
 import { motion } from 'framer-motion';
 import { 
   Calendar, 
@@ -126,7 +126,7 @@ const EventDetail = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 relative z-10">
         
-        {/* Back Button */}
+
         <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -142,7 +142,7 @@ const EventDetail = () => {
           </Link>
         </motion.div>
 
-        {/* Header Section */}
+
         <motion.div
           className="mb-8"
           initial={{ opacity: 0, y: 30 }}
@@ -150,7 +150,7 @@ const EventDetail = () => {
           transition={{ duration: 0.6 }}
         >
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Event Image */}
+
             <div className="lg:col-span-1">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img 
@@ -171,7 +171,7 @@ const EventDetail = () => {
               </div>
             </div>
 
-            {/* Event Info */}
+
             <div className="lg:col-span-2">
               <div className="flex items-center justify-between mb-4">
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white leading-tight">
@@ -207,7 +207,7 @@ const EventDetail = () => {
                 {event.description}
               </p>
 
-              {/* Event Meta Info */}
+
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div className="flex items-center gap-3 p-3 bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-700/50">
                   <Calendar className="w-5 h-5 text-blue-500" />
@@ -242,7 +242,7 @@ const EventDetail = () => {
                 </div>
               </div>
 
-              {/* Participant Progress */}
+
               <div className="mb-6">
                 <div className="flex items-center justify-between mb-2">
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Registration Progress</span>
@@ -260,7 +260,7 @@ const EventDetail = () => {
             </div>
           </div>
 
-          {/* Pricing Section */}
+
           <motion.div
             className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
             initial={{ opacity: 0, y: 20 }}
@@ -295,7 +295,7 @@ const EventDetail = () => {
             </div>
           </motion.div>
 
-          {/* Commitment Info */}
+
           <motion.div
             className="mt-6 p-6 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-2xl border border-purple-200/50 dark:border-purple-700/50"
             initial={{ opacity: 0, y: 20 }}
@@ -317,7 +317,7 @@ const EventDetail = () => {
           </motion.div>
         </motion.div>
 
-        {/* Sessions Management */}
+
         <motion.div
           className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden"
           initial={{ opacity: 0, y: 40 }}
@@ -334,7 +334,7 @@ const EventDetail = () => {
             </p>
           </div>
 
-          {/* Sessions Table */}
+
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50/50 dark:bg-gray-900/50">
@@ -424,13 +424,13 @@ const EventDetail = () => {
                       </div>
                     </td>
                   </motion.tr>
-))}
+                ))}
               </tbody>
             </table>
           </div>
         </motion.div>
 
-        {/* Summary Cards */}
+
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
           initial={{ opacity: 0, y: 30 }}
@@ -510,7 +510,7 @@ const EventDetail = () => {
           )}
         </motion.div>
 
-        {/* QR Generator Modal for Organizers */}
+
         {selectedSession && userRole === 'organizer' && (
           <motion.div
             className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
@@ -535,7 +535,7 @@ const EventDetail = () => {
                 </button>
               </div>
               <div className="p-6">
-                {/* QR Code Placeholder */}
+
                 <div className="text-center">
                   <div className="w-48 h-48 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-blue-300 dark:border-blue-600">
                     <QrCode className="w-24 h-24 text-blue-500 dark:text-blue-400" />
@@ -558,7 +558,7 @@ const EventDetail = () => {
           </motion.div>
         )}
 
-        {/* Action Buttons */}
+
         <motion.div
           className="flex flex-col sm:flex-row gap-4 justify-center mt-12"
           initial={{ opacity: 0, y: 30 }}
@@ -591,14 +591,14 @@ const EventDetail = () => {
           )}
         </motion.div>
 
-        {/* Additional Event Information */}
+
         <motion.div
           className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 1.2 }}
         >
-          {/* Event Details */}
+
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Info className="w-5 h-5 text-blue-500" />
@@ -628,7 +628,7 @@ const EventDetail = () => {
             </div>
           </div>
 
-          {/* Organizer Information */}
+
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-2xl p-6 shadow-lg border border-gray-200/50 dark:border-gray-700/50">
             <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
               <Building className="w-5 h-5 text-purple-500" />
@@ -658,7 +658,7 @@ const EventDetail = () => {
           </div>
         </motion.div>
 
-        {/* What You'll Learn Section */}
+
         <motion.div
           className="mt-12 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-900/20 dark:to-purple-900/20 rounded-2xl p-8 border border-indigo-200/50 dark:border-indigo-700/50"
           initial={{ opacity: 0, y: 30 }}

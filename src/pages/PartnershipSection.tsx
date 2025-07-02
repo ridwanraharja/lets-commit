@@ -121,9 +121,9 @@ export default function PartnershipSection() {
       ref={sectionRef}
       className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-indigo-950/10 transition-colors duration-700 ease-in-out"
     >
-      {/* Animated Background Elements */}
+   
       <div className="absolute inset-0">
-        {/* Floating Partnership Icons */}
+      
         <motion.div 
           className="absolute top-20 left-1/4 text-blue-400/30"
           animate={{ 
@@ -172,13 +172,13 @@ export default function PartnershipSection() {
           <Award className="w-5 h-5" />
         </motion.div>
 
-        {/* Gradient Orbs */}
+       
         <div className="absolute top-10 right-10 w-64 h-64 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-10 w-80 h-80 bg-gradient-to-r from-purple-400/15 to-pink-400/15 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        {/* Header */}
+   
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -211,12 +211,7 @@ export default function PartnershipSection() {
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent">
                 Shape the Future
               </span>
-              {/* <motion.div 
-                className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 rounded-full"
-                initial={{ width: 0 }}
-                animate={isInView ? { width: "100%" } : { width: 0 }}
-                transition={{ duration: 1.2, delay: 0.8 }}
-              /> */}
+     
             </span>
             <br />of Education
           </motion.h2>
@@ -231,7 +226,7 @@ export default function PartnershipSection() {
           </motion.p>
         </motion.div>
 
-        {/* Partnership Benefits */}
+       
         <motion.div
           className="mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -260,7 +255,7 @@ export default function PartnershipSection() {
           </div>
         </motion.div>
 
-        {/* Partnership Tiers */}
+     
         <motion.div
           className="mb-16"
           initial={{ opacity: 0, y: 40 }}
@@ -289,7 +284,7 @@ export default function PartnershipSection() {
                 onHoverEnd={() => setHoveredTier(null)}
               >
                 <div className={`relative h-full ${tier.bgColor} border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm flex flex-col transition-colors duration-700 ease-in-out`}>
-                  {/* Badge */}
+             
                   {tier.badge && (
                     <div className="absolute top-0 right-0 z-10">
                       <div className={`${tier.badgeColor} text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-3xl`}>
@@ -297,16 +292,11 @@ export default function PartnershipSection() {
                       </div>
                     </div>
                   )}
-
-                  {/* Background Gradient */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${tier.color} opacity-0 group-hover:opacity-5 transition-opacity duration-700 ease-in-out`} />
-                  
-                  {/* Top Accent */}
                   <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${tier.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left`} />
-                  
-                  {/* Content Container */}
+
                   <div className="relative p-8 flex flex-col flex-grow">
-                    {/* Icon & Name */}
+
                     <div className="text-center mb-6">
                       <motion.div
                         className={`w-16 h-16 bg-gradient-to-r ${tier.color} rounded-2xl flex items-center justify-center mb-4 mx-auto shadow-xl`}
@@ -334,7 +324,7 @@ export default function PartnershipSection() {
                       </p>
                     </div>
 
-                    {/* Features */}
+ 
                     <ul className="space-y-3 mb-8 flex-grow">
                       {tier.features.map((feature, featureIndex) => (
                         <motion.li 
@@ -352,7 +342,7 @@ export default function PartnershipSection() {
                       ))}
                     </ul>
 
-                    {/* CTA Button */}
+                
                     <div className="mt-auto">
                       <Link
                         to={tier.link}
@@ -372,7 +362,7 @@ export default function PartnershipSection() {
                     </div>
                   </div>
 
-                  {/* Bottom Glow */}
+           
                   <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${tier.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out`} />
                 </div>
               </motion.div>
@@ -380,7 +370,6 @@ export default function PartnershipSection() {
           </div>
         </motion.div>
 
-        {/* Current Partners */}
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}
@@ -411,23 +400,9 @@ export default function PartnershipSection() {
             ))}
           </div>
 
-          {/* CTA */}
-          {/* <motion.div
-            className="mt-12"
-            initial={{ opacity: 0, y: 20 }}
-            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-            transition={{ duration: 0.6, delay: 1.6 }}
-          >
-            <Link
-              to="/partnership/custom"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-semibold rounded-2xl shadow-lg hover:shadow-xl border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-600 transition-all duration-700 ease-in-out group"
-            >
-              Need a Custom Partnership?
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-700 ease-in-out" />
-            </Link>
-          </motion.div> */}
+
         </motion.div>
-        {/* Back to Home Button */}
+
         <motion.div
           className="text-center mt-16 md:mt-20"
           initial={{ opacity: 0, y: 30 }}
@@ -462,16 +437,6 @@ export default function PartnershipSection() {
             />
           </Link>
 
-          {/* Alternative Simple Button */}
-          {/* <div className="mt-4">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-700 ease-in-out text-sm font-medium"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Or simply go back to homepage
-            </Link>
-          </div> */}
         </motion.div>
       </div>
     </section>

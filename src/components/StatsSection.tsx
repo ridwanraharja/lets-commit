@@ -10,7 +10,7 @@ export default function StatsSection() {
 
     return (
         <>
-            {/* Stats Section - Enhanced */}
+
             <section 
                 ref={sectionRef}
                 className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-gradient-to-t from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10"
@@ -19,14 +19,14 @@ export default function StatsSection() {
 
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
-                    {/* Header Section */}
+
                     <motion.div 
                         className="text-center mb-12 md:mb-16"
                         initial={{ opacity: 0, y: 30 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Badge */}
+
                         <motion.div 
                         className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg border border-purple-200/50 dark:border-purple-700/50"
                         initial={{ opacity: 0, scale: 0.8 }}
@@ -36,11 +36,7 @@ export default function StatsSection() {
                             <Trophy className="w-4 h-4" fill="currentColor" />
                         
                         Our Stats
-                        {/* <motion.div
-                            className="w-2 h-2 bg-pink-500 rounded-full"
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                        /> */}
+
                         </motion.div>
                         
                         <motion.h2 
@@ -65,7 +61,7 @@ export default function StatsSection() {
                         </motion.p>
                     </motion.div>
 
-                    {/* Stats Grid */}
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
                         {statsConst.map((stat, index) => (
                             <motion.div
@@ -76,14 +72,14 @@ export default function StatsSection() {
                                 transition={{ duration: 0.8, delay: 0.2 + index * 0.1 }}
                                 whileHover={{ y: -8, scale: 1.02 }}
                             >
-                                {/* Background Gradient on Hover */}
+
                                 <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 via-purple-500/5 to-pink-500/5 dark:from-blue-400/5 dark:via-purple-400/5 dark:to-pink-400/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                 
-                                {/* Top Decorative Element */}
+     
                                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-bl-3xl"></div>
                                 
                                 <div className="relative z-10">
-                                    {/* Icon */}
+                    
                                     <motion.div 
                                         className={`w-12 h-12 md:w-16 md:h-16 mx-auto mb-4 md:mb-6 bg-gradient-to-br ${
                                             stat.variant === 'success' 
@@ -97,7 +93,7 @@ export default function StatsSection() {
                                         <stat.icon className="w-6 h-6 md:w-8 md:h-8 text-white" />
                                     </motion.div>
 
-                                    {/* Value */}
+                 
                                     <motion.div 
                                         className={`text-3xl md:text-4xl lg:text-5xl font-black mb-2 md:mb-3 bg-gradient-to-r ${
                                             stat.variant === 'success' 
@@ -113,17 +109,17 @@ export default function StatsSection() {
                                         {stat.value}
                                     </motion.div>
 
-                                    {/* Title */}
+                          
                                     <h3 className="text-lg md:text-xl font-bold text-gray-900 dark:text-white mb-2 md:mb-3">
                                         {stat.title}
                                     </h3>
 
-                                    {/* Description */}
+             
                                     <p className="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-3 md:mb-4 leading-relaxed">
                                         {stat.description}
                                     </p>
 
-                                    {/* Trend */}
+                      
                                     <div className="flex items-center justify-between">
                                         <span className={`inline-flex items-center gap-1 text-xs md:text-sm font-semibold px-2 py-1 rounded-full ${
                                             stat.variant === 'success' 
@@ -162,7 +158,7 @@ export default function StatsSection() {
                                     </div>
                                 </div>
 
-                                {/* Bottom Glow Effect */}
+                  
                                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                             </motion.div>
                         ))}
@@ -177,12 +173,12 @@ export default function StatsSection() {
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
-                        {/* Simplified Background Effects */}
+                  
                         <div className="absolute inset-0">
-                            {/* Base Gradient */}
+                        
                             <div className="absolute inset-0 bg-gradient-to-br from-blue-600/95 via-purple-600/95 to-pink-600/95" />
                             
-                            {/* Static Grid Pattern */}
+              
                             <div 
                                 className="absolute inset-0 opacity-10"
                                 style={{
@@ -192,13 +188,13 @@ export default function StatsSection() {
                             />
                         </div>
                         
-                        {/* Static Decorative Blurs */}
+     
                         <div className="absolute top-2 left-2 w-12 md:w-16 h-12 md:h-16 bg-white/10 rounded-full blur-xl" />
                         <div className="absolute bottom-2 right-2 w-16 md:w-20 h-16 md:h-20 bg-white/10 rounded-full blur-2xl" />
 
-                        {/* Content */}
+              
                         <div className="relative z-10 space-y-4 md:space-y-5">
-                            {/* Main Quote */}
+            
                             <motion.h2 
                                 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold max-w-2xl mx-auto leading-tight"
                                 initial={{ opacity: 0, y: 20 }}
@@ -222,7 +218,7 @@ export default function StatsSection() {
                                 <span className="text-white font-semibold">.</span>
                             </motion.h2>
 
-                            {/* Supporting Text */}
+                      
                             <motion.p 
                                 className="text-sm md:text-base text-blue-100 max-w-xl mx-auto leading-relaxed font-medium"
                                 initial={{ opacity: 0, y: 20 }}
@@ -236,7 +232,7 @@ export default function StatsSection() {
                                 {" "}- it's our way of betting on your success.
                             </motion.p>
 
-                            {/* Simple Decorative Dots */}
+        
                             <div className="flex justify-center items-center gap-1.5 mt-4">
                                 {[...Array(3)].map((_, i) => (
                                     <div
@@ -247,11 +243,11 @@ export default function StatsSection() {
                             </div>
                         </div>
 
-                        {/* Static Corner Decorations */}
+           
                         <div className="absolute top-0 left-0 w-12 h-12 border-l-2 border-t-2 border-yellow-300/30 rounded-tl-2xl" />
                         <div className="absolute bottom-0 right-0 w-12 h-12 border-r-2 border-b-2 border-yellow-300/30 rounded-br-2xl" />
 
-                        {/* Static Bottom Glow Effect */}
+             
                         <motion.div 
                             className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-yellow-400 via-orange-500 to-pink-500"
                             initial={{ width: 0 }}

@@ -16,14 +16,14 @@ export default function HowItWork() {
 
     return (
         <>
-            {/* How It Works - Alternative Design */}
+
             <section 
                 ref={sectionRef}
                 className="relative py-12 md:py-16 lg:py-20 overflow-hidden bg-white dark:bg-gray-950"
             >
-                {/* Enhanced Animated Background Elements */}
+
                 <div className="absolute inset-0">
-                    {/* Multiple Floating Circles */}
+
                     <motion.div 
                         className="absolute top-16 left-1/4 w-3 h-3 bg-blue-400/25 rounded-full"
                         animate={{ 
@@ -70,9 +70,9 @@ export default function HowItWork() {
                         transition={{ duration: 4.5, repeat: Infinity, delay: 4 }}
                     />
 
-                    {/* Background Lines - Desktop Only */}
+
                     <svg className="absolute inset-0 w-full h-full hidden md:block" style={{ zIndex: 1 }}>
-                        {/* Line 1 */}
+
                         <motion.path
                             d="M 50 150 Q 250 80 450 200 T 850 180"
                             stroke="url(#gradient1)"
@@ -83,7 +83,7 @@ export default function HowItWork() {
                             animate={isInView ? { pathLength: 1, opacity: 0.25 } : { pathLength: 0, opacity: 0 }}
                             transition={{ duration: 3, delay: 0.5 }}
                         />
-                        {/* Line 2 */}
+
                         <motion.path
                             d="M 100 300 Q 300 200 500 350 T 900 300"
                             stroke="url(#gradient2)"
@@ -94,7 +94,7 @@ export default function HowItWork() {
                             animate={isInView ? { pathLength: 1, opacity: 0.2 } : { pathLength: 0, opacity: 0 }}
                             transition={{ duration: 4, delay: 1 }}
                         />
-                        {/* Line 3 */}
+
                         <motion.path
                             d="M 0 250 Q 200 150 400 280 T 800 250"
                             stroke="url(#gradient3)"
@@ -125,7 +125,7 @@ export default function HowItWork() {
                         </defs>
                     </svg>
 
-                    {/* Simple Mobile Background Lines */}
+
                     <svg className="absolute inset-0 w-full h-full md:hidden" style={{ zIndex: 1 }}>
                         <motion.path
                             d="M 20 100 Q 120 50 220 120 Q 300 180 380 140"
@@ -162,14 +162,14 @@ export default function HowItWork() {
                 </div>
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
-                    {/* Header with Features */}
+
                     <motion.div 
                         className="text-center mb-12 md:mb-16"
                         initial={{ opacity: 0, y: 30 }}
                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Badge - Fixed */}
+
                         <motion.div 
                             className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg border border-purple-200/50 dark:border-purple-700/50"
                             initial={{ opacity: 0, y: 20 }}
@@ -207,7 +207,7 @@ export default function HowItWork() {
                             A transparent and fair system that rewards commitment from both organizers and participants
                         </motion.p>
 
-                        {/* Feature Pills */}
+
                         <motion.div 
                             className="flex flex-wrap justify-center gap-3 md:gap-4"
                             initial={{ opacity: 0, y: 20 }}
@@ -230,9 +230,9 @@ export default function HowItWork() {
                         </motion.div>
                     </motion.div>
 
-                    {/* Timeline Layout - Mobile Optimized */}
+
                     <div className="relative max-w-4xl mx-auto">
-                        {/* Central Vertical Line - Desktop Only */}
+
                         <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full hidden lg:block">
                             <motion.div 
                                 className="w-full bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full"
@@ -242,7 +242,7 @@ export default function HowItWork() {
                             />
                         </div>
 
-                        {/* Mobile Vertical Line - Clean and Simple */}
+
                         <div className="absolute left-6 top-12 w-0.5 lg:hidden" style={{ height: 'calc(100% - 6rem)' }}>
                             <motion.div 
                                 className="w-full bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full"
@@ -252,7 +252,7 @@ export default function HowItWork() {
                             />
                         </div>
 
-                        {/* Steps */}
+
                         <div className="space-y-6 md:space-y-12 lg:space-y-16">
                             {howItWorksSteps.map((item: IHowItWorksStep, index) => {
                                 const isEven = index % 2 === 0;
@@ -265,9 +265,9 @@ export default function HowItWork() {
                                         animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                                         transition={{ duration: 0.8, delay: 1 + index * 0.3 }}
                                     >
-                                        {/* Mobile Layout - Simplified */}
+
                                         <div className="flex items-start gap-4 lg:hidden">
-                                            {/* Step Circle - Mobile (NO PULSE) */}
+
                                             <motion.div 
                                                 className="relative w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-lg z-10 flex-shrink-0"
                                                 initial={{ scale: 0, rotate: -180 }}
@@ -277,7 +277,7 @@ export default function HowItWork() {
                                                 <span className="text-white font-bold text-lg">{item.step}</span>
                                             </motion.div>
 
-                                            {/* Content - Mobile */}
+
                                             <motion.div 
                                                 className="flex-1 bg-white dark:bg-gray-900 rounded-xl p-4 shadow-lg border border-gray-100 dark:border-gray-800"
                                                 whileHover={{ y: -3 }}
@@ -302,20 +302,20 @@ export default function HowItWork() {
                                             </motion.div>
                                         </div>
 
-                                        {/* Desktop Layout */}
+
                                         <div className={`hidden lg:flex items-center ${
                                             isEven ? 'flex-row' : 'flex-row-reverse'
                                         }`}>
-                                            {/* Content Card - Desktop */}
+
                                             <div className={`w-5/12 ${isEven ? 'pr-8' : 'pl-8'}`}>
                                                 <motion.div 
                                                     className="relative p-6 md:p-8 bg-white dark:bg-gray-900 rounded-2xl shadow-lg border border-gray-100 dark:border-gray-800 overflow-hidden group"
                                                     whileHover={{ y: -5, scale: 1.02 }}
                                                 >
-                                                    {/* Background Gradient */}
+
                                                     <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                                     
-                                                    {/* Corner Decoration */}
+
                                                     <div className={`absolute top-0 ${isEven ? 'right-0' : 'left-0'} w-16 h-16 bg-gradient-to-br from-blue-500/20 to-purple-500/20 ${isEven ? 'rounded-bl-3xl' : 'rounded-br-3xl'}`}></div>
 
                                                     <div className="relative z-10">
@@ -337,7 +337,7 @@ export default function HowItWork() {
                                                             {item.description}
                                                         </p>
 
-                                                        {/* Progress Indicator */}
+
                                                         <div className="mt-6 flex items-center gap-2">
                                                             <div className="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                                                                 <motion.div 
@@ -355,9 +355,9 @@ export default function HowItWork() {
                                                 </motion.div>
                                             </div>
 
-                                            {/* Central Circle - Desktop (NO PULSE) */}
+
                                             <div className="w-2/12 flex flex-col items-center">
-                                                {/* Step Number Above Line */}
+
                                                 <motion.div 
                                                     className="relative w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-xl z-10 mb-2"
                                                     initial={{ scale: 0, rotate: -180 }}
@@ -368,7 +368,7 @@ export default function HowItWork() {
                                                 </motion.div>
                                             </div>
 
-                                            {/* Illustration Side - Desktop */}
+
                                             <div className={`w-5/12 ${isEven ? 'pl-8' : 'pr-8'}`}>
                                                 <motion.div 
                                                     className="relative h-40 bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 rounded-2xl flex items-center justify-center overflow-hidden"
@@ -376,7 +376,7 @@ export default function HowItWork() {
                                                     animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
                                                     transition={{ duration: 0.6, delay: 1.3 + index * 0.3 }}
                                                 >
-                                                    {/* Floating Elements */}
+                                            
                                                     <motion.div 
                                                         className="absolute top-3 left-3 w-2 h-2 bg-blue-400 rounded-full"
                                                         animate={{ y: [0, -8, 0], opacity: [0.5, 1, 0.5] }}
@@ -393,7 +393,7 @@ export default function HowItWork() {
                                                         transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 + 1 }}
                                                     />
 
-                                                    {/* Central Icon */}
+                                               
                                                     <motion.div 
                                                         className="w-12 h-12 bg-white dark:bg-gray-600 rounded-xl flex items-center justify-center shadow-lg"
                                                         whileHover={{ rotate: 10, scale: 1.1 }}
@@ -409,7 +409,7 @@ export default function HowItWork() {
                         </div>
                     </div>
 
-                    {/* Summary Section - Compact */}
+
                     <motion.div 
                         className="text-center mt-12 md:mt-16"
                         initial={{ opacity: 0, y: 30 }}

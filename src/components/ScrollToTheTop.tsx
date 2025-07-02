@@ -58,7 +58,7 @@ export default function ScrollToTheTop() {
             scale: 0.95 
           }}
         >
-          {/* Background pulse effect */}
+
           <motion.div
             className="absolute inset-0 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full opacity-0 group-hover:opacity-20"
             animate={{
@@ -71,13 +71,13 @@ export default function ScrollToTheTop() {
             }}
           />
           
-          {/* Icon without rotation */}
+
           <ArrowUpCircle 
             size={24} 
             className="md:w-6 md:h-6 lg:w-7 lg:h-7 relative z-10 group-hover:scale-110 transition-transform duration-300" 
           />
 
-          {/* Tooltip */}
+
           <div className="absolute bottom-full right-0 mb-2 px-3 py-1 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
             Back to top
             <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900 dark:border-t-gray-100"></div>

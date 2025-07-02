@@ -28,14 +28,14 @@ export default function Footer() {
 
   return (
     <footer className="relative pt-8 md:pt-12 lg:pt-16 overflow-hidden bg-gradient-to-t from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
-      {/* Enhanced Background Effects */}
+
       <div className="absolute inset-0">
-        {/* Static Background Blobs */}
+
         <div className="absolute top-10 left-10 w-24 h-24 md:w-32 md:h-32 bg-blue-500/10 rounded-full blur-2xl" />
         <div className="absolute bottom-10 right-10 w-32 h-32 md:w-40 md:h-40 bg-purple-500/10 rounded-full blur-2xl" />
         <div className="absolute top-1/2 left-1/3 w-20 h-20 bg-pink-500/8 rounded-full blur-xl" />
         
-        {/* Static Grid Pattern */}
+
         <div 
           className="absolute inset-0 opacity-[0.02] dark:opacity-[0.01]"
           style={{
@@ -45,14 +45,14 @@ export default function Footer() {
         />
       </div>
 
-      {/* Gradient Border Top */}
+
       <div className="h-px bg-gradient-to-r from-transparent via-gray-300 dark:via-gray-700 to-transparent"></div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12 lg:py-16 relative z-10">
-        {/* Main Footer Content */}
+
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
           
-          {/* Brand Section - Full width on mobile, half on tablet, 5 cols on desktop */}
+
           <motion.div 
             className="sm:col-span-2 lg:col-span-5"
             initial={{ opacity: 0, x: -20 }}
@@ -60,7 +60,7 @@ export default function Footer() {
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
           >
-            {/* Enhanced Logo */}
+
             <Link to="/" className="flex items-center gap-3 mb-6 group">
               <div className="relative">
                 <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-in-out">
@@ -85,7 +85,7 @@ export default function Footer() {
               Secure, transparent, and rewarding for everyone.
             </p>
 
-            {/* Social Links */}
+
             <div className="flex gap-2 md:gap-3">
               {socialLinks.map((social, index) => (
                 <motion.a
@@ -102,7 +102,6 @@ export default function Footer() {
             </div>
           </motion.div>
 
-          {/* Platform Links - Half width on mobile, quarter on tablet, 2 cols on desktop */}
           <motion.div
             className="lg:col-span-2"
             initial={{ opacity: 0, y: 20 }}
@@ -132,7 +131,6 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Support Links - Half width on mobile, quarter on tablet, 2 cols on desktop */}
           <motion.div
             className="lg:col-span-2"
             initial={{ opacity: 0, y: 20 }}
@@ -162,7 +160,6 @@ export default function Footer() {
             </ul>
           </motion.div>
 
-          {/* Newsletter/CTA Section - Full width on mobile/tablet, 3 cols on desktop */}
           <motion.div
             className="sm:col-span-2 lg:col-span-3"
             initial={{ opacity: 0, y: 20 }}
@@ -178,7 +175,7 @@ export default function Footer() {
               Get the latest updates on new features, events, and commitment-based learning insights.
             </p>
             
-            {/* Enhanced Newsletter Form */}
+
             <div className="space-y-3 md:space-y-4">
               <div className="flex flex-col sm:flex-row gap-2">
                 <input
@@ -203,7 +200,6 @@ export default function Footer() {
           </motion.div>
         </div>
 
-        {/* Bottom Section */}
         <motion.div 
           className="border-t border-gray-200/50 dark:border-gray-700/50 mt-8 md:mt-12 lg:mt-16 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-6"
           initial={{ opacity: 0, y: 20 }}

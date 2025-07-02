@@ -92,10 +92,10 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
       whileHover={{ y: -5, scale: 1.01 }}
       className="group relative bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl rounded-2xl shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden border border-gray-200/50 dark:border-gray-700/50 hover:border-blue-300/50 dark:hover:border-blue-600/50 w-full h-full"
     >
-      {/* Background Gradient Overlay */}
+
       <div className="absolute inset-0 bg-gradient-to-br from-blue-50/30 via-purple-50/20 to-pink-50/30 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-in-out" />
       
-      {/* Top Accent Line */}
+
       <motion.div 
         className="absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 rounded-t-2xl"
         initial={{ width: 0 }}
@@ -103,7 +103,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
         transition={{ duration: 0.8, delay: index * 0.1 + 0.2 }}
       />
 
-      {/* Image Section - Responsive Height */}
+
       <div className="relative h-48 sm:h-52 md:h-48 lg:h-52 overflow-hidden">
         <img 
           src={ImgFake} 
@@ -111,17 +111,17 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
           className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-105"
         />
         
-        {/* Image Overlay */}
+
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent transition-all duration-700 ease-in-out" />
         
-        {/* Status Badge */}
+
         <div className="absolute top-3 left-3 z-10">
           <div className={`${statusBadge.color} ${statusBadge.textColor} text-xs font-semibold px-3 py-1.5 rounded-full shadow-lg backdrop-blur-sm border border-white/20 transition-all duration-700 ease-in-out`}>
             {statusBadge.text}
           </div>
         </div>
 
-        {/* Duration Badge */}
+
         <div className="absolute top-3 right-3 z-10">
           <div className="bg-black/60 backdrop-blur-sm text-white text-xs font-medium px-3 py-1.5 rounded-full border border-white/20 flex items-center gap-1.5 transition-all duration-700 ease-in-out">
             <Clock className="w-3 h-3 transition-all duration-700 ease-in-out" />
@@ -130,24 +130,23 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
         </div>
       </div>
 
-      {/* Content Section */}
+
       <div className="relative z-10 p-4 sm:p-5 flex flex-col flex-1">
-        {/* Event Title */}
+
         <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white leading-tight mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-700 ease-in-out line-clamp-2">
           {event.title}
         </h3>
         
-        {/* Description - Hidden on mobile, visible on larger screens */}
+  
         <p className="hidden sm:block text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2 leading-relaxed transition-colors duration-700 ease-in-out">
           {event.description}
         </p>
-        
-        {/* Organizer */}
+
         <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 transition-colors duration-700 ease-in-out">
           by <span className="font-semibold text-gray-900 dark:text-white transition-colors duration-700 ease-in-out">{event.organizerName}</span>
         </p>
 
-        {/* Event Details */}
+   
         <div className="space-y-3 mb-5 flex-1">
           <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">
             <Calendar className="w-4 h-4 text-blue-500 transition-colors duration-700 ease-in-out flex-shrink-0" />
@@ -159,7 +158,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
             <span className="line-clamp-1">{event.location}</span>
           </div>
           
-          {/* Participants */}
+
           <div className="flex items-center justify-between transition-colors duration-700 ease-in-out">
             <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">
               <Users className="w-4 h-4 text-green-500 transition-colors duration-700 ease-in-out" />
@@ -170,7 +169,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
             </span>
           </div>
           
-          {/* Progress Bar */}
+
           <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2 transition-colors duration-700 ease-in-out">
             <motion.div 
               className="bg-gradient-to-r from-green-500 to-emerald-500 h-full rounded-full transition-colors duration-700 ease-in-out"
@@ -181,10 +180,10 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
           </div>
         </div>
 
-        {/* Pricing Section */}
+
         <div className="px-4 py-3 bg-gradient-to-r from-gray-50/80 to-blue-50/80 dark:from-gray-900/50 dark:to-blue-900/30 backdrop-blur-sm border-t border-gray-200/50 dark:border-gray-700/50 -mx-4 sm:-mx-5 mb-4 transition-all duration-700 ease-in-out">
           <div className="space-y-2">
-            {/* Price Breakdown */}
+
             <div className="flex justify-between items-center text-sm transition-colors duration-700 ease-in-out">
               <span className="text-gray-600 dark:text-gray-400 transition-colors duration-700 ease-in-out">Event Price:</span>
               <span className="font-semibold text-gray-900 dark:text-white transition-colors duration-700 ease-in-out">${event.eventPrice}</span>
@@ -198,7 +197,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
               <span className="text-lg font-bold text-blue-600 dark:text-blue-400 transition-colors duration-700 ease-in-out">${totalPrice}</span>
             </div>
             
-            {/* Commitment Info */}
+
             <div className="flex items-start gap-2 p-3 bg-blue-50/80 dark:bg-blue-900/20 rounded-lg transition-all duration-700 ease-in-out hover:bg-blue-100/80 dark:hover:bg-blue-900/30">
               <Info className="w-4 h-4 text-blue-600 dark:text-blue-400 mt-0.5 flex-shrink-0 transition-colors duration-700 ease-in-out" />
               <div className="text-xs text-blue-700 dark:text-blue-300 transition-colors duration-700 ease-in-out">
@@ -210,9 +209,9 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
           </div>
         </div>
 
-        {/* Action Buttons */}
+
         <div className="flex flex-col sm:flex-row gap-3 mt-auto">
-          {/* View Details Button */}
+
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -228,7 +227,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
             </Link>
           </motion.div>
 
-          {/* Register Button */}
+
           <motion.div
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -247,7 +246,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
                 to={`/events/${event.id}/register`}
                 className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden"
               >
-                {/* Animated background */}
+
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
                   initial={{ x: "100%" }}
@@ -265,7 +264,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
         </div>
       </div>
 
-      {/* Corner Accent */}
+
       <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-blue-500/10 to-transparent rounded-tr-2xl pointer-events-none transition-all duration-700 ease-in-out" />
     </motion.div>
   );

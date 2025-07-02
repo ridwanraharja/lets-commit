@@ -16,7 +16,7 @@ export default function TeamSection() {
 
   return (
     <div className="py-16 md:py-20 lg:py-24 relative overflow-hidden">
-      {/* Background Elements */}
+
       <div className="absolute inset-0">
         <div className="absolute top-10 left-10 w-72 h-72 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-gradient-to-r from-pink-400/8 to-orange-400/8 rounded-full blur-3xl"></div>
@@ -29,7 +29,7 @@ export default function TeamSection() {
         animate={isTeamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{ duration: 0.8 }}
       >
-        {/* Header Section */}
+
         <div className="text-center mb-16 md:mb-20">
           <motion.div
             className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg border border-purple-200/50 dark:border-purple-700/50"
@@ -72,12 +72,12 @@ export default function TeamSection() {
           </motion.p>
         </div>
 
-        {/* Team Cards */}
+
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 max-w-7xl mx-auto px-4">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.id}
-              className="group relative h-full" // Added h-full
+              className="group relative h-full" 
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={isTeamInView ? { opacity: 1, y: 0, scale: 1 } : { opacity: 0, y: 50, scale: 0.9 }}
               transition={{ 
@@ -90,16 +90,16 @@ export default function TeamSection() {
               onHoverStart={() => setHoveredMember(member.id)}
               onHoverEnd={() => setHoveredMember(null)}
             >
-              {/* Card Container */}
+
               <div className="relative h-full bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden transition-all duration-500 flex flex-col">
                 
-                {/* Animated Background */}
+
                 <motion.div 
                   className={`absolute inset-0 bg-gradient-to-br ${member.color.replace('from-', 'from-').replace('to-', 'to-')} opacity-0 group-hover:opacity-5`}
                   transition={{ duration: 0.5 }}
                 />
 
-                {/* Top Gradient Bar */}
+         
                 <motion.div 
                   className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${member.color}`}
                   initial={{ scaleX: 0 }}
@@ -107,7 +107,7 @@ export default function TeamSection() {
                   transition={{ duration: 0.8, delay: 0.8 + index * 0.1 }}
                 />
 
-                {/* Floating Elements */}
+
                 <motion.div
                   className="absolute -top-2 -right-2 text-2xl opacity-20"
                   animate={hoveredMember === member.id ? { 
@@ -119,9 +119,9 @@ export default function TeamSection() {
                   ✨
                 </motion.div>
 
-                <div className="relative z-10 p-6 flex flex-col h-full"> {/* Changed to flex flex-col h-full and reduced padding */}
-                  {/* Avatar Section */}
-                  <div className="text-center mb-4"> {/* Reduced margin */}
+                <div className="relative z-10 p-6 flex flex-col h-full"> 
+        
+                  <div className="text-center mb-4"> 
                     <motion.div
                       className="relative inline-block"
                       animate={{ 
@@ -130,7 +130,7 @@ export default function TeamSection() {
                       }}
                       transition={{ duration: 0.5 }}
                     >
-                      <div className="text-5xl md:text-6xl mb-3 relative"> {/* Reduced size and margin */}
+                      <div className="text-5xl md:text-6xl mb-3 relative"> 
                         {member.avatar}
                         {hoveredMember === member.id && (
                           <motion.div
@@ -145,42 +145,42 @@ export default function TeamSection() {
                     </motion.div>
                   </div>
 
-                  {/* Name & Role */}
-                  <div className="text-center mb-4"> {/* Reduced margin */}
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2"> {/* Reduced font size */}
+           
+                  <div className="text-center mb-4"> 
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2"> 
                       {member.name}
                     </h3>
-                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${member.color} text-white shadow-lg`}> {/* Reduced text size */}
+                    <div className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${member.color} text-white shadow-lg`}> 
                       <Star className="w-3 h-3" />
                       {member.role}
                     </div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium"> {/* Reduced text size */}
+                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-2 font-medium"> 
                       {member.realRole}
                     </p>
                   </div>
 
-                  {/* Quote */}
+              
                   <motion.div 
-                    className="mb-4 p-3 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800/50 dark:to-blue-900/20 rounded-xl border border-gray-200/30 dark:border-gray-700/30 relative" // Reduced padding and margin
+                    className="mb-4 p-3 bg-gradient-to-r from-gray-50 to-blue-50 dark:from-gray-800/50 dark:to-blue-900/20 rounded-xl border border-gray-200/30 dark:border-gray-700/30 relative"
                     whileHover={{ scale: 1.02 }}
                   >
-                    <div className="absolute -top-1 -left-1 text-sm opacity-30">💭</div> {/* Reduced size */}
-                    <p className="text-xs italic text-gray-700 dark:text-gray-300 leading-relaxed"> {/* Reduced text size */}
+                    <div className="absolute -top-1 -left-1 text-sm opacity-30">💭</div> 
+                    <p className="text-xs italic text-gray-700 dark:text-gray-300 leading-relaxed"> 
                       "{member.quote}"
                     </p>
                   </motion.div>
 
-                  {/* Skills */}
-                  <div className="mb-4 flex-grow"> {/* Added flex-grow and reduced margin */}
-                    <div className="flex items-center gap-2 mb-2"> {/* Reduced margin */}
-                      <Zap className="w-3 h-3 text-yellow-500" /> {/* Reduced size */}
-                      <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">Skills</span> {/* Reduced text size */}
+       
+                  <div className="mb-4 flex-grow"> 
+                    <div className="flex items-center gap-2 mb-2"> 
+                      <Zap className="w-3 h-3 text-yellow-500" /> 
+                      <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">Skills</span> 
                     </div>
-                    <div className="flex flex-wrap gap-1.5"> {/* Reduced gap */}
+                    <div className="flex flex-wrap gap-1.5"> 
                       {member.skills.map((skill, skillIndex) => (
                         <motion.span 
                           key={skillIndex}
-                          className="text-xs px-2 py-1 bg-white dark:bg-gray-700 rounded-full text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 font-medium" // Reduced padding
+                          className="text-xs px-2 py-1 bg-white dark:bg-gray-700 rounded-full text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600 font-medium" 
                           whileHover={{ scale: 1.05, y: -2 }}
                           transition={{ duration: 0.2 }}
                         >
@@ -190,54 +190,54 @@ export default function TeamSection() {
                     </div>
                   </div>
 
-                  {/* Fun Elements */}
-                  <div className="space-y-2 mb-4"> {/* Reduced spacing and margin */}
+                  
+                  <div className="space-y-2 mb-4"> 
                     <motion.div 
-                      className="p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200/50 dark:border-yellow-700/50" // Reduced padding
+                      className="p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg border border-yellow-200/50 dark:border-yellow-700/50" 
                       whileHover={{ scale: 1.02 }}
                     >
                       <p className="text-xs text-yellow-700 dark:text-yellow-400 font-medium flex items-center gap-2">
-                        <span className="text-sm">🎯</span> {/* Reduced size */}
+                        <span className="text-sm">🎯</span> 
                         {member.funFact}
                       </p>
                     </motion.div>
                     
                     <motion.div 
-                      className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200/50 dark:border-blue-700/50" // Reduced padding
+                      className="p-2 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200/50 dark:border-blue-700/50" 
                       whileHover={{ scale: 1.02 }}
                     >
                       <p className="text-xs text-blue-700 dark:text-blue-400 font-medium flex items-center gap-2">
-                        <span className="text-sm">🦸‍♂️</span> {/* Reduced size */}
+                        <span className="text-sm">🦸‍♂️</span> 
                         {member.superpower}
                       </p>
                     </motion.div>
                   </div>
 
-                  {/* GitHub Button - This will stick to bottom */}
-                  <div className="mt-auto"> {/* Added mt-auto to push to bottom */}
+                  
+                  <div className="mt-auto"> 
                     <motion.a
                       href={member.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r ${member.color} text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group/btn`} // Reduced padding and gap
+                      className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r ${member.color} text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group/btn`} 
                       whileHover={{ scale: 1.02, y: -2 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <Github className="w-4 h-4 group-hover/btn:rotate-12 transition-transform duration-300" />
-                      <span className="text-sm">View GitHub</span> {/* Reduced text size */}
-                      <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" /> {/* Reduced size */}
+                      <span className="text-sm">View GitHub</span> 
+                      <ExternalLink className="w-3 h-3 group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform duration-300" /> 
                     </motion.a>
                   </div>
                 </div>
 
-                {/* Bottom Glow Effect */}
+                
                 <motion.div
                   className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${member.color} opacity-0 group-hover:opacity-100`}
                   transition={{ duration: 0.5 }}
                 />
 
-                {/* Corner Accent */}
-                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-white/10 to-transparent rounded-tr-3xl pointer-events-none"></div> {/* Reduced size */}
+                
+                <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-white/10 to-transparent rounded-tr-3xl pointer-events-none"></div> 
               </div>
             </motion.div>
           ))}

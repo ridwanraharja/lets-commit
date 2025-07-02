@@ -34,20 +34,20 @@ export default function OurVision() {
 
     return (
         <>
-            {/* Vision Section - Enhanced with Static Cool Background */}
+
             <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10">
-                {/* Static Background Effects */}
+
                 <div className="absolute inset-0">
-                    {/* Large Static Blobs */}
+
                     <div className="absolute top-20 left-10 w-96 h-96 bg-gradient-to-r from-blue-400/15 to-cyan-400/15 rounded-full blur-3xl"></div>
                     <div className="absolute top-1/3 right-10 w-80 h-80 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl"></div>
                     <div className="absolute bottom-20 left-1/4 w-72 h-72 bg-gradient-to-r from-green-400/15 to-emerald-400/15 rounded-full blur-3xl"></div>
 
-                    {/* Medium Static Orbs */}
+
                     <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-gradient-to-r from-yellow-400/10 to-orange-400/10 rounded-full blur-2xl"></div>
                     <div className="absolute bottom-1/3 right-1/4 w-28 h-28 bg-gradient-to-r from-indigo-400/15 to-blue-400/15 rounded-full blur-xl"></div>
 
-                    {/* Static Geometric Patterns */}
+
                     <div 
                         className="absolute inset-0 opacity-[0.03] dark:opacity-[0.015]"
                         style={{
@@ -56,9 +56,9 @@ export default function OurVision() {
                         }}
                     />
 
-                    {/* Static SVG Decorative Lines */}
+
                     <svg className="absolute inset-0 w-full h-full opacity-30" style={{ zIndex: 1 }}>
-                        {/* Static Flowing Lines */}
+
                         <path
                             d="M 0 200 Q 300 100 600 250 T 1200 200"
                             stroke="url(#staticGradient1)"
@@ -105,7 +105,7 @@ export default function OurVision() {
                         </defs>
                     </svg>
 
-                    {/* Static Constellation Points */}
+
                     <div className="absolute top-1/4 left-1/5 w-1 h-1 bg-purple-400 rounded-full opacity-60"></div>
                     <div className="absolute top-1/3 right-1/4 w-1.5 h-1.5 bg-blue-400 rounded-full opacity-50"></div>
                     <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-pink-400 rounded-full opacity-70"></div>
@@ -115,14 +115,14 @@ export default function OurVision() {
                     <div className="absolute bottom-2/3 left-2/3 w-1 h-1 bg-yellow-400 rounded-full opacity-60"></div>
                     <div className="absolute top-3/4 right-1/3 w-1.5 h-1.5 bg-orange-400 rounded-full opacity-50"></div>
 
-                    {/* Static Radial Gradient Overlays */}
+
                     <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-radial from-blue-400/8 via-purple-400/4 to-transparent rounded-full blur-2xl"></div>
                     <div className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-gradient-radial from-pink-400/8 via-purple-400/4 to-transparent rounded-full blur-3xl"></div>
                     
-                    {/* Static Mesh Gradient Effect */}
+
                     <div className="absolute inset-0 bg-gradient-to-br from-blue-500/3 via-transparent via-purple-500/3 to-pink-500/3"></div>
 
-                    {/* Static Pattern Overlays */}
+
                     <div 
                         className="absolute top-0 left-0 w-full h-1/3 opacity-[0.02] dark:opacity-[0.01]"
                         style={{
@@ -137,7 +137,7 @@ export default function OurVision() {
                         }}
                     />
 
-                    {/* Static Hexagon Pattern */}
+
                     <div 
                         className="absolute inset-0 opacity-[0.015] dark:opacity-[0.008]"
                         style={{
@@ -147,7 +147,7 @@ export default function OurVision() {
                 </div>
 
                 <div className="container mx-auto px-4 md:px-6 relative z-10">
-                    {/* Header Section */}
+
                     <div ref={headerRef} className="text-center mb-16 md:mb-20">
                         <motion.div 
                             className="inline-flex items-center gap-2 mb-6 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 text-sm px-4 py-2 rounded-full font-medium shadow-lg border border-purple-200/50 dark:border-purple-700/50"
@@ -157,11 +157,7 @@ export default function OurVision() {
                         >
                             <Sparkles className="w-4 h-4" />
                             Our Vision
-                            {/* <motion.div
-                                className="w-2 h-2 bg-purple-500 rounded-full"
-                                animate={{ scale: [1, 1.2, 1] }}
-                                transition={{ duration: 2, repeat: Infinity }}
-                            /> */}
+
                         </motion.div>
                         
                         <motion.h2 
@@ -175,12 +171,7 @@ export default function OurVision() {
                                 <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                                     Commitment-Based
                                 </span>
-                                {/* <motion.div 
-                                    className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-full"
-                                    initial={{ width: 0 }}
-                                    animate={isHeaderInView ? { width: "100%" } : { width: 0 }}
-                                    transition={{ duration: 1, delay: 0.8 }}
-                                /> */}
+
                             </span>{" "}
                             Learning
                         </motion.h2>
@@ -197,9 +188,9 @@ export default function OurVision() {
                         </motion.p>
                     </div>
 
-                    {/* Enhanced Timeline Design */}
+
                     <div ref={timelineRef} className="relative max-w-5xl mx-auto mb-16 md:mb-20">
-                        {/* Animated Timeline line */}
+
                         <motion.div 
                             className="absolute left-6 md:left-8 top-0 w-1 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500 rounded-full shadow-lg"
                             initial={{ height: 0 }}
@@ -207,7 +198,7 @@ export default function OurVision() {
                             transition={{ duration: 2, delay: 0.5 }}
                         />
                         
-                        {/* Timeline dots animation */}
+ 
                         <motion.div 
                             className="absolute left-4 md:left-6 top-0 w-5 h-5 bg-blue-500 rounded-full shadow-lg animate-pulse"
                             initial={{ scale: 0 }}
@@ -228,7 +219,7 @@ export default function OurVision() {
                                         animate={isCardInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
                                         transition={{ duration: 0.8, delay: index * 0.2 }}
                                     >
-                                        {/* Enhanced Timeline dot with number */}
+
                                         <div className="relative flex-shrink-0">
                                             <motion.div 
                                                 className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center shadow-xl group-hover:shadow-2xl transition-all duration-300 border-4 border-white dark:border-gray-800"
@@ -240,7 +231,6 @@ export default function OurVision() {
                                                 <point.icon className="w-5 h-5 md:w-7 md:h-7 text-white" />
                                             </motion.div>
                                             
-                                            {/* Step number */}
                                             <motion.div 
                                                 className="absolute -top-2 -right-2 w-6 h-6 bg-white dark:bg-gray-800 border-2 border-blue-500 rounded-full flex items-center justify-center text-xs font-bold text-blue-600 dark:text-blue-400"
                                                 initial={{ scale: 0 }}
@@ -251,7 +241,7 @@ export default function OurVision() {
                                             </motion.div>
                                         </div>
                                         
-                                        {/* Enhanced Content Card */}
+
                                         <motion.div 
                                             className="flex-1 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-6 md:p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-200/50 dark:border-gray-700/50 group-hover:border-blue-300 dark:group-hover:border-blue-600 overflow-hidden relative"
                                             initial={{ opacity: 0, y: 30 }}
@@ -259,10 +249,10 @@ export default function OurVision() {
                                             transition={{ duration: 0.6, delay: index * 0.2 + 0.4 }}
                                             whileHover={{ y: -4 }}
                                         >
-                                            {/* Background gradient on hover */}
+
                                             <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                             
-                                            {/* Top decorative element */}
+
                                             <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-bl-3xl" />
                                             
                                             <div className="relative z-10">
@@ -276,7 +266,7 @@ export default function OurVision() {
                                                     {point.description}
                                                 </p>
                                                 
-                                                {/* Progress indicator */}
+
                                                 <div className="flex items-center gap-2">
                                                     <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
                                                         <motion.div 
@@ -297,7 +287,7 @@ export default function OurVision() {
                             })}
                         </div>
                         
-                        {/* End dot */}
+
                         <motion.div 
                             className="absolute left-4 md:left-6 bottom-0 w-5 h-5 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full shadow-lg"
                             initial={{ scale: 0 }}
@@ -306,7 +296,7 @@ export default function OurVision() {
                         />
                     </div>
 
-                    {/* Enhanced CTA Section */}
+
                     <motion.div 
                         ref={ctaRef}
                         className="relative bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-3xl p-8 md:p-12 text-white text-center overflow-hidden"
@@ -314,7 +304,7 @@ export default function OurVision() {
                         animate={isCtaInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
                         transition={{ duration: 0.8 }}
                     >
-                        {/* Background animation */}
+
                         <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 via-purple-600/80 to-pink-600/80">
                             <div className="absolute top-0 left-0 w-full h-full opacity-30">
                                 <div className="absolute top-4 right-4 w-2 h-2 bg-white rounded-full animate-pulse"></div>
@@ -369,7 +359,7 @@ export default function OurVision() {
                                 </Link>
                             </motion.div>
                             
-                            {/* Stats */}
+
                             <motion.div 
                                 className="flex flex-wrap justify-center gap-8 mt-12 pt-8 border-t border-white/20"
                                 initial={{ opacity: 0 }}

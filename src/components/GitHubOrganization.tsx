@@ -19,7 +19,7 @@ export default function GitHubOrganization() {
         transition={{ duration: 0.8 }}
       >
         <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 rounded-2xl md:rounded-3xl p-6 md:p-8 lg:p-12 transition-colors duration-700 ease-in-out relative overflow-hidden max-w-4xl mx-auto">
-          {/* Main Content */}
+
           <motion.div
             className="text-3xl sm:text-4xl md:text-5xl mb-4 md:mb-6 relative z-10"
             initial={{ opacity: 0, scale: 0.8 }}
@@ -85,12 +85,8 @@ export default function GitHubOrganization() {
             </motion.div>
           </motion.a>
 
-
-
-          {/* Background Decoration */}
           <div className="absolute inset-0 bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-2xl md:rounded-3xl"></div>
           
-          {/* Corner Accent */}
           <div className="absolute top-0 right-0 w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-bl from-white/10 to-transparent rounded-tr-2xl md:rounded-tr-3xl pointer-events-none"></div>
         </div>
       </motion.div>

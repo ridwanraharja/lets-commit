@@ -1,4 +1,4 @@
-// components/TestimonialCard.tsx
+
 import { Star, Quote, CheckCircle, Award } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import React, { useRef } from "react";
@@ -51,17 +51,17 @@ const TestimonialCard = React.memo<TestimonialCardProps>(({
                 ease: "easeOut"
             }}
         >
-            {/* Card with consistent design across all screen sizes */}
+
             <div className="relative bg-white dark:bg-gray-800 rounded-2xl md:rounded-3xl shadow-xl hover:shadow-2xl transition-all duration-200 border border-gray-100 dark:border-gray-700 overflow-hidden h-full p-6">
-                {/* Background gradient */}
+
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-50/50 via-purple-50/30 to-pink-50/50 dark:from-blue-900/10 dark:via-purple-900/10 dark:to-pink-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></div>
                 
-                {/* Top decorative element */}
+
                 <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-gray-900/50 dark:to-blue-900/20 rounded-bl-2xl md:rounded-bl-3xl"></div>
                 
-                {/* Content */}
+
                 <div className="relative z-10 h-full flex flex-col">
-                    {/* Header with user info */}
+
                     <div className="flex items-center mb-5">
                         <motion.div
                             className="relative flex-shrink-0"
@@ -93,7 +93,7 @@ const TestimonialCard = React.memo<TestimonialCardProps>(({
                             </p>
                         </div>
                         
-                        {/* Rating stars section - always show 5 stars */}
+          
                         <div className="flex items-center gap-1 flex-shrink-0">
                             {Array.from({ length: 5 }, (_, i) => (
                                 <motion.div
@@ -120,7 +120,7 @@ const TestimonialCard = React.memo<TestimonialCardProps>(({
                         </div>
                     </div>
 
-                    {/* Quote section */}
+          
                     <div className="relative flex-1 mb-5">
                         <Quote className="absolute -top-2 -left-2 w-7 h-7 md:w-8 md:h-8 text-blue-500/20 dark:text-blue-400/20" />
                         <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 dark:from-gray-900/50 dark:to-blue-900/20 rounded-xl md:rounded-2xl h-full flex items-center p-4 ml-3">
@@ -130,7 +130,6 @@ const TestimonialCard = React.memo<TestimonialCardProps>(({
                         </div>
                     </div>
 
-                    {/* Course badge */}
                     <div className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-700 mt-auto">
                         <div className="flex items-center gap-2 min-w-0 flex-1">
                             <div className="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-green-500 to-emerald-500 rounded-lg flex items-center justify-center shadow-lg flex-shrink-0">

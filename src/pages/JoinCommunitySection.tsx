@@ -102,7 +102,7 @@ export default function JoinCommunitySection() {
       ref={sectionRef}
       className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-gradient-to-br from-emerald-50 via-teal-50/50 to-cyan-50/30 dark:from-gray-950 dark:via-emerald-950/10 dark:to-teal-950/10 transition-colors duration-700 ease-in-out"
     >
-      {/* Confetti Animation */}
+
       <motion.div
         className="absolute inset-0 pointer-events-none z-20"
         animate={showConfetti ? { opacity: 1 } : { opacity: 0 }}
@@ -127,9 +127,9 @@ export default function JoinCommunitySection() {
         ))}
       </motion.div>
 
-      {/* Animated Background Elements */}
+
       <div className="absolute inset-0">
-        {/* Floating Community Icons */}
+     
         <motion.div 
           className="absolute top-20 left-1/4 text-6xl"
           animate={{ 
@@ -178,14 +178,14 @@ export default function JoinCommunitySection() {
           🎯
         </motion.div>
 
-        {/* Gradient Orbs */}
+
         <div className="absolute top-10 right-10 w-64 h-64 bg-gradient-to-r from-emerald-400/20 to-teal-400/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-10 w-80 h-80 bg-gradient-to-r from-cyan-400/15 to-blue-400/15 rounded-full blur-3xl"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-purple-400/10 to-pink-400/10 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        {/* Header */}
+
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -242,7 +242,7 @@ export default function JoinCommunitySection() {
           </motion.p>
         </motion.div>
 
-        {/* Community Stats */}
+
         <motion.div
           className="mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -271,7 +271,7 @@ export default function JoinCommunitySection() {
           </div>
         </motion.div>
 
-        {/* Community Platforms */}
+
         <motion.div
           className="mb-16"
           initial={{ opacity: 0, y: 40 }}
@@ -291,7 +291,7 @@ export default function JoinCommunitySection() {
                 onHoverEnd={() => setHoveredPlatform(null)}
               >
                 <div className={`relative h-full ${platform.bgColor} border border-gray-200/50 dark:border-gray-700/50 backdrop-blur-sm flex flex-col transition-colors duration-700 ease-in-out`}>
-                  {/* Special Badge */}
+
                   {platform.special && (
                     <div className="absolute top-0 right-0 z-10">
                       <div className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-3xl flex items-center gap-1">
@@ -301,15 +301,11 @@ export default function JoinCommunitySection() {
                     </div>
                   )}
 
-                  {/* Background Gradient */}
                   <div className={`absolute inset-0 bg-gradient-to-br ${platform.color} opacity-0 group-hover:opacity-5 transition-opacity duration-700 ease-in-out`} />
-                  
-                  {/* Top Accent */}
                   <div className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${platform.color} transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-in-out origin-left`} />
-                  
-                  {/* Content Container */}
+
                   <div className="relative p-6 md:p-8 flex flex-col flex-grow">
-                    {/* Platform Header */}
+
                     <div className="text-center mb-6">
                       <motion.div
                         className="text-6xl mb-4"
@@ -335,7 +331,7 @@ export default function JoinCommunitySection() {
                       </p>
                     </div>
 
-                    {/* Stats */}
+
                     <div className="mb-6 p-4 bg-white/50 dark:bg-gray-800/50 rounded-xl transition-colors duration-700 ease-in-out">
                       <div className="grid grid-cols-3 gap-4 text-center">
                         <div>
@@ -370,7 +366,7 @@ export default function JoinCommunitySection() {
                       </div>
                     </div>
 
-                    {/* Features */}
+
                     <div className="mb-8 flex-grow">
                       <div className="grid grid-cols-2 gap-2">
                         {platform.features.map((feature, featureIndex) => (
@@ -387,7 +383,7 @@ export default function JoinCommunitySection() {
                       </div>
                     </div>
 
-                    {/* Join Button */}
+            
                     <div className="mt-auto">
                       <motion.a
                         href={platform.link}
@@ -417,7 +413,7 @@ export default function JoinCommunitySection() {
                     </div>
                   </div>
 
-                  {/* Bottom Glow */}
+          
                   <div className={`absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r ${platform.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-in-out`} />
                 </div>
               </motion.div>
@@ -425,7 +421,7 @@ export default function JoinCommunitySection() {
           </div>
         </motion.div>
 
-        {/* Call to Action */}
+
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 30 }}

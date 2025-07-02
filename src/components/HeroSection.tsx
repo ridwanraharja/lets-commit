@@ -5,11 +5,11 @@ import { motion } from "framer-motion";
 export default function HeroSection() {
     return (
         <>
-            {/* Hero Section - Enhanced with Moving Blurs */}
+
             <section className="relative py-16 sm:py-20 md:py-28 lg:py-36 xl:py-48 overflow-hidden bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10">
-                {/* Animated Moving Background Blurs - Responsive */}
+
                 <div className="absolute inset-0">
-                    {/* Large moving blurs - Responsive sizes */}
+
                     <motion.div 
                         className="absolute w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-2xl sm:blur-3xl"
                         animate={{
@@ -57,7 +57,7 @@ export default function HeroSection() {
                         style={{ bottom: '10%', left: '15%' }}
                     />
 
-                    {/* Medium floating elements - Mobile optimized */}
+
                     <motion.div 
                         className="absolute w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 bg-gradient-to-r from-indigo-500/15 to-blue-500/15 rounded-full blur-xl sm:blur-2xl"
                         animate={{
@@ -74,7 +74,6 @@ export default function HeroSection() {
                         style={{ top: '50%', right: '20%' }}
                     />
 
-                    {/* Small orbital elements - Mobile friendly */}
                     <motion.div 
                         className="absolute w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-gradient-to-r from-cyan-500/20 to-teal-500/20 rounded-full blur-lg sm:blur-xl"
                         animate={{
@@ -91,7 +90,7 @@ export default function HeroSection() {
                         style={{ top: '35%', left: '70%' }}
                     />
 
-                    {/* Dynamic Grid Overlay - Responsive */}
+
                     <motion.div 
                         className="absolute inset-0 opacity-[0.02] sm:opacity-[0.03] lg:opacity-[0.04] dark:opacity-[0.01] dark:sm:opacity-[0.015] dark:lg:opacity-[0.02]"
                         style={{
@@ -110,7 +109,7 @@ export default function HeroSection() {
                 </div>
 
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center max-w-7xl">
-                    {/* Animated Badge - Responsive */}
+
                     <motion.div 
                         className="inline-flex items-center gap-2 mb-4 sm:mb-6 lg:mb-8 bg-gradient-to-r from-blue-100/80 to-purple-100/80 dark:from-blue-900/50 dark:to-purple-900/50 backdrop-blur-xl text-blue-700 dark:text-blue-300 text-xs sm:text-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full font-medium shadow-lg sm:shadow-2xl border border-blue-200/50 dark:border-blue-700/50"
                         initial={{ opacity: 0, y: 20, scale: 0.8 }}
@@ -123,14 +122,10 @@ export default function HeroSection() {
 
                         <span className="hidden sm:inline">Revolutionary Learning Platform</span>
                         <span className="sm:hidden">Revolutionary Platform</span>
-                        {/* <motion.div
-                            className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-500 rounded-full"
-                            animate={{ scale: [1, 1.2, 1] }}
-                            transition={{ duration: 2, repeat: Infinity }}
-                        /> */}
+
                     </motion.div>
 
-                    {/* Enhanced Main Heading - Better Mobile Responsive */}
+
                     <motion.div
                         className="mb-6 sm:mb-8 lg:mb-10"
                         initial={{ opacity: 0, y: 50 }}
@@ -160,7 +155,7 @@ export default function HeroSection() {
                                 transition={{ duration: 0.8, delay: 0.8 }}
                             >
                                 To Your Success!
-                                {/* Decorative underline - Responsive */}
+
                                 <motion.div 
                                     className="absolute -bottom-2 sm:-bottom-2 lg:-bottom-4 left-1/2 transform -translate-x-1/2 h-0.5 sm:h-0.5 lg:h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"
                                     initial={{ width: 0 }}
@@ -171,7 +166,7 @@ export default function HeroSection() {
                         </motion.h1>
                     </motion.div>
 
-                    {/* Enhanced Supporting Text - Mobile Optimized */}
+
                     <motion.div
                         className="mb-8 sm:mb-10 lg:mb-12"
                         initial={{ opacity: 0, y: 30 }}
@@ -185,18 +180,13 @@ export default function HeroSection() {
                                 whileHover={{ scale: 1.05 }}
                             >
                                 escrow smart contracts
-                                {/* <motion.div 
-                                    className="absolute -bottom-0.5 left-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 rounded-full"
-                                    initial={{ width: 0 }}
-                                    animate={{ width: "100%" }}
-                                    transition={{ duration: 1, delay: 1.8 }}
-                                /> */}
+
                             </motion.span>{" "}
                             with session-based rewards.
                         </p>
                     </motion.div>
 
-                    {/* Enhanced CTA Section - Mobile First */}
+
                     <motion.div 
                         className="flex flex-col sm:flex-row gap-3 sm:gap-4 lg:gap-6 justify-center items-center px-4 sm:px-0"
                         initial={{ opacity: 0, y: 40 }}
@@ -212,7 +202,7 @@ export default function HeroSection() {
                                 to="/explore"
                                 className="group relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold text-sm sm:text-base lg:text-lg rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl overflow-hidden transition-all duration-50"
                             >
-                                {/* Animated background gradient */}
+ 
                                 <motion.div 
                                     className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
                                     initial={{ x: "100%" }}
@@ -220,7 +210,7 @@ export default function HeroSection() {
                                     transition={{ duration: 0.5 }}
                                 />
                                 
-                                {/* Shine effect */}
+
                                 <motion.div 
                                     className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
                                     animate={{ x: ['-100%', '200%'] }}
@@ -246,7 +236,7 @@ export default function HeroSection() {
                             className="w-full sm:w-auto"
                         >
                             <button className="group relative inline-flex items-center justify-center w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 font-bold text-sm sm:text-base lg:text-lg rounded-2xl sm:rounded-3xl shadow-xl sm:shadow-2xl hover:shadow-3xl transition-all duration-50 overflow-hidden">
-                                {/* Hover background */}
+
                                 <motion.div 
                                     className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20"
                                     initial={{ scale: 0 }}
@@ -269,7 +259,6 @@ export default function HeroSection() {
                     </motion.div>
                 </div>
 
-                {/* Enhanced Floating Particles - Responsive */}
                 <div className="absolute inset-0 pointer-events-none">
                     {[...Array(6)].map((_, i) => (
                         <motion.div
@@ -297,7 +286,7 @@ export default function HeroSection() {
                     ))}
                 </div>
 
-                {/* Electric Effect Lines - Mobile Optimized */}
+
                 <motion.div 
                     className="absolute top-1/4 left-1/4 w-px h-16 sm:h-24 lg:h-32 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent"
                     animate={{ 

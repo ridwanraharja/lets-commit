@@ -17,9 +17,9 @@ export default function AboutPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
-      {/* Dynamic Background Constellation */}
+
       <div className="absolute inset-0 overflow-hidden">
-        {/* Animated Constellation Lines */}
+
         <svg className="absolute inset-0 w-full h-full opacity-10">
           <motion.path
             d="M100,200 Q300,100 500,200 T900,200"
@@ -53,7 +53,7 @@ export default function AboutPage() {
           </defs>
         </svg>
 
-        {/* Floating Particles */}
+    
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
@@ -75,13 +75,12 @@ export default function AboutPage() {
           />
         ))}
 
-        {/* Gradient Orbs */}
         <div className="absolute top-10 right-10 w-32 h-32 md:w-64 md:h-64 bg-gradient-to-r from-blue-400/10 to-purple-400/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-10 w-40 h-40 md:w-80 md:h-80 bg-gradient-to-r from-purple-400/8 to-pink-400/8 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20 xl:py-24 relative z-10">
-        {/* Hero Section */}
+
         <motion.div 
           ref={sectionRef}
           className="text-center mb-16 md:mb-20"
@@ -141,16 +140,9 @@ export default function AboutPage() {
           </motion.p>
         </motion.div>
 
-        {/* Our Journey */}
         <OurJourney />
-
-        {/* Team Section */}
         <TeamSection />
-    
-        {/* Organization Link */}
         <GitHubOrganization />
-
-
 
       </div>
     </div>

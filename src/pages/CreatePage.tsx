@@ -103,9 +103,9 @@ export default function CreatePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out relative overflow-hidden">
-      {/* Background Elements - Same as HeroSection */}
+
       <div className="absolute inset-0">
-        {/* Large moving blurs */}
+
         <motion.div 
           className="absolute w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-gradient-to-r from-blue-500/15 to-cyan-500/15 rounded-full blur-2xl sm:blur-3xl"
           animate={{
@@ -156,7 +156,7 @@ export default function CreatePage() {
           aria-hidden="true"
         />
 
-        {/* Medium floating elements */}
+
         <motion.div 
           className="absolute w-24 h-24 sm:w-32 sm:h-32 lg:w-40 lg:h-40 bg-gradient-to-r from-indigo-500/10 to-blue-500/10 rounded-full blur-xl sm:blur-2xl"
           animate={{
@@ -174,7 +174,7 @@ export default function CreatePage() {
           aria-hidden="true"
         />
 
-        {/* Dynamic Grid Overlay */}
+
         <motion.div 
           className="absolute inset-0 opacity-[0.02] sm:opacity-[0.03] lg:opacity-[0.04] dark:opacity-[0.01] dark:sm:opacity-[0.015] dark:lg:opacity-[0.02]"
           style={{
@@ -192,7 +192,7 @@ export default function CreatePage() {
           aria-hidden="true"
         />
 
-        {/* Floating Icons - Theme Consistent */}
+  
         <motion.div 
           className="absolute top-1/4 right-1/6 text-blue-400/25"
           animate={{ 
@@ -227,7 +227,7 @@ export default function CreatePage() {
           initial="hidden"
           animate="visible"
         >
-          {/* Header - Updated Colors */}
+
           <motion.div variants={itemVariants} className="text-center mb-12">
             <motion.div
               className="inline-flex items-center gap-3 mb-6"
@@ -256,7 +256,7 @@ export default function CreatePage() {
           </motion.div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
-            {/* Event Details Card */}
+
             <motion.div 
               variants={itemVariants}
               className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 md:p-8 transition-all duration-300 hover:shadow-2xl"
@@ -364,7 +364,7 @@ export default function CreatePage() {
               </div>
             </motion.div>
 
-            {/* Sessions Card */}
+    
             <motion.div 
               variants={itemVariants}
               className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 md:p-8 transition-all duration-300 hover:shadow-2xl"
@@ -486,7 +486,7 @@ export default function CreatePage() {
               </div>
             </motion.div>
 
-            {/* Pricing Card */}
+   
             <motion.div 
               variants={itemVariants}
               className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-3xl shadow-xl border border-gray-200/50 dark:border-gray-700/50 p-6 md:p-8 transition-all duration-300 hover:shadow-2xl"
@@ -574,7 +574,7 @@ export default function CreatePage() {
               </div>
             </motion.div>
 
-            {/* Action Buttons */}
+
             <motion.div 
               variants={itemVariants}
               className="flex flex-col sm:flex-row gap-4 pt-6"
@@ -585,14 +585,13 @@ export default function CreatePage() {
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {/* Shine effect - same as HeroSection */}
+     
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12"
                   animate={{ x: ['-100%', '200%'] }}
                   transition={{ duration: 3, repeat: Infinity, repeatDelay: 2 }}
                 />
-                
-                {/* Animated background gradient */}
+     
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
                   initial={{ x: "100%" }}
@@ -612,7 +611,7 @@ export default function CreatePage() {
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                {/* Hover background - same as HeroSection */}
+          
                 <motion.div 
                   className="absolute inset-0 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20"
                   initial={{ scale: 0 }}
@@ -630,7 +629,7 @@ export default function CreatePage() {
         </motion.div>
       </div>
 
-      {/* Enhanced Floating Particles - Same as HeroSection */}
+
       <div className="absolute inset-0 pointer-events-none">
         {[...Array(8)].map((_, i) => (
           <motion.div
@@ -658,7 +657,7 @@ export default function CreatePage() {
         ))}
       </div>
 
-      {/* Electric Effect Lines - Same as HeroSection */}
+   
       <motion.div 
         className="absolute top-1/4 left-1/4 w-px h-16 sm:h-24 lg:h-32 bg-gradient-to-b from-transparent via-blue-500/50 to-transparent"
         animate={{ 
@@ -686,7 +685,7 @@ export default function CreatePage() {
         }}
       />
 
-      {/* Additional decorative elements */}
+
       <motion.div 
         className="absolute top-1/2 left-1/6 w-8 sm:w-12 lg:w-16 h-px bg-gradient-to-r from-transparent via-pink-500/40 to-transparent"
         animate={{ 
@@ -701,7 +700,7 @@ export default function CreatePage() {
         }}
       />
 
-      {/* Orbital rings - subtle animation */}
+
       <motion.div 
         className="absolute top-1/3 right-1/4 w-32 h-32 sm:w-40 sm:h-40 border border-blue-500/10 rounded-full"
         animate={{ 
@@ -728,8 +727,6 @@ export default function CreatePage() {
         }}
       />
 
-      {/* Success/Loading States - Optional Enhancement */}
-      {/* You can add loading states or success notifications here */}
     </div>
   );
 }

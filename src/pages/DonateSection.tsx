@@ -45,9 +45,9 @@ export default function DonateSection() {
       ref={sectionRef}
       className="relative min-h-screen py-16 md:py-20 lg:py-24 overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50/50 to-blue-50/30 dark:from-gray-950 dark:via-purple-950/10 dark:to-blue-950/10 transition-colors duration-700 ease-in-out"
     >
-      {/* Animated Background Elements */}
+
       <div className="absolute inset-0">
-        {/* Floating Hearts */}
+
         <motion.div 
           className="absolute top-20 left-1/4 text-pink-400/30"
           animate={{ 
@@ -96,13 +96,13 @@ export default function DonateSection() {
           <Zap className="w-5 h-5" />
         </motion.div>
 
-        {/* Gradient Orbs */}
+
         <div className="absolute top-10 right-10 w-64 h-64 bg-gradient-to-r from-pink-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-10 left-10 w-80 h-80 bg-gradient-to-r from-blue-400/15 to-cyan-400/15 rounded-full blur-3xl"></div>
       </div>
 
       <div className="container mx-auto px-4 md:px-6 lg:px-8 relative z-10">
-        {/* Header */}
+
         <motion.div 
           className="text-center mb-16"
           initial={{ opacity: 0, y: 30 }}
@@ -150,7 +150,7 @@ export default function DonateSection() {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 max-w-6xl mx-auto">
-          {/* Donation Form */}
+      
           <motion.div
             className="order-2 lg:order-1"
             initial={{ opacity: 0, x: -30 }}
@@ -162,7 +162,7 @@ export default function DonateSection() {
                 Choose Your Impact
               </h3>
 
-              {/* Preset Amounts */}
+  
               <div className="grid grid-cols-2 gap-4 mb-8">
                 {presetAmounts.map((preset, index) => (
                   <motion.button
@@ -195,7 +195,7 @@ export default function DonateSection() {
                 ))}
               </div>
 
-              {/* Custom Amount */}
+     
               <motion.div
                 className="mb-8"
                 initial={{ opacity: 0, y: 20 }}
@@ -219,7 +219,7 @@ export default function DonateSection() {
                 </div>
               </motion.div>
 
-              {/* Donor Information */}
+     
               <motion.div
                 className="space-y-4 mb-8"
                 initial={{ opacity: 0, y: 20 }}
@@ -253,7 +253,7 @@ export default function DonateSection() {
                 </label>
               </motion.div>
 
-              {/* Donate Button */}
+         
               <motion.button
                 className="group relative w-full py-4 px-6 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600 hover:from-pink-700 hover:via-purple-700 hover:to-blue-700 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-700 ease-in-out overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={getFinalAmount() === 0}
@@ -275,7 +275,7 @@ export default function DonateSection() {
                 </span>
               </motion.button>
 
-              {/* Security Note */}
+           
               <motion.div
                 className="flex items-center justify-center gap-2 mt-4 text-sm text-gray-500 dark:text-gray-400 transition-colors duration-700 ease-in-out"
                 initial={{ opacity: 0 }}
@@ -288,7 +288,6 @@ export default function DonateSection() {
             </div>
           </motion.div>
 
-          {/* Impact Stats */}
           <motion.div
             className="order-1 lg:order-2"
             initial={{ opacity: 0, x: 30 }}
@@ -296,7 +295,7 @@ export default function DonateSection() {
             transition={{ duration: 0.8, delay: 0.6 }}
           >
             <div className="space-y-8">
-              {/* Your Impact */}
+           
               <div className="bg-gradient-to-br from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 rounded-3xl p-6 md:p-8 transition-colors duration-700 ease-in-out">
                 <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-700 ease-in-out">
                   Your Impact
@@ -322,7 +321,7 @@ export default function DonateSection() {
                 </div>
               </div>
 
-              {/* How Donations Help */}
+         
               <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl p-6 md:p-8 shadow-xl border border-gray-200/50 dark:border-gray-700/50 transition-colors duration-700 ease-in-out">
                 <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6 transition-colors duration-700 ease-in-out">
                   How Your Donation Helps
@@ -352,7 +351,7 @@ export default function DonateSection() {
                 </div>
               </div>
 
-              {/* Thank You Message */}
+          
               <motion.div
                 className="text-center p-6 bg-gradient-to-r from-yellow-100 to-orange-100 dark:from-yellow-900/30 dark:to-orange-900/30 rounded-3xl transition-colors duration-700 ease-in-out"
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -376,7 +375,7 @@ export default function DonateSection() {
           </motion.div>
         </div>
 
-        {/* Back to Home Button */}
+  
         <motion.div
           className="text-center mt-16 md:mt-20"
           initial={{ opacity: 0, y: 30 }}
@@ -411,16 +410,7 @@ export default function DonateSection() {
             />
           </Link>
 
-          {/* Alternative Simple Button */}
-          {/* <div className="mt-4">
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-700 ease-in-out text-sm font-medium"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Or simply go back to homepage
-            </Link>
-          </div> */}
+
         </motion.div>
       </div>
     </section>

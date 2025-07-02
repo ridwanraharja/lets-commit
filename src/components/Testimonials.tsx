@@ -2,7 +2,7 @@ import { testimonials } from "../constants/testimonials";
 import { Star, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect, useMemo, useCallback } from "react";
-import TestimonialCard from "./TestimonialCard"; // Import the separated component
+import TestimonialCard from "./TestimonialCard"; 
 
 interface ResponsiveSettings {
     cardWidth: number;
@@ -58,10 +58,10 @@ export default function Testimonials() {
     const scrollRef = useRef<HTMLDivElement>(null);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Calculate maximum slides
+
     const maxSlides = Math.max(0, testimonials.length - cardsPerView);
 
-    // Navigation functions
+
     const goToPrevious = useCallback(() => {
         setCurrentIndex(prev => Math.max(0, prev - 1));
     }, []);
@@ -70,12 +70,12 @@ export default function Testimonials() {
         setCurrentIndex(prev => Math.min(maxSlides, prev + 1));
     }, [maxSlides]);
 
-    // Auto-advance every 5 seconds (optional)
+
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex(prev => {
                 if (prev >= maxSlides) {
-                    return 0; // Reset to beginning
+                    return 0; 
                 }
                 return prev + 1;
             });
@@ -84,21 +84,21 @@ export default function Testimonials() {
         return () => clearInterval(interval);
     }, [maxSlides]);
 
-    // Calculate transform offset
+
     const transformOffset = useMemo(() => {
         return -currentIndex * (cardWidth + gap);
     }, [currentIndex, cardWidth, gap]);
 
     return (
         <>
-            {/* Testimonials Section - Enhanced with Motion */}
+
             <section 
                 ref={sectionRef}
                 className="relative py-12 md:py-16 lg:py-20 bg-white dark:bg-gray-950 overflow-hidden transition-colors duration-700 ease-in-out"
             >
-                {/* Enhanced Animated Background Elements */}
+
                 <div className="absolute inset-0">
-                    {/* Multiple Floating Circles */}
+
                     <motion.div 
                         className="absolute top-16 left-1/4 w-3 h-3 bg-blue-400/25 rounded-full"
                         animate={{ 
@@ -145,9 +145,9 @@ export default function Testimonials() {
                         transition={{ duration: 4.5, repeat: Infinity, delay: 4 }}
                     />
 
-                    {/* Background Lines - Desktop Only */}
+  
                     <svg className="absolute inset-0 w-full h-full hidden md:block" style={{ zIndex: 1 }}>
-                        {/* Line 1 */}
+    
                         <motion.path
                             d="M 50 150 Q 250 80 450 200 T 850 180"
                             stroke="url(#gradient1)"
@@ -158,7 +158,7 @@ export default function Testimonials() {
                             animate={isInView ? { pathLength: 1, opacity: 0.25 } : { pathLength: 0, opacity: 0 }}
                             transition={{ duration: 3, delay: 0.5 }}
                         />
-                        {/* Line 2 */}
+            
                         <motion.path
                             d="M 100 300 Q 300 200 500 350 T 900 300"
                             stroke="url(#gradient2)"
@@ -169,7 +169,7 @@ export default function Testimonials() {
                             animate={isInView ? { pathLength: 1, opacity: 0.2 } : { pathLength: 0, opacity: 0 }}
                             transition={{ duration: 4, delay: 1 }}
                         />
-                        {/* Line 3 */}
+          
                         <motion.path
                             d="M 0 250 Q 200 150 400 280 T 800 250"
                             stroke="url(#gradient3)"
@@ -200,7 +200,7 @@ export default function Testimonials() {
                         </defs>
                     </svg>
 
-                    {/* Simple Mobile Background Lines */}
+   
                     <svg className="absolute inset-0 w-full h-full md:hidden" style={{ zIndex: 1 }}>
                         <motion.path
                             d="M 20 100 Q 120 50 220 120 Q 300 180 380 140"
@@ -268,11 +268,11 @@ export default function Testimonials() {
                         </motion.p>
                     </div>
 
-                    {/* Swappable Testimonials Container */}
+
                     <div className="relative py-4 md:py-6 lg:py-8">
-                        {/* Testimonials Slider with Side Navigation */}
+    
                         <div className="relative">
-                            {/* Left Navigation Button */}
+               
                             <motion.button
                                 onClick={goToPrevious}
                                 disabled={currentIndex === 0}
@@ -284,7 +284,7 @@ export default function Testimonials() {
                                 <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-700 ease-in-out" />
                             </motion.button>
                             
-                            {/* Right Navigation Button */}
+     
                             <motion.button
                                 onClick={goToNext}
                                 disabled={currentIndex >= maxSlides}
@@ -296,7 +296,7 @@ export default function Testimonials() {
                                 <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-600 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-700 ease-in-out" />
                             </motion.button>
 
-                            {/* Cards Slider */}
+       
                             <div className="overflow-hidden mx-8 md:mx-12">
                                 <motion.div 
                                     ref={scrollRef}
@@ -321,7 +321,7 @@ export default function Testimonials() {
                             </div>
                         </div>
 
-                        {/* Dots Indicator */}
+          
                         <div className="flex justify-center items-center gap-2 mt-8">
                             {Array.from({ length: maxSlides + 1 }, (_, index) => (
                                 <motion.button
@@ -339,7 +339,7 @@ export default function Testimonials() {
                         </div>
                     </div>
 
-                    {/* Enhanced info section */}
+                
                     <motion.div 
                         className="text-center mt-12 md:mt-16"
                         initial={{ opacity: 0 }}

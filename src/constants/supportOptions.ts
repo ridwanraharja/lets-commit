@@ -43,7 +43,7 @@ import { ISupportOptions } from "../types/constType";
     id: "enterprise",
     name: "Platform Partner",
     icon: Zap,
-    amount: "$12,5000",
+    amount: "$12,500",
     period: "monthly",
     description: "Become a strategic partner in our mission",
     features: [

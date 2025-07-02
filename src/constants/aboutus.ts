@@ -6,72 +6,72 @@ import {
 
 } from "lucide-react";
 
-export  const teamMembers = [
+export const teamMembers = [
     {
       id: "xnaizer",
       name: "Xnaizer",
       role: "The Architect",
-      realRole: "Full Stack Developer",
+      realRole: "System Architect",
       avatar: "🚀",
       github: "https://github.com/Xnaizer",
-      bio: "Passionate about building scalable web applications and blockchain solutions. Loves turning ideas into reality through elegant code.",
-      personality: "The visionary who sees the big picture and makes it happen",
-      skills: ["React", "Node.js", "Blockchain", "Web3"],
+      bio: "System architect who designs scalable solutions and oversees the technical vision. Transforms complex requirements into elegant system designs.",
+      personality: "The visionary who sees the big picture and orchestrates technical excellence",
+      skills: ["System Design", "Architecture", "Leadership", "Strategy"],
       color: "from-blue-500 to-cyan-500",
       bgColor: "bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/30",
-      quote: "Code is poetry, and every line tells a story",
-      funFact: "🎯 Debugs faster than brewing coffee",
-      superpower: "Turning caffeine into features"
+      quote: "Great architecture is invisible until you need to scale",
+      funFact: " Can visualize entire system flows in his head",
+      superpower: "Turning complex problems into simple solutions"
     },
     {
       id: "ridwanraharja",
       name: "Ridwan Raharja",
-      role: "The Foundation",
-      realRole: "Backend Developer",
+      role: "The Full Stack Wizard",
+      realRole: "Full Stack Developer",
       avatar: "⚡",
       github: "https://github.com/ridwanraharja",
-      bio: "Backend architect who ensures everything runs smoothly behind the scenes. Master of APIs, databases, and smart contracts.",
-      personality: "The rock-solid foundation that everything else builds upon",
-      skills: ["Smart Contracts", "API Design", "Database", "DevOps"],
+      bio: "Full-stack developer who bridges frontend and backend seamlessly. Master of multiple technologies and ensures smooth integration across the entire stack.",
+      personality: "The versatile problem-solver who adapts to any technical challenge",
+      skills: ["React", "Node.js", "Database", "API Design"],
       color: "from-purple-500 to-indigo-500",
       bgColor: "bg-gradient-to-br from-purple-50 to-indigo-100 dark:from-purple-900/20 dark:to-indigo-900/30",
-      quote: "Great backends are invisible but essential",
-      funFact: "🛡️ Has never had a server crash on Friday",
-      superpower: "Making complex systems look simple"
+      quote: "Full-stack means seeing the complete picture, not just pieces",
+      funFact: " Can switch between frontend and backend faster than switching tabs",
+      superpower: "Making complex integrations look effortless"
     },
     {
       id: "hirugohan",
       name: "Hirugohan",
-      role: "The Artist",
-      realRole: "Frontend Developer",
+      role: "The Blockchain Engineer",
+      realRole: "Smart Contract Developer",
       avatar: "🎨",
       github: "https://github.com/0xhirugohan",
-      bio: "UI/UX virtuoso who crafts beautiful, intuitive interfaces. Believes great design should be both functional and delightful.",
-      personality: "The creative soul who brings beauty to functionality",
-      skills: ["React", "UI/UX", "Animation", "Design Systems"],
+      bio: "Smart contract specialist who builds secure, efficient blockchain solutions. Crafts the decentralized backbone that powers our commitment-based learning system.",
+      personality: "The meticulous craftsman who ensures blockchain security and innovation",
+      skills: ["Solidity", "Smart Contracts", "Web3", "DeFi"],
       color: "from-pink-500 to-rose-500",
       bgColor: "bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-900/20 dark:to-rose-900/30",
-      quote: "Design is not just how it looks, but how it feels",
-      funFact: "🎭 Can spot a 1px misalignment from across the room",
-      superpower: "Making users fall in love with interfaces"
+      quote: "Smart contracts are not just code, they're digital trust",
+      funFact: " Can audit smart contracts while debugging gas optimizations",
+      superpower: "Making blockchain technology accessible and secure"
     },
     {
       id: "yukenz",
       name: "Yukenz",
-      role: "The Bridge",
-      realRole: "Full Stack Developer",
+      role: "The Backend Architect",
+      realRole: "Backend Developer",
       avatar: "🌟",
       github: "https://github.com/yukenz",
-      bio: "Full-stack wizard who bridges frontend and backend seamlessly. Always exploring new technologies and pushing boundaries.",
-      personality: "The connector who brings everything together harmoniously",
-      skills: ["Full Stack", "System Design", "Innovation", "Problem Solving"],
+      bio: "Backend architect who builds robust, scalable server infrastructure. Ensures our platform can handle growth while maintaining performance and reliability.",
+      personality: "The steady foundation who keeps everything running smoothly behind the scenes",
+      skills: ["Node.js", "Database", "API Design", "DevOps"],
       color: "from-emerald-500 to-teal-500",
       bgColor: "bg-gradient-to-br from-emerald-50 to-teal-100 dark:from-emerald-900/20 dark:to-teal-900/30",
-      quote: "Innovation happens at the intersection of ideas",
-      funFact: "🔮 Predicts bugs before they happen",
-      superpower: "Connecting dots others don't see"
+      quote: "Great backends are felt, not seen",
+      funFact: " Optimizes server performance in his sleep",
+      superpower: "Building unbreakable backend foundations"
     }
-  ];
+];
 
 export  const ourStory = [
     {

@@ -129,7 +129,7 @@ export default function FrequentlyAQ() {
                       </motion.div>
                       
                       {/* Question Text - Responsive text size */}
-                      <h3 className="font-semibold text-sm sm:text-base md:text-lg lg:text-xl text-gray-900 dark:text-white leading-relaxed pr-2 transition-colors duration-700 ease-in-out">
+                      <h3 className="font-semibold text-sm sm:text-base md:text-lg lg:text-2xl  text-gray-900 dark:text-white leading-relaxed pr-2 transition-colors duration-700 ease-in-out ">
                         {faq.question}
                       </h3>
                     </div>

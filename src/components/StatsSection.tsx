@@ -168,25 +168,6 @@ export default function StatsSection() {
                         ))}
                     </div>
 
-                    {/* Bottom CTA */}
-                    {/* <motion.div 
-                        className="text-center mt-12 md:mt-16"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                    >
-                        <p className="text-gray-600 dark:text-gray-400 mb-6">
-                            Ready to join our growing community?
-                        </p>
-                        <motion.button 
-                            className="group relative px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                        >
-                            <span className="relative z-10">Get Started Today</span>
-                            <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        </motion.button>
-                    </motion.div> */}
                 </div>
 
                 <div className="container mx-auto px-4 md:px-6 pt-16">

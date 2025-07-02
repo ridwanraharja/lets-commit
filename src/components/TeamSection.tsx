@@ -47,22 +47,18 @@ export default function TeamSection() {
           </motion.div>
 
           <motion.h2 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-6 leading-tight"
             initial={{ opacity: 0, y: 20 }}
             animate={isTeamInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            The Dream Team
-            <motion.span
-              className="inline-block ml-3"
-              animate={{ 
-                rotate: [0, 14, -8, 14, -4, 10, 0],
-                scale: [1, 1.2, 0.9, 1.1, 1]
-              }}
-              transition={{ duration: 2.5, repeat: Infinity, delay: 1 }}
-            >
-              🌟
-            </motion.span>
+            The {" "}
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+             Dream  {" "}
+
+            </span>
+            Team
+
           </motion.h2>
           
           <motion.p 

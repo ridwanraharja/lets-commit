@@ -106,7 +106,7 @@ export default function AboutPage() {
           </motion.div>
 
           <motion.h1 
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-gray-900 dark:text-white mb-6 md:mb-8 leading-tight transition-colors duration-700 ease-in-out"
+            className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-gray-900 dark:text-white mb-6 md:mb-8 leading-tight transition-colors duration-700 ease-in-out"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.3 }}
@@ -130,7 +130,7 @@ export default function AboutPage() {
           </motion.h1>
 
           <motion.p 
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-600 dark:text-gray-400 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto leading-relaxed px-2 transition-colors duration-700 ease-in-out"
+            className="text-sm sm:text-md md:text-lg lg:text-xl text-gray-600 dark:text-gray-400 max-w-sm sm:max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto leading-relaxed px-2 transition-colors duration-700 ease-in-out"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.6, delay: 0.5 }}

@@ -53,7 +53,7 @@ export const router = createBrowserRouter([
           element : <JoinCommunitySection />
         },
         {
-          path: "/event/:eventId",
+          path: "/events/:eventId",
           element : <EventDetail />
         },
         {

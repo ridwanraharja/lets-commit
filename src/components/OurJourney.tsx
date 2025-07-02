@@ -7,7 +7,7 @@ export default function OurJourney() {
   const isStoryInView = useInView(storyRef, { once: true, margin: "-100px" });
 
   return (
-    <div className="py-16 md:py-20 lg:py-24">
+    <div className="pt-12 md:pt-16 lg:pt-18">
       {/* Our Story Section */}
       <motion.div
         ref={storyRef}
@@ -23,7 +23,16 @@ export default function OurJourney() {
             animate={isStoryInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            Our Journey: From Idea to Impact
+            Our 
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+             {" "} Journey 
+
+            </span>
+            : From  
+            <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
+             {" "} Idea to Impact  
+
+            </span>
           </motion.h2>
           <motion.p 
             className="text-sm sm:text-base md:text-lg text-gray-600 dark:text-gray-400 max-w-xs sm:max-w-lg md:max-w-2xl mx-auto transition-colors duration-700 ease-in-out px-4"

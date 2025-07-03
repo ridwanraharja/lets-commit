@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight,  Send } from "lucide-react";
+import {  ArrowRight,  Send } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Footer() {
@@ -63,16 +63,14 @@ export default function Footer() {
 
             <Link to="/" className="flex items-center gap-3 mb-6 group">
               <div className="relative">
-                <div className="w-10 h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-in-out">
-                  <Sparkles className="w-5 h-5 md:w-7 md:h-7 text-white group-hover:rotate-12 transition-transform duration-700 ease-in-out" />
+                <div className="w-11 h-11 md:w-12 md:h-12  rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-in-out">
+                  <img src="/public/CommitLearnFix.svg" alt="CommitLearn logo" />
                 </div>
-                <div className="absolute -top-0.5 -right-0.5 md:-top-1 md:-right-1 w-3 h-3 md:w-4 md:h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full animate-pulse">
-                  <div className="w-full h-full bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-ping"></div>
-                </div>
+    
               </div>
               <div>
                 <h2 className="text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-blue-600 transition-all duration-700 ease-in-out">
-                  Let'sCommit!
+                  CommitLearn!
                 </h2>
                 <p className="text-xs md:text-sm text-gray-500 dark:text-gray-400 font-medium transition-colors duration-700 ease-in-out">
                   🚀 Commitment-based Learning

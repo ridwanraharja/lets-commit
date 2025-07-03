@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate, Outlet, useLocation } from "react-router-dom";
 import { RiCloseLine, RiSunLine, RiMoonFill } from "react-icons/ri";
-import { Sparkles, Settings, Bell, User, LogOut } from "lucide-react";
+import {  Settings, Bell, User, LogOut } from "lucide-react";
 import { ConnectButton } from "@xellar/kit";
 import { useAccount, useDisconnect, useBalance } from "wagmi";
 
@@ -182,43 +182,24 @@ export default function Navbar() {
         <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3.5 md:py-6">
           <div className="flex justify-between items-center">
 
-            <div
-              className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-200 ease-in-out ${
-                isHome ? "scale-105" : ""
-              }`}
-              onClick={() => handleNavigation("/")}
-            >
-              <div className="relative">
-                <div
-                  className={`w-9 h-9 sm:w-10 sm:h-10 md:w-12 md:h-12 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600 rounded-xl sm:rounded-2xl flex items-center justify-center shadow-lg md:shadow-xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-in-out ${
-                    isHome
-                      ? "ring-2 ring-blue-300 dark:ring-blue-600 ring-offset-2 dark:ring-offset-gray-900"
-                      : ""
-                  }`}
-                >
-                  <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 text-white group-hover:rotate-12 transition-transform duration-700 ease-in-out" />
-                </div>
-                <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-3 h-3 sm:w-4 sm:h-4 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full animate-pulse shadow-md sm:shadow-lg">
-                  <div className="w-full h-full bg-gradient-to-br from-yellow-300 to-orange-400 rounded-full animate-ping"></div>
-                </div>
-              </div>
-              <div className="hidden xs:block">
-                <h1
-                  className={`text-lg sm:text-xl md:text-2xl lg:text-3xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent group-hover:from-purple-600 group-hover:via-pink-600 group-hover:to-blue-600 transition-all duration-700 ease-in-out ${
-                    isHome ? "from-purple-600 via-pink-600 to-blue-600" : ""
-                  }`}
-                >
-                  Let'sCommit!
-                </h1>
-                <p
-                  className={`text-xs sm:text-xs md:text-xs text-gray-500 dark:text-gray-400 -mt-0.5 sm:-mt-1 font-medium transition-colors duration-700 ease-in-out ${
-                    isHome ? "text-blue-600 dark:text-blue-400" : ""
-                  }`}
-                >
-                  🚀 Commitment-based Learning
-                </p>
-              </div>
-            </div>
+<div
+  className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-200 ease-in-out ${
+    isHome ? "scale-105" : ""
+  }`}
+  onClick={() => handleNavigation("/")}
+>
+  <div className="relative">
+    <div
+      className={`w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14  rounded-xl sm:rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-in-out ${
+        isHome
+          ? "ring-2 ring-blue-300 dark:ring-blue-600 ring-offset-2 dark:ring-offset-gray-900"
+          : ""
+      }`}
+    >
+      <img src="/public/CommitLearnFix.svg" alt="Logo CommitLearnFix" className="w-full h-full object-contain" />
+    </div>
+  </div>
+</div>
 
 
             <div className="hidden lg:flex gap-0.5 xl:gap-1">

@@ -115,16 +115,7 @@ export default function AboutPage() {
               <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 dark:from-blue-400 dark:via-purple-400 dark:to-pink-400 bg-clip-text text-transparent">
                 We're Dreamers
               </span>
-              <motion.div
-                className="absolute -top-4 -right-4 sm:-top-6 sm:-right-6 text-xl sm:text-2xl md:text-3xl"
-                animate={{ 
-                  rotate: [0, 10, -10, 0],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{ duration: 4, repeat: Infinity }}
-              >
-                ✨
-              </motion.div>
+
             </span>
           </motion.h1>
 

@@ -8,21 +8,22 @@ import {
 
 export const teamMembers = [
     {
-      id: "xnaizer",
-      name: "Xnaizer",
-      role: "The Architect",
-      realRole: "System Architect",
-      avatar: "🚀",
-      github: "https://github.com/Xnaizer",
-      bio: "System architect who designs scalable solutions and oversees the technical vision. Transforms complex requirements into elegant system designs.",
-      personality: "The visionary who sees the big picture and orchestrates technical excellence",
-      skills: ["System Design", "Architecture", "Leadership", "Strategy"],
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/30",
-      quote: "Great architecture is invisible until you need to scale",
-      funFact: " Can visualize entire system flows in his head",
-      superpower: "Turning complex problems into simple solutions"
+      id: "hirugohan",
+      name: "Hirugohan",
+      role: "The Blockchain Engineer",
+      realRole: "Smart Contract Developer",
+      avatar: "🎨",
+      github: "https://github.com/0xhirugohan",
+      bio: "Smart contract specialist who builds secure, efficient blockchain solutions. Crafts the decentralized backbone that powers our commitment-based learning system.",
+      personality: "The meticulous craftsman who ensures blockchain security and innovation",
+      skills: ["Solidity", "Smart Contracts", "Web3", "DeFi"],
+      color: "from-pink-500 to-rose-500",
+      bgColor: "bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-900/20 dark:to-rose-900/30",
+      quote: "Smart contracts are not just code, they're digital trust",
+      funFact: " Can audit smart contracts while debugging gas optimizations",
+      superpower: "Making blockchain technology accessible and secure"
     },
+
     {
       id: "ridwanraharja",
       name: "Ridwan Raharja",
@@ -38,22 +39,6 @@ export const teamMembers = [
       quote: "Full-stack means seeing the complete picture, not just pieces",
       funFact: " Can switch between frontend and backend faster than switching tabs",
       superpower: "Making complex integrations look effortless"
-    },
-    {
-      id: "hirugohan",
-      name: "Hirugohan",
-      role: "The Blockchain Engineer",
-      realRole: "Smart Contract Developer",
-      avatar: "🎨",
-      github: "https://github.com/0xhirugohan",
-      bio: "Smart contract specialist who builds secure, efficient blockchain solutions. Crafts the decentralized backbone that powers our commitment-based learning system.",
-      personality: "The meticulous craftsman who ensures blockchain security and innovation",
-      skills: ["Solidity", "Smart Contracts", "Web3", "DeFi"],
-      color: "from-pink-500 to-rose-500",
-      bgColor: "bg-gradient-to-br from-pink-50 to-rose-100 dark:from-pink-900/20 dark:to-rose-900/30",
-      quote: "Smart contracts are not just code, they're digital trust",
-      funFact: " Can audit smart contracts while debugging gas optimizations",
-      superpower: "Making blockchain technology accessible and secure"
     },
     {
       id: "yukenz",
@@ -113,7 +98,23 @@ export  const ourStory = [
       description: "This is just the beginning. We're building the future of accountable learning.",
       details: "Join us on this journey to make education more engaging and effective for everyone.",
       emotion: "Hope"
-    }
+    },
+    {
+      id: "xnaizer",
+      name: "Xnaizer",
+      role: "The Architect",
+      realRole: "System Architect",
+      avatar: "🚀",
+      github: "https://github.com/Xnaizer",
+      bio: "System architect who designs scalable solutions and oversees the technical vision. Transforms complex requirements into elegant system designs.",
+      personality: "The visionary who sees the big picture and orchestrates technical excellence",
+      skills: ["System Design", "Architecture", "Leadership", "Strategy"],
+      color: "from-blue-500 to-cyan-500",
+      bgColor: "bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/30",
+      quote: "Great architecture is invisible until you need to scale",
+      funFact: " Can visualize entire system flows in his head",
+      superpower: "Turning complex problems into simple solutions"
+    },
   ];
 
 export  const companyVibes = [

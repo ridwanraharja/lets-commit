@@ -64,7 +64,7 @@ export default function Footer() {
             <Link to="/" className="flex items-center gap-3 mb-6 group">
               <div className="relative">
                 <div className="w-11 h-11 md:w-12 md:h-12  rounded-xl md:rounded-2xl flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-700 ease-in-out">
-                  <img src="/public/CommitLearnFix.svg" alt="CommitLearn logo" />
+                  <img src="/CommitLearnFix.svg" alt="CommitLearn logo" />
                 </div>
     
               </div>

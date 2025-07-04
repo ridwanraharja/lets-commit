@@ -8,13 +8,18 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { motion } from "framer-motion";
+import { useAccount } from "wagmi";
 import {
   StatCard,
   SessionList,
   Session,
   QRGeneratorModal,
 } from "../components";
-import { participantData, organizerData } from "../data/mockData";
+import { useDashboardService } from "../hooks/useDashboardService";
+import {
+  mapParticipantDashboard,
+  mapOrganizerDashboard,
+} from "../utils/dashboardMapper";
 
 export default function UserDashboardPage() {
   const [activeTab, setActiveTab] = useState<"participant" | "organizer">(
@@ -23,6 +28,37 @@ export default function UserDashboardPage() {
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
   const [sessionCode, setSessionCode] = useState<string>("");
   const [showCodeInput, setShowCodeInput] = useState<boolean>(false);
+
+  const { address } = useAccount();
+  const { useGetParticipantDashboard, useGetOrganizerDashboard } =
+    useDashboardService();
+
+  const participantQuery = useGetParticipantDashboard(
+    "0x0000000000000000000000000000000000000011"
+  );
+  const organizerQuery = useGetOrganizerDashboard(
+    "0x0000000000000000000000000000000000000002"
+  );
+
+  const participantData = participantQuery.data
+    ? mapParticipantDashboard(participantQuery.data)
+    : {
+        totalDeposits: 0,
+        availableCashback: 0,
+        totalClaimed: 0,
+        upcomingSessions: [],
+        completedSessions: [],
+      };
+
+  const organizerData = organizerQuery.data
+    ? mapOrganizerDashboard(organizerQuery.data)
+    : {
+        totalRevenue: 0,
+        availableWithdrawal: 0,
+        totalWithdrawn: 0,
+        activeSessions: [],
+        completedSessions: [],
+      };
 
   const handleGenerateQR = (session: Session) => {
     setSelectedSession(session);
@@ -41,6 +77,58 @@ export default function UserDashboardPage() {
     setShowCodeInput(false);
     setSessionCode("");
   };
+
+  if (participantQuery.isLoading || organizerQuery.isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-400">
+            Loading dashboard...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  if (participantQuery.isError || organizerQuery.isError) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-red-600 dark:text-red-400 mb-4">
+            Failed to load dashboard data
+          </p>
+          <button
+            onClick={() => {
+              participantQuery.refetch();
+              organizerQuery.refetch();
+            }}
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  if (!address) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-600 dark:text-gray-400 mb-4">
+            Please connect your wallet to view dashboard
+          </p>
+          <Link
+            to="/"
+            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+          >
+            Go Home
+          </Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 relative overflow-hidden">
@@ -231,19 +319,19 @@ export default function UserDashboardPage() {
                 <StatCard
                   icon={DollarSign}
                   title="Total Deposits"
-                  value={participantData.totalDeposits}
+                  value={participantData.totalDeposits / 1000}
                   color="blue"
                 />
                 <StatCard
                   icon={CheckCircle}
                   title="Available Cashback"
-                  value={participantData.availableCashback}
+                  value={participantData.availableCashback / 1000}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Claimed"
-                  value={participantData.totalClaimed}
+                  value={participantData.totalClaimed / 1000}
                   color="purple"
                 />
               </div>
@@ -314,19 +402,19 @@ export default function UserDashboardPage() {
                 <StatCard
                   icon={DollarSign}
                   title="Total Revenue"
-                  value={organizerData.totalRevenue}
+                  value={organizerData.totalRevenue / 1000}
                   color="purple"
                 />
                 <StatCard
                   icon={CheckCircle}
                   title="Available Withdrawal"
-                  value={organizerData.availableWithdrawal}
+                  value={organizerData.availableWithdrawal / 1000}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Withdrawn"
-                  value={organizerData.totalWithdrawn}
+                  value={organizerData.totalWithdrawn / 1000}
                   color="blue"
                 />
               </div>

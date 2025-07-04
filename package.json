@@ -28,6 +28,7 @@
     "react-qr-code": "^2.0.16",
     "react-router-dom": "^7.4.0",
     "react-swipeable": "^7.0.2",
+    "react-tag-input": "^6.10.6",
     "redis": "^4.7.0",
     "remixicon": "^4.6.0",
     "viem": "^2.31.6",

@@ -34,36 +34,41 @@ export default function UserDashboardPage() {
 
   // Only fetch the dashboard that matches the current role
   const participantQuery = useGetParticipantDashboard(
-    "0x0000000000000000000000000000000000000011",
+    address ?? "",
     role === "participant"
   );
+
+  console.log("participantQuery", participantQuery);
   const organizerQuery = useGetOrganizerDashboard(
-    "0x0000000000000000000000000000000000000002",
+    address ?? "",
     role === "organizer"
   );
 
+  console.log("organizerQuery", organizerQuery);
   const currentQuery =
     role === "participant" ? participantQuery : organizerQuery;
 
-  const participantData = participantQuery.data
-    ? mapParticipantDashboard(participantQuery.data)
-    : {
-        totalDeposits: 0,
-        availableCashback: 0,
-        totalClaimed: 0,
-        upcomingSessions: [],
-        completedSessions: [],
-      };
+  const participantData =
+    participantQuery.data && !participantQuery.isError
+      ? mapParticipantDashboard(participantQuery.data)
+      : {
+          totalDeposits: 0,
+          availableCashback: 0,
+          totalClaimed: 0,
+          upcomingSessions: [],
+          completedSessions: [],
+        };
 
-  const organizerData = organizerQuery.data
-    ? mapOrganizerDashboard(organizerQuery.data)
-    : {
-        totalRevenue: 0,
-        availableWithdrawal: 0,
-        totalWithdrawn: 0,
-        activeSessions: [],
-        completedSessions: [],
-      };
+  const organizerData =
+    organizerQuery.data && !organizerQuery.isError
+      ? mapOrganizerDashboard(organizerQuery.data)
+      : {
+          totalRevenue: 0,
+          availableWithdrawal: 0,
+          totalWithdrawn: 0,
+          activeSessions: [],
+          completedSessions: [],
+        };
 
   const handleGenerateQR = (session: Session) => {
     setSelectedSession(session);
@@ -96,21 +101,11 @@ export default function UserDashboardPage() {
     );
   }
 
+  // If there's an error, we'll still show the dashboard with zero data
+  // instead of showing an error message
   if (currentQuery.isError) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
-        <div className="text-center">
-          <p className="text-red-600 dark:text-red-400 mb-4">
-            Failed to load {role} dashboard data
-          </p>
-          <button
-            onClick={() => currentQuery.refetch()}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-          >
-            Retry
-          </button>
-        </div>
-      </div>
+    console.warn(
+      `Failed to load ${role} dashboard data, showing empty dashboard`
     );
   }
 

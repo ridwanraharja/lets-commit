@@ -8,7 +8,7 @@ import {
   isSameDay,
   fromUnixTime,
 } from "date-fns";
-// import { useAccount } from "wagmi";
+import { useAccount } from "wagmi";
 import {
   Calendar,
   Clock,
@@ -32,7 +32,7 @@ import ImgFake from "../assets/BlockDevId.jpg";
 
 const EventDetail = () => {
   const { eventId } = useParams();
-  // const { address } = useAccount();
+  const { address } = useAccount();
   const { role } = useRole();
   const [selectedSession, setSelectedSession] = useState<
     SessionDetail | SessionDetailParticipant | null
@@ -47,7 +47,7 @@ const EventDetail = () => {
   );
   const participantEventQuery = useGetEventDetailForParticipant(
     eventId || "",
-    "0x0000000000000000000000000000000000000021",
+    address ?? "",
     role === "participant"
   );
 

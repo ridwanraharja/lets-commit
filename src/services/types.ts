@@ -1,4 +1,3 @@
-// Generic types for API responses
 export interface ApiResponse<T> {
   data: T;
   message?: string;
@@ -13,10 +12,8 @@ export interface PaginatedResponse<T> {
   totalPages: number;
 }
 
-// Event state types based on backend
 export type EventState = "ON_SALE" | "ON_GOING" | "FINISHED";
 
-// Event type definition updated for backend API response
 export interface Event {
   eventId: number;
   title: string;
@@ -55,27 +52,41 @@ export interface EventPayload {
 }
 
 // Dashboard types
+export interface Session {
+  eventId: number;
+  eventTitle: string;
+  sessionNumber: number;
+  sessionTitle: string;
+  startSession: number;
+  endSession: number;
+  startSessionHumanReadable: string;
+  endSessionHumanReadable: string;
+  durationInHours: number;
+  durationInMinute: number;
+  isLinkGenerated?: boolean | null;
+}
+
+export interface DashboardStatistic {
+  totalDeposit?: number | null;
+  totalCommitmentFeeAvailable?: number;
+  totalCommitmentFeeClaimed?: number;
+  totalRevenue?: number;
+  availableWithdraw?: number;
+  totalClaimedRevenue?: number;
+}
+
 export interface ParticipantDashboard {
-  walletAddress: string;
-  registeredEvents: Event[];
-  attendedEvents: Event[];
-  upcomingEvents: Event[];
-  totalEvents: number;
-  totalAttended: number;
-  totalRegistered: number;
+  statistic: DashboardStatistic;
+  upcomingSession: Session[];
+  completedSession: Session[];
 }
 
 export interface OrganizerDashboard {
-  walletAddress: string;
-  createdEvents: Event[];
-  ongoingEvents: Event[];
-  finishedEvents: Event[];
-  totalEvents: number;
-  totalAttendees: number;
-  totalRevenue?: number;
+  statistic: DashboardStatistic;
+  upcomingSession: Session[];
+  completedSession: Session[];
 }
 
-// User types (for future use)
 export interface User {
   id: string;
   name: string;
@@ -95,7 +106,6 @@ export interface UserPayload {
   avatar?: string;
 }
 
-// Auth types
 export interface LoginPayload {
   email: string;
   password: string;
@@ -107,7 +117,6 @@ export interface AuthResponse {
   refreshToken?: string;
 }
 
-// Common query parameters
 export interface PaginationParams {
   page?: number;
   limit?: number;
@@ -120,7 +129,6 @@ export interface SearchParams extends PaginationParams {
   filter?: Record<string, string | number | boolean>;
 }
 
-// Event query parameters
 export interface EventQueryParams extends PaginationParams {
   state?: EventState;
   organizer?: string;

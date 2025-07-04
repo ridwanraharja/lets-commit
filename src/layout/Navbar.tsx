@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate, Outlet, useLocation } from "react-router-dom";
 import { RiCloseLine, RiSunLine, RiMoonFill } from "react-icons/ri";
-import {  Settings, Bell, User, LogOut } from "lucide-react";
+import { Settings, User, LogOut } from "lucide-react";
 import { ConnectButton } from "@xellar/kit";
 import { useAccount, useDisconnect, useBalance } from "wagmi";
 
 import Footer from "../components/Footer";
 import ScrollToTheTop from "../components/ScrollToTheTop";
+import RoleSwitch from "../components/RoleSwitch";
 import { useTheme } from "../hooks/useTheme";
 
 interface NavLinkInterface {
@@ -38,28 +39,23 @@ export default function Navbar() {
     address,
   });
 
- 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  
   useEffect(() => {
     const onScroll = (): void => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent): void => {
       const target = event.target as HTMLElement;
-      
       if (
         !target.closest(".mobile-menu-button") &&
         !target.closest(".mobile-dropdown")
@@ -77,7 +73,6 @@ export default function Navbar() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  
   const links: NavLinkInterface[] = [
     {
       to: "/explore",
@@ -86,7 +81,7 @@ export default function Navbar() {
       shortLabel: "Explore",
     },
     {
-      to: "/create",
+      to: "/create-event",
       label: "Create Event",
       icon: "ri-add-circle-line",
       shortLabel: "Create",
@@ -98,13 +93,12 @@ export default function Navbar() {
       shortLabel: "Dashboard",
     },
     {
-      to: "/aboutus",
+      to: "/about-us",
       label: "About Us",
       icon: "ri-information-line",
       shortLabel: "About",
     },
   ];
-
 
   const mobileNavLinks: MobileNavLink[] = [
     { to: "/", icon: "ri-home-line", label: "Home" },
@@ -115,15 +109,14 @@ export default function Navbar() {
       notification: true,
     },
     {
-      to: "/create",
+      to: "/create-event",
       icon: "ri-add-circle-line",
       label: "Create",
       highlight: true,
     },
     { to: "/dashboard", icon: "ri-dashboard-line", label: "Dashboard" },
-    { to: "/aboutus", icon: "ri-information-line", label: "About" }, 
+    { to: "/about-us", icon: "ri-information-line", label: "About" },
   ];
-
 
   const handleMobileMenuToggle = (
     e: React.MouseEvent<HTMLButtonElement>
@@ -141,7 +134,6 @@ export default function Navbar() {
     setIsProfileOpen(!isProfileOpen);
   };
 
-  // Navigate function with scroll to top
   const handleNavigation = (path: string): void => {
     navigate(path);
     window.scrollTo(0, 0);
@@ -158,7 +150,6 @@ export default function Navbar() {
     window.scrollTo(0, 0);
   };
 
-  // Check if current route is home
   const isHome: boolean = location.pathname === "/";
 
   const getInitials = (address: string): string => {
@@ -171,7 +162,6 @@ export default function Navbar() {
 
   return (
     <>
-
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 ease-in-out ${
           isScrolled
@@ -181,7 +171,6 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3.5 md:py-6">
           <div className="flex justify-between items-center">
-
             <div
               className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-200 ease-in-out ${
                 isHome ? "scale-105" : ""
@@ -196,7 +185,11 @@ export default function Navbar() {
                       : ""
                   }`}
                 >
-                  <img src="/CommitLearnFix.svg" alt="Logo CommitLearnFix" className="w-full h-full object-contain" />
+                  <img
+                    src="/CommitLearnFix.svg"
+                    alt="Logo CommitLearnFix"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
               </div>
             </div>
@@ -233,14 +226,7 @@ export default function Navbar() {
             </div>
 
             <div className="hidden lg:flex items-center gap-3 xl:gap-4">
-
-              <button className="relative p-2.5 lg:p-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl lg:rounded-2xl transition-all duration-200 ease-in-out group">
-                <Bell className="w-5 h-5 group-hover:ring-2 group-hover:ring-blue-300 rounded transition-all duration-200 ease-in-out" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse">
-                  <div className="w-full h-full bg-red-400 rounded-full animate-ping"></div>
-                </div>
-              </button>
-
+              {isConnected && address && <RoleSwitch />}
 
               <button
                 onClick={toggleTheme}
@@ -341,9 +327,7 @@ export default function Navbar() {
               </div>
             </div>
 
-          
             <div className="flex items-center gap-1 sm:gap-2 lg:hidden">
-           
               <button
                 onClick={toggleTheme}
                 className="p-2 sm:p-2.5 text-gray-600 dark:text-gray-400 hover:text-orange-500 rounded-lg transition-colors duration-200 ease-in-out touch-manipulation"
@@ -374,7 +358,6 @@ export default function Navbar() {
                 )}
               </div>
 
-
               <button
                 onClick={handleMobileMenuToggle}
                 className="mobile-menu-button p-2 sm:p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 ease-in-out touch-manipulation relative z-[60]"
@@ -390,7 +373,6 @@ export default function Navbar() {
             </div>
           </div>
 
-   
           <div
             className={`mobile-dropdown lg:hidden overflow-hidden transition-all duration-700 ease-in-out ${
               isMenuOpen
@@ -401,7 +383,17 @@ export default function Navbar() {
           >
             <div className="bg-white/98 dark:bg-gray-800/98 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl p-4 sm:p-6 transition-all duration-200 ease-in-out">
               <div className="flex flex-col gap-2 sm:gap-3">
-              
+                {isConnected && address && (
+                  <div className="mb-2 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200/50 dark:border-blue-700/50">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Current Role:
+                      </span>
+                      <RoleSwitch />
+                    </div>
+                  </div>
+                )}
+
                 {links.map((link) => (
                   <NavLink
                     key={link.to}
@@ -511,7 +503,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white/98 dark:bg-gray-900/98 backdrop-blur-2xl border-t border-gray-200/50 dark:border-gray-700/50 shadow-2xl transition-all duration-200 ease-in-out">
         <div className="flex justify-around items-center py-2 sm:py-3 px-1 sm:px-2">
           {mobileNavLinks.map((link) => (
@@ -569,7 +560,6 @@ export default function Navbar() {
           ))}
         </div>
       </nav>
-
 
       <div className="pt-16 sm:pt-18 md:pt-20 lg:pt-24 pb-16 sm:pb-18 lg:pb-6 xl:pb-8 min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-purple-50/20 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-200 ease-in-out">
         <Outlet />

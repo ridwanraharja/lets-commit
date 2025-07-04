@@ -22,40 +22,34 @@ export interface TokenAllowance {
 export const useMIDRXToken = () => {
   const { address, isConnected } = useAccount();
   const { writeContract, isPending, error } = useWriteContract();
-  const { addresses, abis } = useContracts();
+  const { contracts } = useContracts();
 
-  const contractAddress = addresses.MIDRX_TOKEN;
-  const contractABI = abis.mIDRXToken;
+  const contract = contracts.mIDRXToken;
 
   // Read token information
   const { data: tokenName } = useReadContract({
-    address: contractAddress as `0x${string}`,
-    abi: contractABI,
+    ...contract,
     functionName: "name",
   });
 
   const { data: tokenSymbol } = useReadContract({
-    address: contractAddress as `0x${string}`,
-    abi: contractABI,
+    ...contract,
     functionName: "symbol",
   });
 
   const { data: tokenDecimals } = useReadContract({
-    address: contractAddress as `0x${string}`,
-    abi: contractABI,
+    ...contract,
     functionName: "decimals",
   });
 
   const { data: tokenTotalSupply } = useReadContract({
-    address: contractAddress as `0x${string}`,
-    abi: contractABI,
+    ...contract,
     functionName: "totalSupply",
   });
 
   // Read user's token balance
   const { data: userBalance } = useReadContract({
-    address: contractAddress as `0x${string}`,
-    abi: contractABI,
+    ...contract,
     functionName: "balanceOf",
     args: address ? [address] : undefined,
     query: {
@@ -92,8 +86,7 @@ export const useMIDRXToken = () => {
   // Get balance for any address
   const useBalance = (targetAddress: string) => {
     return useReadContract({
-      address: contractAddress as `0x${string}`,
-      abi: contractABI,
+      ...contract,
       functionName: "balanceOf",
       args: [targetAddress as `0x${string}`],
     });
@@ -102,8 +95,7 @@ export const useMIDRXToken = () => {
   // Get allowance
   const useAllowance = (owner: string, spender: string) => {
     return useReadContract({
-      address: contractAddress as `0x${string}`,
-      abi: contractABI,
+      ...contract,
       functionName: "allowance",
       args: [owner as `0x${string}`, spender as `0x${string}`],
     });
@@ -120,8 +112,7 @@ export const useMIDRXToken = () => {
     return new Promise((resolve, reject) => {
       writeContract(
         {
-          address: contractAddress as `0x${string}`,
-          abi: contractABI,
+          ...contract,
           functionName: "transfer",
           args: [to as `0x${string}`, parsedAmount],
         },
@@ -144,8 +135,7 @@ export const useMIDRXToken = () => {
     return new Promise((resolve, reject) => {
       writeContract(
         {
-          address: contractAddress as `0x${string}`,
-          abi: contractABI,
+          ...contract,
           functionName: "approve",
           args: [spender as `0x${string}`, parsedAmount],
         },
@@ -172,8 +162,7 @@ export const useMIDRXToken = () => {
     return new Promise((resolve, reject) => {
       writeContract(
         {
-          address: contractAddress as `0x${string}`,
-          abi: contractABI,
+          ...contract,
           functionName: "transferFrom",
           args: [from as `0x${string}`, to as `0x${string}`, parsedAmount],
         },
@@ -196,8 +185,7 @@ export const useMIDRXToken = () => {
     return new Promise((resolve, reject) => {
       writeContract(
         {
-          address: contractAddress as `0x${string}`,
-          abi: contractABI,
+          ...contract,
           functionName: "mint",
           args: [to as `0x${string}`, parsedAmount],
         },
@@ -211,7 +199,7 @@ export const useMIDRXToken = () => {
 
   // Utility functions
   const getContractAddress = (): string => {
-    return contractAddress;
+    return contract.address;
   };
 
   const isValidAddress = (address: string): boolean => {

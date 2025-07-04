@@ -1,0 +1,967 @@
+[
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_mIDRXToken", "type": "address" }
+    ],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  { "inputs": [], "name": "EndSaleDateInPast", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "eventId", "type": "uint256" }
+    ],
+    "name": "EventDoesNotExist",
+    "type": "error"
+  },
+  { "inputs": [], "name": "EventFeeAlreadyClaimed", "type": "error" },
+  { "inputs": [], "name": "EventNotInSalePeriod", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "required", "type": "uint256" },
+      { "internalType": "uint256", "name": "available", "type": "uint256" }
+    ],
+    "name": "InsufficientAllowance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "required", "type": "uint256" },
+      { "internalType": "uint256", "name": "available", "type": "uint256" }
+    ],
+    "name": "InsufficientBalance",
+    "type": "error"
+  },
+  { "inputs": [], "name": "InvalidSaleDateRange", "type": "error" },
+  { "inputs": [], "name": "InvalidSessionCode", "type": "error" },
+  { "inputs": [], "name": "InvalidSessionCodeLength", "type": "error" },
+  { "inputs": [], "name": "InvalidSessionIndex", "type": "error" },
+  { "inputs": [], "name": "LastSessionMustBeAfterSaleEnd", "type": "error" },
+  { "inputs": [], "name": "MaxSessionsZero", "type": "error" },
+  { "inputs": [], "name": "NoClaimableAmount", "type": "error" },
+  { "inputs": [], "name": "NoUnattendedParticipants", "type": "error" },
+  { "inputs": [], "name": "NoVestedAmountToRelease", "type": "error" },
+  { "inputs": [], "name": "NoVestedCommitmentFees", "type": "error" },
+  { "inputs": [], "name": "NotEventOrganizer", "type": "error" },
+  { "inputs": [], "name": "NotProtocolAdmin", "type": "error" },
+  { "inputs": [], "name": "NotWithinSessionTime", "type": "error" },
+  { "inputs": [], "name": "ParticipantAlreadyAttended", "type": "error" },
+  { "inputs": [], "name": "ParticipantAlreadyEnrolled", "type": "error" },
+  { "inputs": [], "name": "ParticipantNotEnrolled", "type": "error" },
+  { "inputs": [], "name": "SessionCodeAlreadySet", "type": "error" },
+  { "inputs": [], "name": "SessionCodeEmpty", "type": "error" },
+  { "inputs": [], "name": "SessionCodeNotSet", "type": "error" },
+  { "inputs": [], "name": "SessionNotEnded", "type": "error" },
+  { "inputs": [], "name": "StartSaleDateInPast", "type": "error" },
+  { "inputs": [], "name": "TokenTransferFailed", "type": "error" },
+  {
+    "inputs": [
+      { "internalType": "uint8", "name": "requested", "type": "uint8" },
+      { "internalType": "uint8", "name": "max", "type": "uint8" }
+    ],
+    "name": "TotalSessionsExceedsMax",
+    "type": "error"
+  },
+  { "inputs": [], "name": "TotalSessionsZero", "type": "error" },
+  { "inputs": [], "name": "UnattendedFeesAlreadyClaimed", "type": "error" },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "session",
+        "type": "uint8"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bytes",
+        "name": "attendToken",
+        "type": "bytes"
+      }
+    ],
+    "name": "AttendEventSession",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "organizer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "priceAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "commitmentAmount",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "totalSession",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "maxParticipant",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "startSaleDate",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "endSaleDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "CreateEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "description",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "location",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "imageUri",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "string[5]",
+        "name": "tag",
+        "type": "string[5]"
+      }
+    ],
+    "name": "CreateEventMetadata",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "session",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "startSessionTime",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "endSessionTime",
+        "type": "uint256"
+      }
+    ],
+    "name": "CreateSession",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "participant",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "debitAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "EnrollEvent",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "session",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "token",
+        "type": "string"
+      }
+    ],
+    "name": "GenerateSessionToken",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "session",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "unattendedPerson",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "organizer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "claimAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "OrganizerClaimUnattended",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "organizer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "claimAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "OrganizerFirstClaim",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "organizer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "claimAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "OrganizerLastClaim",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "eventId",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint8",
+        "name": "session",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "organizer",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "releasedAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "SetSessionCode",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" },
+      { "internalType": "string", "name": "_sessionCode", "type": "string" }
+    ],
+    "name": "attendSession",
+    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "claim",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" }
+    ],
+    "name": "claimFirstPortion",
+    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "claimUnattendedFees",
+    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "title", "type": "string" },
+      { "internalType": "string", "name": "description", "type": "string" },
+      { "internalType": "string", "name": "location", "type": "string" },
+      { "internalType": "string", "name": "imageUri", "type": "string" },
+      { "internalType": "uint256", "name": "priceAmount", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "commitmentAmount",
+        "type": "uint256"
+      },
+      { "internalType": "uint8", "name": "maxParticipant", "type": "uint8" },
+      { "internalType": "uint256", "name": "startSaleDate", "type": "uint256" },
+      { "internalType": "uint256", "name": "endSaleDate", "type": "uint256" },
+      { "internalType": "string[5]", "name": "tags", "type": "string[5]" },
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "startSessionTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endSessionTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "attendedCount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct LetsCommit.Session[]",
+        "name": "_sessions",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "createEvent",
+    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "enrollAndAttend",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" }
+    ],
+    "name": "enrollEvent",
+    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "eventId",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "eventIdClaim",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "eventIdEnroll",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "name": "events",
+    "outputs": [
+      { "internalType": "address", "name": "organizer", "type": "address" },
+      { "internalType": "uint256", "name": "priceAmount", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "commitmentAmount",
+        "type": "uint256"
+      },
+      { "internalType": "uint8", "name": "totalSession", "type": "uint8" },
+      { "internalType": "uint256", "name": "startSaleDate", "type": "uint256" },
+      { "internalType": "uint256", "name": "endSaleDate", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "lastSessionEndTime",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "enrolledCount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" }
+    ],
+    "name": "getEnrolledParticipantsCount",
+    "outputs": [
+      { "internalType": "uint256", "name": "count", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" }
+    ],
+    "name": "getEvent",
+    "outputs": [
+      {
+        "components": [
+          { "internalType": "address", "name": "organizer", "type": "address" },
+          {
+            "internalType": "uint256",
+            "name": "priceAmount",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "commitmentAmount",
+            "type": "uint256"
+          },
+          { "internalType": "uint8", "name": "totalSession", "type": "uint8" },
+          {
+            "internalType": "uint256",
+            "name": "startSaleDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endSaleDate",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "lastSessionEndTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "enrolledCount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct LetsCommit.Event",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_organizer", "type": "address" }
+    ],
+    "name": "getOrganizerClaimableAmount",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "claimableAmount",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_organizer", "type": "address" }
+    ],
+    "name": "getOrganizerClaimedAmount",
+    "outputs": [
+      { "internalType": "uint256", "name": "claimed", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_organizer", "type": "address" }
+    ],
+    "name": "getOrganizerVestedAmount",
+    "outputs": [
+      { "internalType": "uint256", "name": "vestedAmount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" }
+    ],
+    "name": "getOrganizerVestedAmountPerSession",
+    "outputs": [
+      { "internalType": "uint256", "name": "amount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_participant", "type": "address" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "getParticipantAttendance",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "attendanceTimestamp",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_participant", "type": "address" }
+    ],
+    "name": "getParticipantAttendedSessionsCount",
+    "outputs": [{ "internalType": "uint8", "name": "count", "type": "uint8" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_participant", "type": "address" }
+    ],
+    "name": "getParticipantCommitmentFee",
+    "outputs": [
+      { "internalType": "uint256", "name": "commitmentFee", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getProtocolTVL",
+    "outputs": [
+      { "internalType": "uint256", "name": "tvl", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "getSession",
+    "outputs": [
+      {
+        "components": [
+          {
+            "internalType": "uint256",
+            "name": "startSessionTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "endSessionTime",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "attendedCount",
+            "type": "uint256"
+          }
+        ],
+        "internalType": "struct LetsCommit.Session",
+        "name": "",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "getSessionAttendedCount",
+    "outputs": [
+      { "internalType": "uint256", "name": "attendedCount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "getSessionUnattendedClaimTimestamp",
+    "outputs": [
+      { "internalType": "uint256", "name": "claimTimestamp", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "hasClaimedUnattendedFees",
+    "outputs": [{ "internalType": "bool", "name": "claimed", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_participant", "type": "address" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "hasParticipantAttendedSession",
+    "outputs": [{ "internalType": "bool", "name": "attended", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "hasSessionCode",
+    "outputs": [{ "internalType": "bool", "name": "hasCode", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "address", "name": "_participant", "type": "address" }
+    ],
+    "name": "isParticipantEnrolled",
+    "outputs": [{ "internalType": "bool", "name": "enrolled", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "mIDRXToken",
+    "outputs": [
+      { "internalType": "contract mIDRX", "name": "", "type": "address" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "maxSessionsPerEvent",
+    "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "organizerClaimableAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "organizerClaimedAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "", "type": "address" },
+      { "internalType": "uint256", "name": "", "type": "uint256" }
+    ],
+    "name": "organizerVestedAmount",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "address", "name": "", "type": "address" }
+    ],
+    "name": "participants",
+    "outputs": [
+      { "internalType": "uint256", "name": "enrolledDate", "type": "uint256" },
+      { "internalType": "uint256", "name": "commitmentFee", "type": "uint256" },
+      {
+        "internalType": "uint8",
+        "name": "attendedSessionsCount",
+        "type": "uint8"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" }
+    ],
+    "name": "previewUnattendedFeesForSession",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "unattendedCount",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "totalUnattendedCommitmentFees",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "organizerShare",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "protocolShare", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "protocolAdmin",
+    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "protocolTVL",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "uint8", "name": "", "type": "uint8" }
+    ],
+    "name": "sessionCodes",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "uint8", "name": "", "type": "uint8" }
+    ],
+    "name": "sessionUnattendedClaimTimestamp",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "", "type": "uint256" },
+      { "internalType": "uint8", "name": "", "type": "uint8" }
+    ],
+    "name": "sessions",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "startSessionTime",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "endSessionTime",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "attendedCount", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint8", "name": "newMaxSessions", "type": "uint8" }
+    ],
+    "name": "setMaxSessionsPerEvent",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "_eventId", "type": "uint256" },
+      { "internalType": "uint8", "name": "_sessionIndex", "type": "uint8" },
+      { "internalType": "string", "name": "_code", "type": "string" }
+    ],
+    "name": "setSessionCode",
+    "outputs": [{ "internalType": "bool", "name": "success", "type": "bool" }],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  }
+]

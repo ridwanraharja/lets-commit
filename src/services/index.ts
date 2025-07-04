@@ -1,5 +1,6 @@
 // Export all services
 export { eventService } from "./eventService";
+export { dashboardService } from "./dashboardService";
 
 // Export types
 export type {
@@ -7,6 +8,10 @@ export type {
   PaginatedResponse,
   Event,
   EventPayload,
+  EventState,
+  EventQueryParams,
+  ParticipantDashboard,
+  OrganizerDashboard,
   User,
   UserPayload,
   LoginPayload,

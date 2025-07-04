@@ -13,19 +13,30 @@ export interface PaginatedResponse<T> {
   totalPages: number;
 }
 
-// Event type definition
+// Event state types based on backend
+export type EventState = "ON_SALE" | "ON_GOING" | "FINISHED";
+
+// Event type definition updated for backend API response
 export interface Event {
-  id: string;
+  eventId: number;
   title: string;
   description: string;
-  date: string;
-  location: string;
+  imageUri: string;
+  priceAmount: number;
+  commitmentAmount: number;
+  totalAmount: number;
+  priceAmountUsdFormat: string;
+  commitmentAmountUsdFormat: string;
+  totalAmountUsdFormat: string;
+  startSaleDate: number;
+  endSaleDate: number;
+  startSaleDateHumanReadable: string;
+  endSaleDateHumanReadable: string;
   organizer: string;
-  attendees?: number;
-  maxAttendees?: number;
-  status: "upcoming" | "ongoing" | "completed" | "cancelled";
-  createdAt: string;
-  updatedAt: string;
+  location: string;
+  participant: number;
+  maxParticipant: number;
+  status: EventState;
 }
 
 // Event creation/update payload
@@ -34,9 +45,34 @@ export interface EventPayload {
   description: string;
   date: string;
   location: string;
-  organizer: string;
+  organizerWalletAddress: string;
   maxAttendees?: number;
-  status?: "upcoming" | "ongoing" | "completed" | "cancelled";
+  state?: EventState;
+  imageUrl?: string;
+  category?: string;
+  tags?: string[];
+  registrationDeadline?: string;
+}
+
+// Dashboard types
+export interface ParticipantDashboard {
+  walletAddress: string;
+  registeredEvents: Event[];
+  attendedEvents: Event[];
+  upcomingEvents: Event[];
+  totalEvents: number;
+  totalAttended: number;
+  totalRegistered: number;
+}
+
+export interface OrganizerDashboard {
+  walletAddress: string;
+  createdEvents: Event[];
+  ongoingEvents: Event[];
+  finishedEvents: Event[];
+  totalEvents: number;
+  totalAttendees: number;
+  totalRevenue?: number;
 }
 
 // User types (for future use)
@@ -44,6 +80,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
+  walletAddress: string;
   avatar?: string;
   role: "user" | "admin" | "moderator";
   createdAt: string;
@@ -53,6 +90,7 @@ export interface User {
 export interface UserPayload {
   name: string;
   email: string;
+  walletAddress: string;
   password?: string;
   avatar?: string;
 }
@@ -80,4 +118,13 @@ export interface PaginationParams {
 export interface SearchParams extends PaginationParams {
   search?: string;
   filter?: Record<string, string | number | boolean>;
+}
+
+// Event query parameters
+export interface EventQueryParams extends PaginationParams {
+  state?: EventState;
+  organizer?: string;
+  category?: string;
+  dateFrom?: string;
+  dateTo?: string;
 }

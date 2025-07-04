@@ -1,83 +1,53 @@
 import api from "./api";
-import { ApiResponse, PaginatedResponse, Event, EventPayload } from "./types";
+import {
+  ApiResponse,
+  Event,
+  // EventPayload,
+  // EventQueryParams,
+  ParticipantDashboard,
+  OrganizerDashboard,
+  EventState,
+} from "./types";
 
 export const eventService = {
-  // GET requests
-  getEvents: async (): Promise<ApiResponse<Event[]>> => {
-    const response = await api.get("/events");
+  // getEvents: async (
+  //   params?: EventQueryParams
+  // ): Promise<ApiResponse<Event[]>> => {
+  //   const response = await api.get("/event", { params });
+  //   return response.data;
+  // },
+
+  getEventsByState: async (
+    state: EventState
+  ): Promise<ApiResponse<Event[]>> => {
+    const response = await api.get(`/event?state=${state}`);
     return response.data;
   },
 
   getEventById: async (id: string): Promise<ApiResponse<Event>> => {
-    const response = await api.get(`/events/${id}`);
+    const response = await api.get(`/event/${id}`);
     return response.data;
   },
 
-  getEventsPaginated: async (
-    page: number = 1,
-    limit: number = 10
-  ): Promise<PaginatedResponse<Event>> => {
-    const response = await api.get(`/events?page=${page}&limit=${limit}`);
-    return response.data;
-  },
-
-  getEventsByOrganizer: async (
-    organizerId: string
-  ): Promise<ApiResponse<Event[]>> => {
-    const response = await api.get(`/events/organizer/${organizerId}`);
-    return response.data;
-  },
-
-  getUpcomingEvents: async (): Promise<ApiResponse<Event[]>> => {
-    const response = await api.get("/events/upcoming");
-    return response.data;
-  },
-
-  getEventAttendees: async (
-    eventId: string
-  ): Promise<
-    ApiResponse<{ id: string; name: string; email: string; joinedAt: string }[]>
-  > => {
-    const response = await api.get(`/events/${eventId}/attendees`);
-    return response.data;
-  },
-
-  // POST requests
-  createEvent: async (eventData: EventPayload): Promise<ApiResponse<Event>> => {
-    const response = await api.post("/events", eventData);
-    return response.data;
-  },
-
-  joinEvent: async (eventId: string): Promise<ApiResponse<Event>> => {
-    const response = await api.post(`/events/${eventId}/join`);
-    return response.data;
-  },
-
-  leaveEvent: async (eventId: string): Promise<ApiResponse<Event>> => {
-    const response = await api.post(`/events/${eventId}/leave`);
-    return response.data;
-  },
-
-  // PUT requests
-  updateEvent: async (
-    id: string,
-    eventData: Partial<EventPayload>
+  getEventDetailForParticipant: async (
+    eventId: string,
+    walletAddress: string
   ): Promise<ApiResponse<Event>> => {
-    const response = await api.put(`/events/${id}`, eventData);
+    const response = await api.get(`/event/${eventId}/${walletAddress}`);
     return response.data;
   },
 
-  updateEventStatus: async (
-    id: string,
-    status: Event["status"]
-  ): Promise<ApiResponse<Event>> => {
-    const response = await api.patch(`/events/${id}/status`, { status });
+  getParticipantDashboard: async (
+    walletAddress: string
+  ): Promise<ApiResponse<ParticipantDashboard>> => {
+    const response = await api.get(`/dashboard/${walletAddress}/participant`);
     return response.data;
   },
 
-  // DELETE requests
-  deleteEvent: async (id: string): Promise<ApiResponse<void>> => {
-    const response = await api.delete(`/events/${id}`);
+  getOrganizerDashboard: async (
+    walletAddress: string
+  ): Promise<ApiResponse<OrganizerDashboard>> => {
+    const response = await api.get(`/dashboard/${walletAddress}/organizer`);
     return response.data;
   },
 };

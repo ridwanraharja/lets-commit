@@ -10,8 +10,7 @@ export interface TokenInfo {
 }
 
 export interface TokenBalance {
-  balance: string;
-  formattedBalance: string;
+  balance: number;
 }
 
 export interface TokenAllowance {
@@ -77,9 +76,11 @@ export const useMIDRXToken = () => {
       return null;
     }
 
+    console.log("userBalance", userBalance);
+    const balance = formatEther(userBalance as bigint);
+    console.log("balance", balance);
     return {
-      balance: (userBalance as bigint).toString(),
-      formattedBalance: formatEther(userBalance as bigint),
+      balance: Number(userBalance) / 100,
     };
   };
 
@@ -130,7 +131,7 @@ export const useMIDRXToken = () => {
       throw new Error("No wallet connected");
     }
 
-    const parsedAmount = parseEther(amount);
+    const parsedAmount = amount;
 
     return new Promise((resolve, reject) => {
       writeContract(

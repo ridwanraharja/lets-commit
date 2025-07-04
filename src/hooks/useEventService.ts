@@ -2,21 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 import { eventService } from "../services";
 import {
   EventState,
-  // EventPayload,
-  // EventQueryParams
+  EventDetailOrganizer,
+  EventDetailParticipant,
 } from "../services/types";
 
 export const useEventService = () => {
-  //   const queryClient = useQueryClient();
-
-  // Queries
-  //   const useGetEvents = (params?: EventQueryParams) => {
-  //     return useQuery({
-  //       queryKey: ["events", params],
-  //       queryFn: () => eventService.getEvents(params),
-  //     });
-  //   };
-
   const useGetEventsByState = (state: EventState) => {
     return useQuery({
       queryKey: ["events", "state", state],
@@ -24,23 +14,24 @@ export const useEventService = () => {
     });
   };
 
-  const useGetEventById = (id: string) => {
-    return useQuery({
+  const useGetEventById = (id: string, enabled: boolean = true) => {
+    return useQuery<EventDetailOrganizer>({
       queryKey: ["event", id],
       queryFn: () => eventService.getEventById(id),
-      enabled: !!id,
+      enabled: !!id && enabled,
     });
   };
 
   const useGetEventDetailForParticipant = (
     eventId: string,
-    walletAddress: string
+    walletAddress: string,
+    enabled: boolean = true
   ) => {
-    return useQuery({
+    return useQuery<EventDetailParticipant>({
       queryKey: ["event", eventId, "participant", walletAddress],
       queryFn: () =>
         eventService.getEventDetailForParticipant(eventId, walletAddress),
-      enabled: !!eventId && !!walletAddress,
+      enabled: !!eventId && !!walletAddress && enabled,
     });
   };
 
@@ -49,6 +40,5 @@ export const useEventService = () => {
     useGetEventsByState,
     useGetEventById,
     useGetEventDetailForParticipant,
-    // Mutations
   };
 };

@@ -136,3 +136,85 @@ export interface EventQueryParams extends PaginationParams {
   dateFrom?: string;
   dateTo?: string;
 }
+
+// Event Detail Types
+export interface SessionDetail {
+  sessionNumber: number;
+  title: string;
+  startSession: number;
+  endSession: number;
+  startSessionHumanReadable: string;
+  endSessionHumanReadable: string;
+  willStartIn: number;
+  willStartInHumanReadable: string;
+  durationInHours: number;
+  durationInMinute: number;
+  peopleAttend: number;
+  status: "COMPLETE" | "RUNNING" | "UPCOMING";
+  activeQrButton?: boolean;
+}
+
+export interface SessionDetailParticipant {
+  sessionNumber: number;
+  title: string;
+  startSessionEpochSecond: number;
+  endSessionEpochSecond: number;
+  startSessionHumanReadable: string;
+  endSessionHumanReadable: string;
+  willStartIn: number;
+  willStartInHumanReadable: string;
+  durationInHours: number;
+  durationInMinute: number;
+  peopleAttend: number;
+  status: "COMPLETE" | "RUNNING" | "UPCOMING";
+}
+
+export interface EventStatistic {
+  totalRevenue?: number;
+  sessionCompleted?: number;
+  sessionLength: number;
+  avgAttendanceRatePercent?: number;
+  sessionAttend?: number;
+  availableCommitment?: number | null;
+}
+
+export interface EventDetailOrganizer {
+  eventId: number;
+  title: string;
+  description: string;
+  imageUri: string;
+  priceAmount: number;
+  commitmentAmount: number;
+  totalAmount: number;
+  startSaleDate: number;
+  endSaleDate: number;
+  organizer: string;
+  location: string;
+  participantList: string[];
+  participant: number;
+  maxParticipant: number;
+  status: EventState;
+  canWithdraw: boolean;
+  session: SessionDetail[];
+  statistic: EventStatistic;
+}
+
+export interface EventDetailParticipant {
+  eventId: number;
+  title: string;
+  description: string;
+  imageUri: string;
+  priceAmount: number;
+  commitmentAmount: number;
+  totalAmount: number;
+  startSaleDate: number;
+  endSaleDate: number;
+  organizer: string;
+  location: string;
+  participantList: string[];
+  participant: number;
+  maxParticipant: number;
+  status: EventState;
+  session: SessionDetailParticipant[];
+  statistic: EventStatistic;
+}

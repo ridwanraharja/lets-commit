@@ -16,15 +16,14 @@ import {
   QRGeneratorModal,
 } from "../components";
 import { useDashboardService } from "../hooks/useDashboardService";
+import { useRole } from "../context/RoleContext";
 import {
   mapParticipantDashboard,
   mapOrganizerDashboard,
 } from "../utils/dashboardMapper";
 
 export default function UserDashboardPage() {
-  const [activeTab, setActiveTab] = useState<"participant" | "organizer">(
-    "participant"
-  );
+  const { role } = useRole();
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
   const [sessionCode, setSessionCode] = useState<string>("");
   const [showCodeInput, setShowCodeInput] = useState<boolean>(false);
@@ -33,12 +32,18 @@ export default function UserDashboardPage() {
   const { useGetParticipantDashboard, useGetOrganizerDashboard } =
     useDashboardService();
 
+  // Only fetch the dashboard that matches the current role
   const participantQuery = useGetParticipantDashboard(
-    "0x0000000000000000000000000000000000000011"
+    "0x0000000000000000000000000000000000000011",
+    role === "participant"
   );
   const organizerQuery = useGetOrganizerDashboard(
-    "0x0000000000000000000000000000000000000002"
+    "0x0000000000000000000000000000000000000002",
+    role === "organizer"
   );
+
+  const currentQuery =
+    role === "participant" ? participantQuery : organizerQuery;
 
   const participantData = participantQuery.data
     ? mapParticipantDashboard(participantQuery.data)
@@ -78,31 +83,28 @@ export default function UserDashboardPage() {
     setSessionCode("");
   };
 
-  if (participantQuery.isLoading || organizerQuery.isLoading) {
+  if (currentQuery.isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-600 dark:text-gray-400">
-            Loading dashboard...
+            Loading {role} dashboard...
           </p>
         </div>
       </div>
     );
   }
 
-  if (participantQuery.isError || organizerQuery.isError) {
+  if (currentQuery.isError) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 dark:text-red-400 mb-4">
-            Failed to load dashboard data
+            Failed to load {role} dashboard data
           </p>
           <button
-            onClick={() => {
-              participantQuery.refetch();
-              organizerQuery.refetch();
-            }}
+            onClick={() => currentQuery.refetch()}
             className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
           >
             Retry
@@ -269,42 +271,39 @@ export default function UserDashboardPage() {
               </div>
             </div>
 
-            <div className="flex gap-2 w-full sm:gap-4 sm:w-auto">
-              <motion.button
-                onClick={() => setActiveTab("participant")}
-                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ${
-                  activeTab === "participant"
+            <div className="flex items-center gap-2">
+              <span
+                className={`px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm ${
+                  role === "participant"
                     ? "bg-blue-600 text-white shadow-lg"
-                    : "bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-700/70 backdrop-blur-sm"
+                    : "bg-purple-600 text-white shadow-lg"
                 }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
               >
-                <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Participant</span>
-                <span className="sm:hidden">Part</span>
-              </motion.button>
-              <motion.button
-                onClick={() => setActiveTab("organizer")}
-                className={`flex-1 sm:flex-none px-3 sm:px-4 py-2 rounded-lg font-medium text-xs sm:text-sm transition-all duration-200 ${
-                  activeTab === "organizer"
-                    ? "bg-purple-600 text-white shadow-lg"
-                    : "bg-white/50 dark:bg-gray-700/50 text-gray-700 dark:text-gray-300 hover:bg-white/70 dark:hover:bg-gray-700/70 backdrop-blur-sm"
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Organizer</span>
-                <span className="sm:hidden">Org</span>
-              </motion.button>
+                {role === "participant" ? (
+                  <>
+                    <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">
+                      Participant Dashboard
+                    </span>
+                    <span className="sm:hidden">Participant</span>
+                  </>
+                ) : (
+                  <>
+                    <TrendingUp className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">
+                      Organizer Dashboard
+                    </span>
+                    <span className="sm:hidden">Organizer</span>
+                  </>
+                )}
+              </span>
             </div>
           </div>
         </div>
       </header>
 
       <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8 relative z-10">
-        {activeTab === "participant" && (
+        {role === "participant" && (
           <div className="space-y-6 sm:space-y-8">
             <section>
               <div className="mb-4 sm:mb-6">
@@ -387,7 +386,7 @@ export default function UserDashboardPage() {
           </div>
         )}
 
-        {activeTab === "organizer" && (
+        {role === "organizer" && (
           <div className="space-y-6 sm:space-y-8">
             <section>
               <div className="mb-4 sm:mb-6">

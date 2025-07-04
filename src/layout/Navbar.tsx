@@ -2,12 +2,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate, Outlet, useLocation } from "react-router-dom";
 import { RiCloseLine, RiSunLine, RiMoonFill } from "react-icons/ri";
-import { Sparkles, Settings, Bell, User, LogOut } from "lucide-react";
+import { Sparkles, Settings, User, LogOut } from "lucide-react";
 import { ConnectButton } from "@xellar/kit";
 import { useAccount, useDisconnect, useBalance } from "wagmi";
 
 import Footer from "../components/Footer";
 import ScrollToTheTop from "../components/ScrollToTheTop";
+import RoleSwitch from "../components/RoleSwitch";
 import { useTheme } from "../hooks/useTheme";
 
 interface NavLinkInterface {
@@ -39,28 +40,23 @@ export default function Navbar() {
     address,
   });
 
-  // Scroll to top when route changes
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  // Enhanced scroll effect for glassmorphism
   useEffect(() => {
     const onScroll = (): void => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu when route changes
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // Close dropdowns when clicking outside - Fixed
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent): void => {
       const target = event.target as HTMLElement;
-      // Check if the click is outside mobile menu button
       if (
         !target.closest(".mobile-menu-button") &&
         !target.closest(".mobile-dropdown")
@@ -78,7 +74,6 @@ export default function Navbar() {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  // Enhanced links without badges - removed Home as it's now handled by logo
   const links: NavLinkInterface[] = [
     {
       to: "/explore",
@@ -87,7 +82,7 @@ export default function Navbar() {
       shortLabel: "Explore",
     },
     {
-      to: "/create",
+      to: "/create-event",
       label: "Create Event",
       icon: "ri-add-circle-line",
       shortLabel: "Create",
@@ -99,14 +94,13 @@ export default function Navbar() {
       shortLabel: "Dashboard",
     },
     {
-      to: "/aboutus",
+      to: "/about-us",
       label: "About Us",
       icon: "ri-information-line",
       shortLabel: "About",
     },
   ];
 
-  // Mobile-only links for bottom nav - replaced Profile with About Us
   const mobileNavLinks: MobileNavLink[] = [
     { to: "/", icon: "ri-home-line", label: "Home" },
     {
@@ -116,16 +110,15 @@ export default function Navbar() {
       notification: true,
     },
     {
-      to: "/create",
+      to: "/create-event",
       icon: "ri-add-circle-line",
       label: "Create",
       highlight: true,
     },
     { to: "/dashboard", icon: "ri-dashboard-line", label: "Dashboard" },
-    { to: "/aboutus", icon: "ri-information-line", label: "About" }, // Changed from Profile to About Us
+    { to: "/about-us", icon: "ri-information-line", label: "About" },
   ];
 
-  // Fixed mobile menu toggle
   const handleMobileMenuToggle = (
     e: React.MouseEvent<HTMLButtonElement>
   ): void => {
@@ -142,7 +135,6 @@ export default function Navbar() {
     setIsProfileOpen(!isProfileOpen);
   };
 
-  // Navigate function with scroll to top
   const handleNavigation = (path: string): void => {
     navigate(path);
     window.scrollTo(0, 0);
@@ -159,7 +151,6 @@ export default function Navbar() {
     window.scrollTo(0, 0);
   };
 
-  // Check if current route is home
   const isHome: boolean = location.pathname === "/";
 
   const getInitials = (address: string): string => {
@@ -172,7 +163,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Desktop/Tablet Top Navigation - NOW STARTS FROM lg: */}
       <nav
         className={`fixed top-0 left-0 w-full z-50 transition-all duration-200 ease-in-out ${
           isScrolled
@@ -182,7 +172,6 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-3 sm:px-4 md:px-6 py-3.5 md:py-6">
           <div className="flex justify-between items-center">
-            {/* Enhanced Logo with Animation - Responsive sizing */}
             <div
               className={`flex items-center gap-2 sm:gap-3 cursor-pointer group transition-all duration-200 ease-in-out ${
                 isHome ? "scale-105" : ""
@@ -221,7 +210,6 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Desktop Navigation - NOW STARTS FROM lg: ONLY */}
             <div className="hidden lg:flex gap-0.5 xl:gap-1">
               {links.map((link) => (
                 <NavLink
@@ -253,17 +241,9 @@ export default function Navbar() {
               ))}
             </div>
 
-            {/* Desktop Right Section - NOW STARTS FROM lg: ONLY */}
             <div className="hidden lg:flex items-center gap-3 xl:gap-4">
-              {/* Notifications */}
-              <button className="relative p-2.5 lg:p-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-xl lg:rounded-2xl transition-all duration-200 ease-in-out group">
-                <Bell className="w-5 h-5 group-hover:ring-2 group-hover:ring-blue-300 rounded transition-all duration-200 ease-in-out" />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full animate-pulse">
-                  <div className="w-full h-full bg-red-400 rounded-full animate-ping"></div>
-                </div>
-              </button>
+              {isConnected && address && <RoleSwitch />}
 
-              {/* Enhanced Theme Toggle */}
               <button
                 onClick={toggleTheme}
                 className="p-2.5 lg:p-3 text-gray-600 dark:text-gray-400 hover:text-orange-500 hover:bg-orange-50 dark:hover:bg-orange-900/20 rounded-xl lg:rounded-2xl transition-all duration-200 ease-in-out group"
@@ -363,9 +343,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Mobile/Tablet Right Section - VISIBLE UP TO lg: */}
             <div className="flex items-center gap-1 sm:gap-2 lg:hidden">
-              {/* Mobile Theme Toggle */}
               <button
                 onClick={toggleTheme}
                 className="p-2 sm:p-2.5 text-gray-600 dark:text-gray-400 hover:text-orange-500 rounded-lg transition-colors duration-200 ease-in-out touch-manipulation"
@@ -396,7 +374,6 @@ export default function Navbar() {
                 )}
               </div>
 
-              {/* Mobile Menu Button */}
               <button
                 onClick={handleMobileMenuToggle}
                 className="mobile-menu-button p-2 sm:p-2.5 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200 ease-in-out touch-manipulation relative z-[60]"
@@ -412,7 +389,6 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Enhanced Mobile/Tablet Dropdown Menu - VISIBLE UP TO lg: */}
           <div
             className={`mobile-dropdown lg:hidden overflow-hidden transition-all duration-700 ease-in-out ${
               isMenuOpen
@@ -423,7 +399,17 @@ export default function Navbar() {
           >
             <div className="bg-white/98 dark:bg-gray-800/98 backdrop-blur-2xl rounded-2xl sm:rounded-3xl border border-gray-200/50 dark:border-gray-700/50 shadow-2xl p-4 sm:p-6 transition-all duration-200 ease-in-out">
               <div className="flex flex-col gap-2 sm:gap-3">
-                {/* All Navigation Links for Mobile/Tablet Dropdown */}
+                {isConnected && address && (
+                  <div className="mb-2 p-3 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/20 dark:to-purple-900/20 rounded-xl border border-blue-200/50 dark:border-blue-700/50">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                        Current Role:
+                      </span>
+                      <RoleSwitch />
+                    </div>
+                  </div>
+                )}
+
                 {links.map((link) => (
                   <NavLink
                     key={link.to}
@@ -592,7 +578,6 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Enhanced Main Content Area with responsive padding */}
       <div className="pt-16 sm:pt-18 md:pt-20 lg:pt-24 pb-16 sm:pb-18 lg:pb-6 xl:pb-8 min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/20 to-purple-50/20 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-200 ease-in-out">
         <Outlet />
       </div>

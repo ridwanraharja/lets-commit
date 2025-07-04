@@ -10,8 +10,8 @@ export default function FeaturedEvent() {
   const { useGetEventsByState } = useEventService();
   const { data: apiEvents, isLoading, error } = useGetEventsByState("ON_SALE");
 
-  const displayEvents: IFeaturedEvent[] = apiEvents?.data
-    ? apiEvents.data.slice(0, 3).map(mapApiEventToFeaturedEvent)
+  const displayEvents: IFeaturedEvent[] = apiEvents
+    ? apiEvents.slice(0, 3).map(mapApiEventToFeaturedEvent)
     : [];
 
   return (

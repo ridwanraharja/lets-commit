@@ -17,9 +17,7 @@ export const eventService = {
   //   return response.data;
   // },
 
-  getEventsByState: async (
-    state: EventState
-  ): Promise<ApiResponse<Event[]>> => {
+  getEventsByState: async (state: EventState): Promise<Event[]> => {
     const response = await api.get(`/event?state=${state}`);
     return response.data;
   },

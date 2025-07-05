@@ -21,6 +21,7 @@ import {
 } from "../components";
 import { useDashboardService } from "../hooks/useDashboardService";
 import { useEventService } from "../hooks/useEventService";
+import { useLetsCommit } from "../hooks/useLetsCommit";
 import { useRole } from "../context/RoleContext";
 import {
   mapParticipantDashboard,
@@ -39,6 +40,7 @@ export default function UserDashboardPage() {
   const { useGetParticipantDashboard, useGetOrganizerDashboard } =
     useDashboardService();
   const { useGetEventsByState } = useEventService();
+  const { setSessionCode: setSessionCodeContract } = useLetsCommit();
 
   // Only fetch the dashboard that matches the current role
   const participantQuery = useGetParticipantDashboard(
@@ -112,9 +114,23 @@ export default function UserDashboardPage() {
     setSessionCode("");
   };
 
-  const handleConfirmCode = () => {
-    if (sessionCode.trim()) {
-      setShowCodeInput(false);
+  const handleConfirmCode = async () => {
+    if (sessionCode.trim() && selectedSession?.eventId) {
+      try {
+        // Call setSessionCode to set the code on the blockchain
+        const eventBigInt = BigInt(selectedSession.eventId);
+        const sessionIndex = parseInt(selectedSession.id.split("-")[1]); // Convert to 0-based index
+        console.log("selectedSession", selectedSession);
+        console.log("eventBigInt", eventBigInt);
+        console.log("sessionIndex", sessionIndex);
+        console.log("sessionCode", sessionCode);
+
+        await setSessionCodeContract(eventBigInt, sessionIndex, sessionCode);
+        setShowCodeInput(false);
+      } catch (error) {
+        console.error("Failed to set session code:", error);
+        // You might want to show an error message to the user here
+      }
     }
   };
 
@@ -347,19 +363,19 @@ export default function UserDashboardPage() {
                 <StatCard
                   icon={DollarSign}
                   title="Total Deposits"
-                  value={participantData.totalDeposits / 1000}
+                  value={participantData.totalDeposits}
                   color="blue"
                 />
                 <StatCard
                   icon={CheckCircle}
                   title="Available Cashback"
-                  value={participantData.availableCashback / 1000}
+                  value={participantData.availableCashback}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Claimed"
-                  value={participantData.totalClaimed / 1000}
+                  value={participantData.totalClaimed}
                   color="purple"
                 />
               </div>
@@ -375,6 +391,7 @@ export default function UserDashboardPage() {
                     <SessionList
                       sessions={participantData.upcomingSessions}
                       type="participant"
+                      sessionType="upcoming"
                     />
                   ),
                 },
@@ -386,6 +403,7 @@ export default function UserDashboardPage() {
                     <SessionList
                       sessions={participantData.completedSessions}
                       type="participant"
+                      sessionType="completed"
                     />
                   ),
                 },
@@ -410,19 +428,19 @@ export default function UserDashboardPage() {
                 <StatCard
                   icon={DollarSign}
                   title="Total Revenue"
-                  value={organizerData.totalRevenue / 1000}
+                  value={organizerData.totalRevenue}
                   color="purple"
                 />
                 <StatCard
                   icon={CheckCircle}
                   title="Available Withdrawal"
-                  value={organizerData.availableWithdrawal / 1000}
+                  value={organizerData.availableWithdrawal}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Withdrawn"
-                  value={organizerData.totalWithdrawn / 1000}
+                  value={organizerData.totalWithdrawn}
                   color="blue"
                 />
               </div>
@@ -443,7 +461,7 @@ export default function UserDashboardPage() {
                     Withdraw Funds
                   </motion.button>
                   <Link
-                    to="/create"
+                    to="/create-event"
                     className="w-full sm:flex-1 px-4 sm:px-6 py-3 bg-white/50 dark:bg-gray-700/50 border-2 border-gray-300/50 dark:border-gray-600/50 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-white/70 dark:hover:bg-gray-700/70 transition-all duration-200 text-center backdrop-blur-sm text-sm sm:text-base"
                   >
                     <Users className="w-4 h-4 sm:w-5 sm:h-5 inline mr-2" />
@@ -504,6 +522,7 @@ export default function UserDashboardPage() {
           showCodeInput={showCodeInput}
           onClose={handleCloseModal}
           onConfirm={handleConfirmCode}
+          eventId={selectedSession.eventId}
         />
       )}
     </div>

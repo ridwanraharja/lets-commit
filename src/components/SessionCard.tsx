@@ -14,6 +14,8 @@ export interface Session {
   totalParticipants: number;
   startSessionTime?: bigint;
   endSessionTime?: bigint;
+  eventId?: string;
+  isAttended?: boolean;
 }
 
 interface SessionCardProps {
@@ -54,6 +56,12 @@ export function SessionCard({
       default:
         return "Unknown";
     }
+  };
+
+  const getAttendedColor = (isAttended: boolean) => {
+    return isAttended
+      ? "bg-green-100/80 text-green-800 dark:bg-green-900/30 dark:text-green-400"
+      : "bg-red-100/80 text-red-800 dark:bg-red-900/30 dark:text-red-400";
   };
 
   const today = new Date().toLocaleDateString("en-US", {
@@ -97,13 +105,23 @@ export function SessionCard({
         </div>
 
         <div className="flex items-center gap-2 flex-shrink-0 ml-2">
-          <span
-            className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm whitespace-nowrap ${getStatusColor(
-              session.status
-            )}`}
-          >
-            {isToday ? "Today" : getStatusText(session.status)}
-          </span>
+          {type === "participant" && sessionType === "completed" ? (
+            <span
+              className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm whitespace-nowrap ${getAttendedColor(
+                session.isAttended ?? false
+              )}`}
+            >
+              {session?.isAttended ? "Attended" : "Not Attended"}
+            </span>
+          ) : (
+            <span
+              className={`px-2 py-1 rounded-full text-xs font-medium backdrop-blur-sm whitespace-nowrap ${getStatusColor(
+                session.status
+              )}`}
+            >
+              {isToday ? "Today" : getStatusText(session.status)}
+            </span>
+          )}
 
           {canGenerateQR && (
             <motion.button

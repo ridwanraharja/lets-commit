@@ -36,8 +36,10 @@ export const mapApiSessionToComponentSession = (
     status: finalStatus,
     deposit: 0,
     attendance: type === "completed" ? apiSession.attendance : undefined,
+    isAttended: apiSession.isAttended ?? undefined,
     startSessionTime,
     endSessionTime,
+    eventId: apiSession.eventId.toString(),
   };
 };
 

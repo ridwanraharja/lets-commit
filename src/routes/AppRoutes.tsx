@@ -11,6 +11,7 @@ import DonateSection from "../pages/DonateSection";
 import PartnershipSection from "../pages/PartnershipSection";
 import JoinCommunitySection from "../pages/JoinCommunitySection";
 import EventDetail from "../components/EventDetail";
+import CheckInPage from "../pages/CheckInPage";
 
 export const router = createBrowserRouter([
   {
@@ -53,6 +54,10 @@ export const router = createBrowserRouter([
       {
         path: "/events/:eventId",
         element: <EventDetail />,
+      },
+      {
+        path: "/checkin/:sessionId",
+        element: <CheckInPage />,
       },
       {
         path: "*",

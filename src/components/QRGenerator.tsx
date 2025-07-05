@@ -7,6 +7,7 @@ interface QRGeneratorProps {
   sessionTitle: string;
   eventTitle: string;
   sessionCode: string;
+  eventId?: string;
 }
 
 export function QRGenerator({
@@ -14,9 +15,14 @@ export function QRGenerator({
   sessionTitle,
   eventTitle,
   sessionCode,
+  eventId,
 }: QRGeneratorProps) {
   const [copied, setCopied] = useState(false);
-  const qrLink = `https://letscommit.app/checkin/${sessionId}?code=${sessionCode}`;
+  const qrLink = `${
+    window.location.origin
+  }/checkin/${sessionId}?code=${sessionCode}${
+    eventId ? `&eventId=${eventId}` : ""
+  }`;
 
   const copyToClipboard = async () => {
     try {

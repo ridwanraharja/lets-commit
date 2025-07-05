@@ -24,11 +24,19 @@ import {
   Star,
   Trophy,
   Target,
+  UserPlus,
+  Loader2,
 } from "lucide-react";
 import { useEventService } from "../hooks/useEventService";
 import { useRole } from "../context/RoleContext";
 import { SessionDetail, SessionDetailParticipant } from "../services/types";
+import { useLetsCommit } from "../hooks/useLetsCommit";
+import { useQueryClient } from "@tanstack/react-query";
+import ApprovalModal from "./ApprovalModal";
+import { QRGeneratorModal } from "./QRGeneratorModal";
+import { isSessionActive } from "../utils/contractUtils";
 import ImgFake from "../assets/BlockDevId.jpg";
+import numeral from "numeral";
 
 const EventDetail = () => {
   const { eventId } = useParams();
@@ -38,24 +46,130 @@ const EventDetail = () => {
     SessionDetail | SessionDetailParticipant | null
   >(null);
 
+  // Enrollment state
+  const [isEnrolling, setIsEnrolling] = useState(false);
+  const [enrollmentError, setEnrollmentError] = useState<string | null>(null);
+  const [enrollmentSuccess, setEnrollmentSuccess] = useState(false);
+  const [showApprovalModal, setShowApprovalModal] = useState(false);
+
+  // QR Modal state
+  const [sessionCode, setSessionCode] = useState<string>("");
+  const [showCodeInput, setShowCodeInput] = useState<boolean>(false);
+
+  const {
+    enrollEvent,
+    isConnected,
+    setSessionCode: setSessionCodeContract,
+  } = useLetsCommit();
+  const queryClient = useQueryClient();
+
   const { useGetEventById, useGetEventDetailForParticipant } =
     useEventService();
 
-  const organizerEventQuery = useGetEventById(
-    eventId || "",
-    role === "organizer"
-  );
+  // Determine which query to enable based on role and user address
+  const shouldFetchParticipantData =
+    (role === "participant" || role === "organizer") &&
+    !!address?.toLowerCase();
+
+  // Fetch participant data first to check if user is the event owner
   const participantEventQuery = useGetEventDetailForParticipant(
     eventId || "",
     address ?? "",
-    role === "participant"
+    shouldFetchParticipantData
   );
 
-  const eventQuery =
-    role === "organizer" ? organizerEventQuery : participantEventQuery;
-  const event = eventQuery.data;
+  // Check if user is the organizer based on participant query data
+  const isEventOrganizer =
+    participantEventQuery.data?.organizer === address?.toLowerCase();
 
-  if (eventQuery.isLoading) {
+  // Only fetch organizer data if user is organizer AND is the event owner
+  const shouldFetchOrganizerData =
+    role === "organizer" && !!address?.toLowerCase() && isEventOrganizer;
+
+  // Only fetch organizer data if user is organizer and owns the event
+  const organizerEventQuery = useGetEventById(
+    eventId || "",
+    shouldFetchOrganizerData
+  );
+
+  // Determine which event data to use based on role and available data
+  let finalEvent;
+  let isLoading = false;
+  let hasError = false;
+
+  if (role === "organizer") {
+    if (shouldFetchParticipantData) {
+      // For organizer, always start with participant data to check ownership
+      if (participantEventQuery.data) {
+        if (isEventOrganizer && organizerEventQuery.data) {
+          // User is the event owner and organizer data is available, use organizer data
+          isLoading = organizerEventQuery.isLoading;
+          hasError = organizerEventQuery.isError;
+          finalEvent = organizerEventQuery.data;
+        } else {
+          // User is organizer but not the event owner, use participant data
+          isLoading = participantEventQuery.isLoading;
+          hasError = participantEventQuery.isError;
+          finalEvent = participantEventQuery.data;
+        }
+      } else {
+        // Participant query failed or loading
+        isLoading =
+          participantEventQuery.isLoading ||
+          (isEventOrganizer && organizerEventQuery.isLoading);
+        hasError = participantEventQuery.isError;
+      }
+    } else {
+      // Organizer role but no address - show error
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Wallet Connection Required
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Please connect your wallet to view organizer details.
+            </p>
+            <Link
+              to="/explore"
+              className="mt-4 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Back to Events
+            </Link>
+          </div>
+        </div>
+      );
+    }
+  } else if (role === "participant") {
+    if (shouldFetchParticipantData) {
+      isLoading = participantEventQuery.isLoading;
+      hasError = participantEventQuery.isError;
+      finalEvent = participantEventQuery.data;
+    } else {
+      // Participant role but no address - show error
+      return (
+        <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Wallet Connection Required
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400">
+              Please connect your wallet to view participant details.
+            </p>
+            <Link
+              to="/explore"
+              className="mt-4 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Back to Events
+            </Link>
+          </div>
+        </div>
+      );
+    }
+  }
+
+  // Show loading state
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
         <div className="text-center">
@@ -68,15 +182,18 @@ const EventDetail = () => {
     );
   }
 
-  if (eventQuery.isError) {
+  // Show error state
+  if (hasError || !finalEvent) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Error Loading Event
+            {hasError ? "Error Loading Event" : "Event Not Found"}
           </h1>
           <p className="text-gray-600 dark:text-gray-400 mb-4">
-            Failed to load event details. Please try again.
+            {hasError
+              ? "Failed to load event details. Please try again."
+              : "The event you're looking for doesn't exist."}
           </p>
           <Link
             to="/explore"
@@ -89,26 +206,111 @@ const EventDetail = () => {
     );
   }
 
-  if (!event) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            Event Not Found
-          </h1>
-          <p className="text-gray-600 dark:text-gray-400">
-            The event you're looking for doesn't exist.
-          </p>
-          <Link
-            to="/explore"
-            className="mt-4 inline-block px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-          >
-            Back to Events
-          </Link>
-        </div>
-      </div>
-    );
-  }
+  const event = finalEvent;
+  const canRegister = role === "participant";
+  console.log("event", event);
+
+  // Enrollment handlers
+  const handleEnrollClick = () => {
+    if (!isConnected) {
+      setEnrollmentError("Please connect your wallet first");
+      return;
+    }
+
+    if (isEventFinished) {
+      setEnrollmentError("This event has already ended");
+      return;
+    }
+
+    if (isEventFull) {
+      setEnrollmentError("Event is full");
+      return;
+    }
+
+    if (isOwnEvent) {
+      setEnrollmentError("You cannot enroll in your own event");
+      return;
+    }
+
+    setShowApprovalModal(true);
+    setEnrollmentError(null);
+  };
+
+  // Handle enrollment after approval
+  const handleEnroll = async () => {
+    setIsEnrolling(true);
+    setEnrollmentError(null);
+    setEnrollmentSuccess(false);
+
+    try {
+      const eventId = BigInt(event?.eventId || 0);
+      await enrollEvent(eventId);
+
+      setEnrollmentSuccess(true);
+
+      await queryClient.invalidateQueries({ queryKey: ["events"] });
+      await queryClient.invalidateQueries({ queryKey: ["event", eventId] });
+    } catch (error) {
+      console.error("Enrollment failed:", error);
+      setEnrollmentError(
+        error instanceof Error ? error.message : "Failed to enroll in event"
+      );
+    } finally {
+      setIsEnrolling(false);
+    }
+  };
+
+  const handleApprovalModalClose = () => {
+    setShowApprovalModal(false);
+  };
+
+  const handleApprovalSuccess = () => {
+    setShowApprovalModal(false);
+    handleEnroll();
+  };
+
+  // QR Modal handlers
+  const handleGenerateQR = (
+    session: SessionDetail | SessionDetailParticipant
+  ) => {
+    setSelectedSession(session);
+    setShowCodeInput(true);
+    setSessionCode("");
+  };
+
+  const handleConfirmCode = async () => {
+    if (sessionCode.trim() && eventId && selectedSession) {
+      try {
+        // Call setSessionCode to set the code on the blockchain
+        const eventBigInt = BigInt(eventId);
+        const sessionIndex = selectedSession.sessionNumber - 1; // Convert to 0-based index
+
+        await setSessionCodeContract(eventBigInt, sessionIndex, sessionCode);
+        setShowCodeInput(false);
+      } catch (error) {
+        console.error("Failed to set session code:", error);
+        // You might want to show an error message to the user here
+      }
+    }
+  };
+
+  const handleCloseQRModal = () => {
+    setSelectedSession(null);
+    setShowCodeInput(false);
+    setSessionCode("");
+  };
+
+  // Check if user is already enrolled
+  const isEnrolled =
+    event?.participantList?.includes(address?.toLowerCase() ?? "") || false;
+
+  // Check if user is the organizer (can't enroll in own event)
+  const isOwnEvent = event?.organizer === address?.toLowerCase();
+
+  const isEventFull = (event?.participant || 0) >= (event?.maxParticipant || 0);
+
+  // Check if event is finished
+  const isEventFinished = event?.status === "FINISHED";
 
   const calculateDuration = () => {
     if (!event.session || event.session.length === 0) return "1 day";
@@ -244,7 +446,7 @@ const EventDetail = () => {
   };
 
   const formatPrice = (amount: number) => {
-    return `$${(amount / 1000000).toFixed(2)}`;
+    return `${numeral(amount).format("0,0")} IDRX`;
   };
 
   const participantPercentage =
@@ -599,19 +801,37 @@ const EventDetail = () => {
                           </>
                         ) : (
                           <>
-                            {"activeQrButton" in session &&
-                              session.activeQrButton && (
-                                <button
-                                  onClick={() => setSelectedSession(session)}
-                                  className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1"
-                                >
-                                  <QrCode className="w-4 h-4" />
-                                  Generate QR
-                                </button>
-                              )}
-                            <button className="px-3 py-1.5 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                              View Details
-                            </button>
+                            {role === "organizer" && isEventOrganizer && (
+                              <>
+                                {/* Check if session is currently active using the same logic as dashboard */}
+                                {(() => {
+                                  const startTimestamp =
+                                    "startSession" in session
+                                      ? session.startSession
+                                      : session.startSessionEpochSecond;
+                                  const endTimestamp =
+                                    "endSession" in session
+                                      ? session.endSession
+                                      : session.endSessionEpochSecond;
+
+                                  const isSessionActuallyActive =
+                                    isSessionActive(
+                                      BigInt(startTimestamp),
+                                      BigInt(endTimestamp)
+                                    );
+
+                                  return isSessionActuallyActive ? (
+                                    <button
+                                      onClick={() => handleGenerateQR(session)}
+                                      className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1"
+                                    >
+                                      <QrCode className="w-4 h-4" />
+                                      Generate QR
+                                    </button>
+                                  ) : null;
+                                })()}
+                              </>
+                            )}
                           </>
                         )}
                       </div>
@@ -722,89 +942,163 @@ const EventDetail = () => {
           )}
         </motion.div>
 
-        {selectedSession && role === "organizer" && (
-          <motion.div
-            className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <motion.div
-              className="bg-white dark:bg-gray-800 rounded-2xl max-w-md w-full shadow-2xl border border-gray-200/50 dark:border-gray-700/50"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50 flex items-center justify-between">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white">
-                  Session Check-in QR
-                </h3>
-                <button
-                  onClick={() => setSelectedSession(null)}
-                  className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
-                >
-                  <span className="text-2xl text-gray-500 dark:text-gray-400">
-                    ×
-                  </span>
-                </button>
-              </div>
-              <div className="p-6">
-                <div className="text-center">
-                  <div className="w-48 h-48 bg-gradient-to-br from-blue-100 to-purple-100 dark:from-blue-900/20 dark:to-purple-900/20 rounded-2xl flex items-center justify-center mx-auto mb-4 border-2 border-dashed border-blue-300 dark:border-blue-600">
-                    <QrCode className="w-24 h-24 text-blue-500 dark:text-blue-400" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900 dark:text-white mb-2">
-                    {selectedSession.title}
-                  </h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                    {formatSessionDate(selectedSession)}
-                  </p>
-                  <div className="space-y-2">
-                    <button className="w-full px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-medium rounded-lg hover:opacity-90 transition-opacity">
-                      Generate New QR Code
-                    </button>
-                    <button className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
-                      Download QR Code
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
+        {selectedSession && role === "organizer" && isEventOrganizer && (
+          <QRGeneratorModal
+            session={{
+              id: selectedSession.sessionNumber.toString(),
+              title: selectedSession.title,
+              date: formatSessionDate(selectedSession).split(" at ")[0],
+              time: formatSessionDate(selectedSession).split(" at ")[1] || "",
+              location: event?.location || "",
+              status:
+                selectedSession.status === "RUNNING"
+                  ? "active"
+                  : selectedSession.status === "COMPLETE"
+                  ? "completed"
+                  : "upcoming",
+              deposit: event?.commitmentAmount
+                ? event.commitmentAmount / (event.session?.length || 1)
+                : 0,
+              attendance: selectedSession.peopleAttend,
+              totalParticipants: event?.maxParticipant || 0,
+              startSessionTime: BigInt(
+                "startSession" in selectedSession
+                  ? selectedSession.startSession
+                  : selectedSession.startSessionEpochSecond
+              ),
+              endSessionTime: BigInt(
+                "endSession" in selectedSession
+                  ? selectedSession.endSession
+                  : selectedSession.endSessionEpochSecond
+              ),
+              eventId: eventId,
+            }}
+            sessionCode={sessionCode}
+            setSessionCode={setSessionCode}
+            showCodeInput={showCodeInput}
+            onClose={handleCloseQRModal}
+            onConfirm={handleConfirmCode}
+            eventId={eventId}
+          />
         )}
 
-        <motion.div
-          className="flex flex-col sm:flex-row gap-4 justify-center mt-12"
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
-        >
-          {event.status === "ON_SALE" ? (
-            <>
-              <Link
-                to={`/events/${event.eventId}/register`}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 text-center"
-              >
-                Register for Event - {formatPrice(totalPrice)}
-              </Link>
-              <button className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold text-lg rounded-2xl hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300">
-                Add to Wishlist
+        {/* Show action buttons for participants, or message for organizers viewing other events */}
+        {canRegister ? (
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 justify-center mt-12"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            {/* Error Message */}
+            {enrollmentError && (
+              <div className="w-full mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-xl">
+                <p className="text-sm text-red-600 dark:text-red-400 text-center">
+                  {enrollmentError}
+                </p>
+              </div>
+            )}
+
+            {/* Success Message */}
+            {enrollmentSuccess && (
+              <div className="w-full mb-4 p-4 bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-xl">
+                <p className="text-sm text-green-600 dark:text-green-400 text-center">
+                  Successfully enrolled! Check your wallet for transaction
+                  details.
+                </p>
+              </div>
+            )}
+
+            {event.status === "ON_SALE" ? (
+              <>
+                {isEnrolled ? (
+                  <button
+                    disabled
+                    className="px-8 py-4 bg-green-600 text-white font-bold text-lg rounded-2xl cursor-not-allowed opacity-80"
+                  >
+                    Enrolled!
+                  </button>
+                ) : isOwnEvent ? (
+                  <button
+                    disabled
+                    className="px-8 py-4 bg-gray-400 text-white font-bold text-lg rounded-2xl cursor-not-allowed opacity-60"
+                  >
+                    Your Own Event
+                  </button>
+                ) : isEventFull ? (
+                  <button
+                    disabled
+                    className="px-8 py-4 bg-gray-400 text-white font-bold text-lg rounded-2xl cursor-not-allowed opacity-60"
+                  >
+                    Event Full
+                  </button>
+                ) : !isConnected ? (
+                  <button
+                    onClick={handleEnrollClick}
+                    className="px-8 py-4 bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                  >
+                    Connect Wallet to Register
+                  </button>
+                ) : (
+                  <button
+                    onClick={handleEnrollClick}
+                    disabled={isEnrolling}
+                    className="px-8 py-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {isEnrolling ? (
+                      <>
+                        <Loader2 className="w-5 h-5 animate-spin" />
+                        Enrolling...
+                      </>
+                    ) : (
+                      <>
+                        <UserPlus className="w-5 h-5" />
+                        Register for Event - {formatPrice(totalPrice)}
+                      </>
+                    )}
+                  </button>
+                )}
+                <button className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold text-lg rounded-2xl hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300">
+                  Add to Wishlist
+                </button>
+              </>
+            ) : event.status === "ON_GOING" ? (
+              <button className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
+                Join Live Session
               </button>
-            </>
-          ) : event.status === "ON_GOING" ? (
-            <button className="px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold text-lg rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              Join Live Session
-            </button>
-          ) : (
-            <button
-              disabled
-              className="px-8 py-4 bg-gray-400 text-white font-bold text-lg rounded-2xl cursor-not-allowed opacity-60"
-            >
-              Event Ended
-            </button>
-          )}
-        </motion.div>
+            ) : (
+              <button
+                disabled
+                className="px-8 py-4 bg-gray-400 text-white font-bold text-lg rounded-2xl cursor-not-allowed opacity-60"
+              >
+                Event Ended
+              </button>
+            )}
+          </motion.div>
+        ) : role === "organizer" && !isEventOrganizer ? (
+          <motion.div
+            className="flex flex-col items-center justify-center mt-12 p-8 bg-gradient-to-r from-orange-50 to-red-50 dark:from-orange-900/20 dark:to-red-900/20 rounded-2xl border border-orange-200/50 dark:border-orange-700/50"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            <div className="text-center">
+              <h3 className="text-xl font-semibold text-orange-800 dark:text-orange-300 mb-2">
+                Switch to Participant Role
+              </h3>
+              <p className="text-orange-700 dark:text-orange-400 mb-4">
+                To register for this event, you need to switch from Organizer to
+                Participant role first.
+              </p>
+              <Link
+                to="/explore"
+                className="inline-block px-6 py-3 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors"
+              >
+                Switch Role & Register
+              </Link>
+            </div>
+          </motion.div>
+        ) : null}
 
         <motion.div
           className="mt-12 grid grid-cols-1 lg:grid-cols-2 gap-8"
@@ -959,6 +1253,15 @@ const EventDetail = () => {
           </div>
         </motion.div>
       </div>
+
+      {/* Approval Modal */}
+      <ApprovalModal
+        isOpen={showApprovalModal}
+        onClose={handleApprovalModalClose}
+        onApproved={handleApprovalSuccess}
+        eventTitle={event?.title || ""}
+        totalAmount={totalPrice}
+      />
     </div>
   );
 };

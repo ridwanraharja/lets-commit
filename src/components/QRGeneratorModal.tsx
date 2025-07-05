@@ -8,6 +8,7 @@ interface QRGeneratorModalProps {
   showCodeInput: boolean;
   onClose: () => void;
   onConfirm: () => void;
+  eventId?: string;
 }
 
 export function QRGeneratorModal({
@@ -17,6 +18,7 @@ export function QRGeneratorModal({
   showCodeInput,
   onClose,
   onConfirm,
+  eventId,
 }: QRGeneratorModalProps) {
   console.log("session", session);
   // const today = new Date().toLocaleDateString("en-US", {
@@ -105,6 +107,7 @@ export function QRGeneratorModal({
               sessionTitle={session.title}
               eventTitle={session.title}
               sessionCode={sessionCode}
+              eventId={eventId}
             />
           )}
         </div>

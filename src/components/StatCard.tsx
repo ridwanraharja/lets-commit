@@ -88,9 +88,9 @@ export function StatCard({ icon: Icon, title, value, color }: StatCardProps) {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            ${value.toLocaleString()}
+            {value.toLocaleString()}
           </motion.p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">USDT</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">IDRX</p>
         </div>
       </div>
 

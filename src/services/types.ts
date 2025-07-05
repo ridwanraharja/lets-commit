@@ -67,6 +67,7 @@ export interface Session {
   isLinkGenerated?: boolean | null;
   totalParticipants: number;
   attendance?: number;
+  isAttended?: boolean;
 }
 
 export interface DashboardStatistic {

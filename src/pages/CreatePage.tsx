@@ -192,17 +192,17 @@ export default function CreatePage() {
         throw new Error("End sale date must be after start sale date");
       }
 
-      const saleEndDate = new Date(eventData.endSaleDate);
+      // const saleEndDate = new Date(eventData.endSaleDate);
       for (const session of sessions) {
         const sessionDate = new Date(session.date);
         if (isNaN(sessionDate.getTime())) {
           throw new Error("Please enter valid dates for all sessions");
         }
-        if (sessionDate <= saleEndDate) {
-          throw new Error(
-            "All sessions must be scheduled after the sale end date"
-          );
-        }
+        // if (sessionDate <= saleEndDate) {
+        //   throw new Error(
+        //     "All sessions must be scheduled after the sale end date"
+        //   );
+        // }
       }
 
       for (const session of sessions) {

@@ -4,23 +4,27 @@ import {
   OrganizerDashboard,
 } from "../services/types";
 import { Session as ComponentSession } from "../components/SessionCard";
-import { parse, format, isToday } from "date-fns";
+import { format } from "date-fns";
+import { toZonedTime } from "date-fns-tz";
+import { isSessionActive } from "./contractUtils";
 
 export const mapApiSessionToComponentSession = (
   apiSession: ApiSession,
   type: "upcoming" | "completed" | "active" = "upcoming"
 ): ComponentSession => {
-  const startDate = parse(
-    apiSession.startSessionHumanReadable,
-    "dd-MM-yyyy HH:mm:ss",
-    new Date()
-  );
+  const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const utcDate = new Date(apiSession.startSession * 1000);
 
-  const date = format(startDate, "MMM dd, yyyy");
-  const time = format(startDate, "h:mm a");
+  // Convert UTC to user's local timezone
+  const localDate = toZonedTime(utcDate, userTimezone);
 
-  const sessionIsToday = isToday(startDate);
-  const finalStatus = sessionIsToday ? "active" : type;
+  const date = format(localDate, "MMM dd, yyyy");
+  const time = format(localDate, "h:mm a");
+
+  const startSessionTime = BigInt(apiSession.startSession);
+  const endSessionTime = BigInt(apiSession.endSession);
+  const isActuallyActive = isSessionActive(startSessionTime, endSessionTime);
+  const finalStatus = isActuallyActive ? "active" : type;
 
   return {
     id: `${apiSession.eventId}-${apiSession.sessionNumber}`,
@@ -32,6 +36,8 @@ export const mapApiSessionToComponentSession = (
     status: finalStatus,
     deposit: 0,
     attendance: type === "completed" ? apiSession.attendance : undefined,
+    startSessionTime,
+    endSessionTime,
   };
 };
 

@@ -137,8 +137,6 @@ export default function UserDashboardPage() {
     );
   }
 
-  // If there's an error, we'll still show the dashboard with zero data
-  // instead of showing an error message
   if (currentQuery.isError) {
     console.warn(
       `Failed to load ${role} dashboard data, showing empty dashboard`
@@ -486,6 +484,7 @@ export default function UserDashboardPage() {
                     <SessionList
                       sessions={organizerData.completedSessions}
                       type="organizer"
+                      onGenerateQR={handleGenerateQR}
                       sessionType="completed"
                     />
                   ),

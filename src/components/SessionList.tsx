@@ -15,7 +15,21 @@ export function SessionList({
   onGenerateQR,
   sessionType = "upcoming",
 }: SessionListProps) {
-  if (sessions.length === 0) {
+  const sortedSessions = [...sessions].sort((a, b) => {
+    if (sessionType === "upcoming") {
+      // Sort upcoming sessions by closest start time (earliest first)
+      const dateA = new Date(`${a.date} ${a.time}`);
+      const dateB = new Date(`${b.date} ${b.time}`);
+      return dateA.getTime() - dateB.getTime();
+    } else {
+      // Sort completed sessions by most recently completed (latest first)
+      const dateA = new Date(`${a.date} ${a.time}`);
+      const dateB = new Date(`${b.date} ${b.time}`);
+      return dateB.getTime() - dateA.getTime();
+    }
+  });
+
+  if (sortedSessions.length === 0) {
     // More specific empty state for active/completed
     let title = "No sessions found";
     let message =
@@ -86,7 +100,7 @@ export function SessionList({
 
   return (
     <div className="space-y-4 lg:space-y-6">
-      {sessions.map((session) => (
+      {sortedSessions.map((session) => (
         <SessionCard
           key={session.id}
           session={session}

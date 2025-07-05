@@ -18,12 +18,13 @@ export function QRGeneratorModal({
   onClose,
   onConfirm,
 }: QRGeneratorModalProps) {
-  const today = new Date().toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-  });
-  const isToday = session.date === today;
+  console.log("session", session);
+  // const today = new Date().toLocaleDateString("en-US", {
+  //   year: "numeric",
+  //   month: "short",
+  //   day: "numeric",
+  // });
+  // const isToday = session.date === today;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -40,7 +41,7 @@ export function QRGeneratorModal({
           </button>
         </div>
         <div className="p-6">
-          {!isToday ? (
+          {/* {!isToday ? (
             <div className="text-center py-8">
               <div className="w-16 h-16 bg-yellow-100 dark:bg-yellow-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
                 <svg
@@ -65,7 +66,8 @@ export function QRGeneratorModal({
                 {today})
               </p>
             </div>
-          ) : showCodeInput ? (
+          ) :  */}
+          {showCodeInput ? (
             <div className="space-y-4">
               <div>
                 <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">

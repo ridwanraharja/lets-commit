@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, MapPin, Users, QrCode } from "lucide-react";
+import { isSessionActive } from "../utils/contractUtils";
 
 export interface Session {
   id: string;
@@ -11,6 +12,8 @@ export interface Session {
   deposit: number;
   attendance?: number;
   totalParticipants: number;
+  startSessionTime?: bigint;
+  endSessionTime?: bigint;
 }
 
 interface SessionCardProps {
@@ -60,6 +63,13 @@ export function SessionCard({
   });
   const isToday = session.date === today;
 
+  const isSessionActuallyActive =
+    session.startSessionTime && session.endSessionTime
+      ? isSessionActive(session.startSessionTime, session.endSessionTime)
+      : false;
+
+  const canGenerateQR = type === "organizer" && isSessionActuallyActive;
+
   return (
     <motion.div
       className="group bg-white/60 dark:bg-gray-800/60 backdrop-blur-sm rounded-lg border border-gray-200/50 dark:border-gray-700/50 p-3 sm:p-4 hover:shadow-md hover:bg-white/80 dark:hover:bg-gray-800/80 transition-all duration-300"
@@ -95,9 +105,9 @@ export function SessionCard({
             {isToday ? "Today" : getStatusText(session.status)}
           </span>
 
-          {type === "organizer" && isToday && onGenerateQR && (
+          {canGenerateQR && (
             <motion.button
-              onClick={() => onGenerateQR(session)}
+              onClick={() => onGenerateQR?.(session)}
               className="p-1.5 bg-blue-100/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-200/80 dark:hover:bg-blue-900/50 transition-colors backdrop-blur-sm flex-shrink-0"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}

@@ -35,12 +35,14 @@ export default function UserDashboardPage() {
   const [selectedSession, setSelectedSession] = useState<Session | null>(null);
   const [sessionCode, setSessionCode] = useState<string>("");
   const [showCodeInput, setShowCodeInput] = useState<boolean>(false);
+  const [claimingEventId, setClaimingEventId] = useState<string | null>(null);
 
   const { address } = useAccount();
   const { useGetParticipantDashboard, useGetOrganizerDashboard } =
     useDashboardService();
   const { useGetEventsByState } = useEventService();
-  const { setSessionCode: setSessionCodeContract } = useLetsCommit();
+  const { setSessionCode: setSessionCodeContract, claimFirstPortion } =
+    useLetsCommit();
 
   // Only fetch the dashboard that matches the current role
   const participantQuery = useGetParticipantDashboard(
@@ -138,6 +140,23 @@ export default function UserDashboardPage() {
     setSelectedSession(null);
     setShowCodeInput(false);
     setSessionCode("");
+  };
+
+  const handleClaimFirstPortion = async (eventId: string) => {
+    if (claimingEventId) return; // Prevent multiple claims
+
+    try {
+      setClaimingEventId(eventId);
+      const eventBigInt = BigInt(eventId);
+      await claimFirstPortion(eventBigInt);
+      console.log("Successfully claimed first portion for event:", eventId);
+      // You might want to show a success message or refresh the data here
+    } catch (error) {
+      console.error("Failed to claim first portion:", error);
+      // You might want to show an error message to the user here
+    } finally {
+      setClaimingEventId(null);
+    }
   };
 
   if (currentQuery.isLoading) {
@@ -478,7 +497,12 @@ export default function UserDashboardPage() {
                   label: "My Events",
                   icon: Calendar,
                   content: (
-                    <EventList events={organizerEvents} isLoading={isLoading} />
+                    <EventList
+                      events={organizerEvents}
+                      isLoading={isLoading}
+                      onClaimFirstPortion={handleClaimFirstPortion}
+                      isClaiming={!!claimingEventId}
+                    />
                   ),
                 },
                 {

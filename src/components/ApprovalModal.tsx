@@ -264,13 +264,13 @@ export default function ApprovalModal({
                       </h4>
                       <div className="space-y-1 text-gray-600 dark:text-gray-400">
                         <p>
-                          Required Amount:{" "}
-                          {numeral(totalAmount).format("0,0.00")} IDRX
+                          Required Amount: {numeral(totalAmount).format("0,0")}{" "}
+                          IDRX
                         </p>
                         <p>
                           Your Balance:{" "}
                           {userBalance
-                            ? numeral(userBalance.balance).format("0,0.00")
+                            ? numeral(userBalance.balance).format("0,0")
                             : "0"}{" "}
                           IDRX
                         </p>
@@ -298,7 +298,7 @@ export default function ApprovalModal({
                           Approving...
                         </div>
                       ) : (
-                        `Approve ${numeral(totalAmount).format("0,0.00")} IDRX`
+                        `Approve ${numeral(totalAmount).format("0,0")} IDRX`
                       )}
                     </button>
                   ) : (

@@ -16,6 +16,7 @@ export interface Session {
   endSessionTime?: bigint;
   eventId?: string;
   isAttended?: boolean;
+  generateLinkButtonEnable?: boolean;
 }
 
 interface SessionCardProps {
@@ -126,10 +127,21 @@ export function SessionCard({
           {canGenerateQR && (
             <motion.button
               onClick={() => onGenerateQR?.(session)}
-              className="p-1.5 bg-blue-100/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-200/80 dark:hover:bg-blue-900/50 transition-colors backdrop-blur-sm flex-shrink-0"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              title="Generate QR Code"
+              disabled={session.generateLinkButtonEnable}
+              className={`p-1.5 rounded-lg transition-colors backdrop-blur-sm flex-shrink-0 ${
+                session.generateLinkButtonEnable
+                  ? "bg-gray-100/80 dark:bg-gray-900/30 text-gray-400 dark:text-gray-500 cursor-not-allowed"
+                  : "bg-blue-100/80 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-200/80 dark:hover:bg-blue-900/50"
+              }`}
+              whileHover={
+                session.generateLinkButtonEnable ? {} : { scale: 1.1 }
+              }
+              whileTap={session.generateLinkButtonEnable ? {} : { scale: 0.9 }}
+              title={
+                session.generateLinkButtonEnable
+                  ? "QR Code already generated"
+                  : "Generate QR Code"
+              }
             >
               <QrCode className="w-4 h-4" />
             </motion.button>

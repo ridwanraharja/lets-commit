@@ -68,6 +68,7 @@ export interface Session {
   totalParticipants: number;
   attendance?: number;
   isAttended?: boolean;
+  generateLinkButtonEnable?: boolean;
 }
 
 export interface DashboardStatistic {

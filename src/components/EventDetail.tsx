@@ -1,13 +1,6 @@
 import { useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import {
-  format,
-  formatDistance,
-  differenceInDays,
-  isSameDay,
-  fromUnixTime,
-} from "date-fns";
 import { useAccount } from "wagmi";
 import {
   Calendar,
@@ -36,7 +29,19 @@ import ApprovalModal from "./ApprovalModal";
 import { QRGeneratorModal } from "./QRGeneratorModal";
 import { isSessionActive } from "../utils/contractUtils";
 import ImgFake from "../assets/BlockDevId.jpg";
-import numeral from "numeral";
+import {
+  calculateDuration,
+  formatDateRange,
+  formatSessionDate,
+  getRelativeTime,
+  formatSessionDuration,
+  getStatusBadgeConfig,
+  formatPrice,
+  validateEnrollment,
+  getEventState,
+  getSessionDepositAmount,
+  getSessionTimestamp,
+} from "../utils/eventDetailUtils";
 
 const EventDetail = () => {
   const { eventId } = useParams();
@@ -46,13 +51,11 @@ const EventDetail = () => {
     SessionDetail | SessionDetailParticipant | null
   >(null);
 
-  // Enrollment state
   const [isEnrolling, setIsEnrolling] = useState(false);
   const [enrollmentError, setEnrollmentError] = useState<string | null>(null);
   const [enrollmentSuccess, setEnrollmentSuccess] = useState(false);
   const [showApprovalModal, setShowApprovalModal] = useState(false);
 
-  // QR Modal state
   const [sessionCode, setSessionCode] = useState<string>("");
   const [showCodeInput, setShowCodeInput] = useState<boolean>(false);
 
@@ -66,7 +69,6 @@ const EventDetail = () => {
   const { useGetEventById, useGetEventDetailForParticipant } =
     useEventService();
 
-  // Determine which query to enable based on role and user address
   const shouldFetchParticipantData =
     (role === "participant" || role === "organizer") &&
     !!address?.toLowerCase();
@@ -92,7 +94,6 @@ const EventDetail = () => {
     shouldFetchOrganizerData
   );
 
-  // Determine which event data to use based on role and available data
   let finalEvent;
   let isLoading = false;
   let hasError = false;
@@ -102,25 +103,21 @@ const EventDetail = () => {
       // For organizer, always start with participant data to check ownership
       if (participantEventQuery.data) {
         if (isEventOrganizer && organizerEventQuery.data) {
-          // User is the event owner and organizer data is available, use organizer data
           isLoading = organizerEventQuery.isLoading;
           hasError = organizerEventQuery.isError;
           finalEvent = organizerEventQuery.data;
         } else {
-          // User is organizer but not the event owner, use participant data
           isLoading = participantEventQuery.isLoading;
           hasError = participantEventQuery.isError;
           finalEvent = participantEventQuery.data;
         }
       } else {
-        // Participant query failed or loading
         isLoading =
           participantEventQuery.isLoading ||
           (isEventOrganizer && organizerEventQuery.isLoading);
         hasError = participantEventQuery.isError;
       }
     } else {
-      // Organizer role but no address - show error
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
           <div className="text-center">
@@ -146,7 +143,6 @@ const EventDetail = () => {
       hasError = participantEventQuery.isError;
       finalEvent = participantEventQuery.data;
     } else {
-      // Participant role but no address - show error
       return (
         <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
           <div className="text-center">
@@ -168,7 +164,6 @@ const EventDetail = () => {
     }
   }
 
-  // Show loading state
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
@@ -182,7 +177,6 @@ const EventDetail = () => {
     );
   }
 
-  // Show error state
   if (hasError || !finalEvent) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 flex items-center justify-center">
@@ -210,25 +204,15 @@ const EventDetail = () => {
   const canRegister = role === "participant";
   console.log("event", event);
 
-  // Enrollment handlers
   const handleEnrollClick = () => {
-    if (!isConnected) {
-      setEnrollmentError("Please connect your wallet first");
-      return;
-    }
-
-    if (isEventFinished) {
-      setEnrollmentError("This event has already ended");
-      return;
-    }
-
-    if (isEventFull) {
-      setEnrollmentError("Event is full");
-      return;
-    }
-
-    if (isOwnEvent) {
-      setEnrollmentError("You cannot enroll in your own event");
+    const error = validateEnrollment(
+      isConnected,
+      isEventFinished,
+      isEventFull,
+      isOwnEvent
+    );
+    if (error) {
+      setEnrollmentError(error);
       return;
     }
 
@@ -236,7 +220,6 @@ const EventDetail = () => {
     setEnrollmentError(null);
   };
 
-  // Handle enrollment after approval
   const handleEnroll = async () => {
     setIsEnrolling(true);
     setEnrollmentError(null);
@@ -269,7 +252,6 @@ const EventDetail = () => {
     handleEnroll();
   };
 
-  // QR Modal handlers
   const handleGenerateQR = (
     session: SessionDetail | SessionDetailParticipant
   ) => {
@@ -281,15 +263,13 @@ const EventDetail = () => {
   const handleConfirmCode = async () => {
     if (sessionCode.trim() && eventId && selectedSession) {
       try {
-        // Call setSessionCode to set the code on the blockchain
         const eventBigInt = BigInt(eventId);
-        const sessionIndex = selectedSession.sessionNumber - 1; // Convert to 0-based index
+        const sessionIndex = selectedSession.sessionNumber - 1;
 
         await setSessionCodeContract(eventBigInt, sessionIndex, sessionCode);
         setShowCodeInput(false);
       } catch (error) {
         console.error("Failed to set session code:", error);
-        // You might want to show an error message to the user here
       }
     }
   };
@@ -300,158 +280,25 @@ const EventDetail = () => {
     setSessionCode("");
   };
 
-  // Check if user is already enrolled
-  const isEnrolled =
-    event?.participantList?.includes(address?.toLowerCase() ?? "") || false;
-
-  // Check if user is the organizer (can't enroll in own event)
-  const isOwnEvent = event?.organizer === address?.toLowerCase();
-
-  const isEventFull = (event?.participant || 0) >= (event?.maxParticipant || 0);
-
-  // Check if event is finished
-  const isEventFinished = event?.status === "FINISHED";
-
-  const calculateDuration = () => {
-    if (!event.session || event.session.length === 0) return "1 day";
-    const firstSession = event.session[0];
-    const lastSession = event.session[event.session.length - 1];
-
-    const startTimestamp =
-      "startSession" in firstSession
-        ? firstSession.startSession
-        : firstSession.startSessionEpochSecond;
-    const endTimestamp =
-      "endSession" in lastSession
-        ? lastSession.endSession
-        : lastSession.endSessionEpochSecond;
-
-    const startDate = fromUnixTime(startTimestamp);
-    const endDate = fromUnixTime(endTimestamp);
-    const diffDays = differenceInDays(endDate, startDate) + 1;
-    return diffDays === 1 ? "1 day" : `${diffDays} days`;
-  };
-
-  const formatDateRange = () => {
-    if (!event.session || event.session.length === 0) return "TBD";
-
-    const firstSession = event.session[0];
-    const lastSession = event.session[event.session.length - 1];
-
-    const startTimestamp =
-      "startSession" in firstSession
-        ? firstSession.startSession
-        : firstSession.startSessionEpochSecond;
-    const endTimestamp =
-      "endSession" in lastSession
-        ? lastSession.endSession
-        : lastSession.endSessionEpochSecond;
-
-    const startDate = fromUnixTime(startTimestamp);
-    const endDate = fromUnixTime(endTimestamp);
-
-    if (isSameDay(startDate, endDate)) {
-      return format(startDate, "MMMM d, yyyy");
-    }
-
-    return `${format(startDate, "MMMM d, yyyy")} - ${format(
-      endDate,
-      "MMMM d, yyyy"
-    )}`;
-  };
-
-  const formatSessionDate = (
-    session: SessionDetail | SessionDetailParticipant
-  ) => {
-    const timestamp =
-      "startSession" in session
-        ? session.startSession
-        : session.startSessionEpochSecond;
-    const date = fromUnixTime(timestamp);
-    return format(date, "MMM d, yyyy 'at' h:mm a");
-  };
-
-  const getRelativeTime = (
-    session: SessionDetail | SessionDetailParticipant
-  ) => {
-    const timestamp =
-      "startSession" in session
-        ? session.startSession
-        : session.startSessionEpochSecond;
-    const date = fromUnixTime(timestamp);
-    return formatDistance(date, new Date(), { addSuffix: true });
-  };
-
-  const formatSessionDuration = (
-    session: SessionDetail | SessionDetailParticipant
-  ) => {
-    const hours = session.durationInHours;
-    const minutes = session.durationInMinute;
-
-    if (hours > 0 && minutes > 0) {
-      return `${hours}h ${minutes}m`;
-    } else if (hours > 0) {
-      return `${hours}h`;
-    } else if (minutes > 0) {
-      return `${minutes}m`;
-    }
-    return "TBD";
-  };
+  const {
+    isEnrolled,
+    isOwnEvent,
+    isEventFull,
+    isEventFinished,
+    participantPercentage,
+    totalPrice,
+  } = getEventState(event, address);
 
   const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "UPCOMING":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/20 dark:text-blue-300">
-            Upcoming
-          </span>
-        );
-      case "RUNNING":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300">
-            Live
-          </span>
-        );
-      case "COMPLETE":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300">
-            Completed
-          </span>
-        );
-      case "ON_SALE":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-900/20 dark:text-emerald-300">
-            On Sale
-          </span>
-        );
-      case "ON_GOING":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900/20 dark:text-orange-300">
-            Live
-          </span>
-        );
-      case "FINISHED":
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/20 dark:text-green-300">
-            Finished
-          </span>
-        );
-      default:
-        return (
-          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300">
-            {status}
-          </span>
-        );
-    }
+    const config = getStatusBadgeConfig(status ?? "UPCOMING");
+    return (
+      <span
+        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${config.bg}`}
+      >
+        {config.text}
+      </span>
+    );
   };
-
-  const formatPrice = (amount: number) => {
-    return `${numeral(amount).format("0,0")} IDRX`;
-  };
-
-  const participantPercentage =
-    (event.participant / event.maxParticipant) * 100;
-  const totalPrice = event.priceAmount + event.commitmentAmount;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 dark:from-gray-950 dark:via-blue-950/10 dark:to-purple-950/10 transition-colors duration-700 ease-in-out">
@@ -493,7 +340,7 @@ const EventDetail = () => {
                   <div className="flex items-center gap-2 text-white">
                     <Clock className="w-4 h-4" />
                     <span className="text-sm font-medium">
-                      {calculateDuration()}
+                      {calculateDuration(event.session)}
                     </span>
                   </div>
                 </div>
@@ -533,7 +380,7 @@ const EventDetail = () => {
                       Date
                     </p>
                     <p className="font-semibold text-gray-900 dark:text-white">
-                      {formatDateRange()}
+                      {formatDateRange(event.session)}
                     </p>
                   </div>
                 </div>
@@ -717,12 +564,15 @@ const EventDetail = () => {
                   <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
                     Deposit
                   </th>
-                  <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Status
-                  </th>
-                  <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
-                    Actions
-                  </th>
+                  {role !== "organizer" || !isEventOrganizer ? (
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Status
+                    </th>
+                  ) : (
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Actions
+                    </th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200/50 dark:divide-gray-700/50">
@@ -766,76 +616,74 @@ const EventDetail = () => {
                       {session.peopleAttend}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                      {formatPrice(
-                        event.commitmentAmount / (event.session?.length || 1)
-                      )}
+                      {formatPrice(getSessionDepositAmount(event))}
                     </td>
-                    <td className="px-6 py-4">
-                      {getStatusBadge(session.status)}
-                    </td>
-                    <td className="px-6 py-4">
-                      <div className="flex gap-2">
-                        {role === "participant" ? (
-                          <>
-                            {session.status === "UPCOMING" && (
-                              <button className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity">
-                                Register
-                              </button>
-                            )}
-                            {session.status === "COMPLETE" && (
-                              <button className="px-3 py-1.5 bg-gradient-to-r from-green-600 to-emerald-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1">
-                                <CheckCircle className="w-4 h-4" />
-                                Claim{" "}
-                                {formatPrice(
-                                  event.commitmentAmount /
-                                    (event.session?.length || 1)
-                                )}
-                              </button>
-                            )}
-                            {session.status === "RUNNING" && (
-                              <span className="text-xs text-orange-600 dark:text-orange-400 flex items-center gap-1 px-2 py-1 bg-orange-100 dark:bg-orange-900/20 rounded-full">
-                                <Clock className="w-3 h-3" />
-                                Live
-                              </span>
-                            )}
-                          </>
-                        ) : (
-                          <>
-                            {role === "organizer" && isEventOrganizer && (
-                              <>
-                                {/* Check if session is currently active using the same logic as dashboard */}
-                                {(() => {
-                                  const startTimestamp =
-                                    "startSession" in session
-                                      ? session.startSession
-                                      : session.startSessionEpochSecond;
-                                  const endTimestamp =
-                                    "endSession" in session
-                                      ? session.endSession
-                                      : session.endSessionEpochSecond;
+                    {role !== "organizer" || !isEventOrganizer ? (
+                      <td className="px-6 py-4">
+                        {getStatusBadge(session.status)}
+                      </td>
+                    ) : (
+                      <td className="px-6 py-4">
+                        <div className="flex gap-2">
+                          {/* Check if session is currently active using the same logic as dashboard */}
+                          {(() => {
+                            const startTimestamp = getSessionTimestamp(
+                              session,
+                              "start"
+                            );
+                            const endTimestamp = getSessionTimestamp(
+                              session,
+                              "end"
+                            );
 
-                                  const isSessionActuallyActive =
-                                    isSessionActive(
-                                      BigInt(startTimestamp),
-                                      BigInt(endTimestamp)
-                                    );
+                            const isSessionActuallyActive = isSessionActive(
+                              BigInt(startTimestamp),
+                              BigInt(endTimestamp)
+                            );
 
-                                  return isSessionActuallyActive ? (
-                                    <button
-                                      onClick={() => handleGenerateQR(session)}
-                                      className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1"
-                                    >
-                                      <QrCode className="w-4 h-4" />
-                                      Generate QR
-                                    </button>
-                                  ) : null;
-                                })()}
-                              </>
-                            )}
-                          </>
-                        )}
-                      </div>
-                    </td>
+                            if (isSessionActuallyActive) {
+                              return (
+                                <button
+                                  onClick={() => handleGenerateQR(session)}
+                                  className="px-3 py-1.5 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm font-medium rounded-lg hover:opacity-90 transition-opacity flex items-center gap-1"
+                                >
+                                  <QrCode className="w-4 h-4" />
+                                  Generate QR
+                                </button>
+                              );
+                            } else if (session.status === "UPCOMING") {
+                              return (
+                                <span className="text-xs text-blue-600 dark:text-blue-400 flex items-center gap-1 px-2 py-1 bg-blue-100 dark:bg-blue-900/20 rounded-full">
+                                  <Clock className="w-3 h-3" />
+                                  Upcoming
+                                </span>
+                              );
+                            } else if (session.status === "COMPLETE") {
+                              return (
+                                <span className="text-xs text-green-600 dark:text-green-400 flex items-center gap-1 px-2 py-1 bg-green-100 dark:bg-green-900/20 rounded-full">
+                                  <CheckCircle className="w-3 h-3" />
+                                  Completed
+                                </span>
+                              );
+                            } else if (session.status === "RUNNING") {
+                              return (
+                                <span className="text-xs text-orange-600 dark:text-orange-400 flex items-center gap-1 px-2 py-1 bg-orange-100 dark:bg-orange-900/20 rounded-full">
+                                  <Clock className="w-3 h-3" />
+                                  Live
+                                </span>
+                              );
+                            } else {
+                              return (
+                                <span className="text-xs text-gray-600 dark:text-gray-400 flex items-center gap-1 px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded-full">
+                                  <Info className="w-3 h-3" />
+                                  {session.status}
+                                </span>
+                              );
+                            }
+                          })()}
+                        </div>
+                      </td>
+                    )}
                   </motion.tr>
                 ))}
               </tbody>
@@ -962,14 +810,10 @@ const EventDetail = () => {
               attendance: selectedSession.peopleAttend,
               totalParticipants: event?.maxParticipant || 0,
               startSessionTime: BigInt(
-                "startSession" in selectedSession
-                  ? selectedSession.startSession
-                  : selectedSession.startSessionEpochSecond
+                getSessionTimestamp(selectedSession, "start")
               ),
               endSessionTime: BigInt(
-                "endSession" in selectedSession
-                  ? selectedSession.endSession
-                  : selectedSession.endSessionEpochSecond
+                getSessionTimestamp(selectedSession, "end")
               ),
               eventId: eventId,
             }}
@@ -1058,7 +902,10 @@ const EventDetail = () => {
                     )}
                   </button>
                 )}
-                <button className="px-8 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold text-lg rounded-2xl hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300">
+                <button
+                  disabled
+                  className="px-8 disabled:cursor-not-allowed disabled:opacity-50 py-4 border-2 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-semibold text-lg rounded-2xl hover:border-blue-400 dark:hover:border-blue-500 hover:text-blue-600 dark:hover:text-blue-400 transition-all duration-300"
+                >
                   Add to Wishlist
                 </button>
               </>
@@ -1117,7 +964,7 @@ const EventDetail = () => {
                   Duration:
                 </span>
                 <span className="font-medium text-gray-900 dark:text-white">
-                  {calculateDuration()}
+                  {calculateDuration(event.session)}
                 </span>
               </div>
               <div className="flex justify-between">

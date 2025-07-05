@@ -1,6 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Calendar, MapPin, Users, Eye, ChevronDown } from "lucide-react";
+import {
+  Calendar,
+  MapPin,
+  Users,
+  Eye,
+  ChevronDown,
+  DollarSign,
+} from "lucide-react";
 import { format } from "date-fns";
 import { IFeaturedEvent } from "../types/constType";
 import numeral from "numeral";
@@ -9,11 +16,15 @@ import { useState } from "react";
 interface EventListProps {
   events: IFeaturedEvent[];
   isLoading?: boolean;
+  onClaimFirstPortion?: (eventId: string) => void;
+  isClaiming?: boolean;
 }
 
 export default function EventList({
   events,
   isLoading = false,
+  onClaimFirstPortion,
+  isClaiming = false,
 }: EventListProps) {
   const [displayCount, setDisplayCount] = useState(3);
 
@@ -123,13 +134,13 @@ export default function EventList({
                     <span className="text-gray-600 dark:text-gray-400">
                       Price:{" "}
                       <span className="font-semibold text-gray-900 dark:text-white">
-                        {numeral(event.eventPrice).format("0,0.00")} IDRX
+                        {numeral(event.eventPrice).format("0,0")} IDRX
                       </span>
                     </span>
                     <span className="text-gray-600 dark:text-gray-400">
                       Commitment:{" "}
                       <span className="font-semibold text-orange-600 dark:text-orange-400">
-                        {numeral(event.commitmentPrice).format("0,0.00")} IDRX
+                        {numeral(event.commitmentPrice).format("0,0")} IDRX
                       </span>
                     </span>
                   </div>
@@ -144,6 +155,28 @@ export default function EventList({
                   <Eye className="w-4 h-4 mr-1" />
                   View
                 </Link>
+
+                {onClaimFirstPortion && (
+                  <motion.button
+                    onClick={() => onClaimFirstPortion(event.id.toString())}
+                    disabled={isClaiming}
+                    className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
+                      isClaiming
+                        ? "bg-gray-100 text-gray-400 cursor-not-allowed"
+                        : "bg-green-600 text-white hover:bg-green-700"
+                    }`}
+                    whileHover={isClaiming ? {} : { scale: 1.05 }}
+                    whileTap={isClaiming ? {} : { scale: 0.95 }}
+                    title={isClaiming ? "Claiming..." : "Claim First Portion"}
+                  >
+                    {isClaiming ? (
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-1" />
+                    ) : (
+                      <DollarSign className="w-4 h-4 mr-1" />
+                    )}
+                    Claim
+                  </motion.button>
+                )}
               </div>
             </div>
           </div>

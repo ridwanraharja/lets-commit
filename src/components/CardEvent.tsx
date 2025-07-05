@@ -257,7 +257,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
                   Event Price:
                 </span>
                 <span className="font-semibold text-gray-900 dark:text-white transition-colors duration-700 ease-in-out">
-                  {numeral(event.eventPrice).format("0,0.00")} IDRX
+                  {numeral(event.eventPrice).format("0,0")} IDRX
                 </span>
               </div>
               <div className="flex justify-between items-center text-sm transition-colors duration-700 ease-in-out">
@@ -265,7 +265,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
                   Commitment Fee:
                 </span>
                 <span className="font-semibold text-orange-600 dark:text-orange-400 transition-colors duration-700 ease-in-out">
-                  {numeral(event.commitmentPrice).format("0,0.00")} IDRX
+                  {numeral(event.commitmentPrice).format("0,0")} IDRX
                 </span>
               </div>
               <div className="border-t border-gray-200 dark:border-gray-700 pt-2 flex justify-between items-center transition-colors duration-700 ease-in-out">
@@ -273,7 +273,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
                   Total:
                 </span>
                 <span className="text-lg font-bold text-blue-600 dark:text-blue-400 transition-colors duration-700 ease-in-out">
-                  {numeral(totalPrice).format("0,0.00")} IDRX
+                  {numeral(totalPrice).format("0,0")} IDRX
                 </span>
               </div>
 

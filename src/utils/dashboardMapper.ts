@@ -40,6 +40,7 @@ export const mapApiSessionToComponentSession = (
     startSessionTime,
     endSessionTime,
     eventId: apiSession.eventId.toString(),
+    generateLinkButtonEnable: apiSession.generateLinkButtonEnable ?? false,
   };
 };
 

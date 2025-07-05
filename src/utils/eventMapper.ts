@@ -24,5 +24,7 @@ export const mapApiEventToFeaturedEvent = (apiEvent: Event): IFeaturedEvent => {
     organizerName: organizerName,
     linkImg: apiEvent.imageUri,
     StatusTags: apiEvent.status,
+    organizer: apiEvent.organizer,
+    participants: apiEvent.participantList ?? [],
   };
 };

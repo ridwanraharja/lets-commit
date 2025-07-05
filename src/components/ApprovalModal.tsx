@@ -87,9 +87,6 @@ export default function ApprovalModal({
       return;
     }
 
-    // Check if user has enough balance
-    console.log("userBalance.balance", userBalance.balance);
-    console.log("requiredAmount", requiredAmount);
     if (userBalance.balance < requiredAmount) {
       setErrorMessage(
         `Insufficient MIDRX balance. You need ${totalAmount} MIDRX but have ${userBalance.balance.toFixed(
@@ -100,8 +97,6 @@ export default function ApprovalModal({
       return;
     }
 
-    // Check if approval is needed
-    console.log(allowance, requiredAmount, userBalance.balance);
     if (allowance >= requiredAmount) {
       setStep("success");
       setTimeout(() => {
@@ -114,12 +109,6 @@ export default function ApprovalModal({
     setStep("approving");
 
     try {
-      // Approve the LetsCommit contract to spend the required amount
-      console.log(
-        "approve",
-        CONTRACT_ADDRESSES.LETS_COMMIT,
-        (totalAmount * 100).toString()
-      );
       await approve(
         CONTRACT_ADDRESSES.LETS_COMMIT,
         (totalAmount * 100).toString()
@@ -155,17 +144,7 @@ export default function ApprovalModal({
   };
 
   const getAllowanceStatus = () => {
-    console.log(
-      "currentAllowance?.toString() || '0'",
-      allowance?.toString() || "0"
-    );
-
-    console.log("currentAllowance", Number(allowance));
-
-    console.log("requiredAmount", requiredAmount);
-
     if (allowance >= requiredAmount) {
-      console.log("approved");
       return {
         status: "approved",
         text: "✅ Already approved",

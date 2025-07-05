@@ -18,6 +18,7 @@ import { useLetsCommit } from "../hooks/useLetsCommit";
 import ApprovalModal from "./ApprovalModal";
 import ImgFake from "../assets/BlockDevId.jpg";
 import numeral from "numeral";
+import { useAccount } from "wagmi";
 
 interface CardEventProps {
   event: IFeaturedEvent;
@@ -29,7 +30,9 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
   const [enrollmentError, setEnrollmentError] = useState<string | null>(null);
   const [enrollmentSuccess, setEnrollmentSuccess] = useState(false);
   const [showApprovalModal, setShowApprovalModal] = useState(false);
-  console.log(event);
+  const { address } = useAccount();
+  console.log(address, event);
+  console.log(event.participants?.includes(address?.toLowerCase() ?? ""));
 
   const { enrollEvent, isConnected } = useLetsCommit();
   const queryClient = useQueryClient();
@@ -322,69 +325,86 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
               </Link>
             </motion.div>
 
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ duration: 0.2 }}
-              className="flex-1"
-            >
-              {event.StatusTags === "FINISHED" ? (
-                <button
-                  disabled
-                  className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gray-400 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
+            {event.organizer !== address?.toLowerCase() &&
+              !event.participants?.includes(address?.toLowerCase() ?? "") &&
+              event.StatusTags !== "ON_GOING" && (
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex-1"
                 >
-                  <span className="relative z-10">Event Ended</span>
-                </button>
-              ) : !isConnected ? (
-                <button
-                  onClick={handleEnrollClick}
-                  className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden"
-                >
-                  <UserPlus className="w-4 h-4 mr-2 relative z-10 transition-transform duration-300 group-hover/btn:scale-110" />
-                  <span className="relative z-10">Connect Wallet</span>
-                </button>
-              ) : event.participant >= event.maxParticipant ? (
-                <button
-                  disabled
-                  className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gray-400 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
-                >
-                  <span className="relative z-10">Event Full</span>
-                </button>
-              ) : enrollmentSuccess ? (
-                <button
-                  disabled
-                  className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-green-600 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
-                >
-                  <span className="relative z-10">Enrolled!</span>
-                </button>
-              ) : (
-                <button
-                  onClick={handleEnrollClick}
-                  disabled={isEnrolling}
-                  className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  <motion.div
-                    className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
-                    initial={{ x: "100%" }}
-                    whileHover={{ x: 0 }}
-                    transition={{ duration: 0.4 }}
-                  />
-
-                  {isEnrolling ? (
-                    <Loader2 className="w-4 h-4 mr-2 relative z-10 animate-spin" />
+                  {event.StatusTags === "FINISHED" ? (
+                    <button
+                      disabled
+                      className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gray-400 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
+                    >
+                      <span className="relative z-10">Event Ended</span>
+                    </button>
+                  ) : !isConnected ? (
+                    <button
+                      onClick={handleEnrollClick}
+                      className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden"
+                    >
+                      <UserPlus className="w-4 h-4 mr-2 relative z-10 transition-transform duration-300 group-hover/btn:scale-110" />
+                      <span className="relative z-10">Connect Wallet</span>
+                    </button>
+                  ) : event.participant >= event.maxParticipant ? (
+                    <button
+                      disabled
+                      className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gray-400 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
+                    >
+                      <span className="relative z-10">Event Full</span>
+                    </button>
+                  ) : enrollmentSuccess ? (
+                    <button
+                      disabled
+                      className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-green-600 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
+                    >
+                      <span className="relative z-10">Enrolled!</span>
+                    </button>
                   ) : (
-                    <UserPlus className="w-4 h-4 mr-2 relative z-10 transition-transform duration-300 group-hover/btn:scale-110" />
+                    <button
+                      onClick={handleEnrollClick}
+                      disabled={isEnrolling}
+                      className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-700 ease-in-out overflow-hidden disabled:opacity-50 disabled:cursor-not-allowed"
+                    >
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-blue-600"
+                        initial={{ x: "100%" }}
+                        whileHover={{ x: 0 }}
+                        transition={{ duration: 0.4 }}
+                      />
+
+                      {isEnrolling ? (
+                        <Loader2 className="w-4 h-4 mr-2 relative z-10 animate-spin" />
+                      ) : (
+                        <UserPlus className="w-4 h-4 mr-2 relative z-10 transition-transform duration-300 group-hover/btn:scale-110" />
+                      )}
+                      <span className="relative z-10">
+                        {isEnrolling ? "Enrolling..." : "Enroll"}
+                      </span>
+                    </button>
                   )}
-                  <span className="relative z-10">
-                    {isEnrolling
-                      ? "Enrolling..."
-                      : event.StatusTags === "ON_GOING"
-                      ? "Join Now"
-                      : "Enroll"}
-                  </span>
-                </button>
+                </motion.div>
               )}
-            </motion.div>
+
+            {event.participants?.includes(address?.toLowerCase() ?? "") &&
+              event.StatusTags !== "ON_GOING" && (
+                <motion.div
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex-1"
+                >
+                  <button
+                    disabled
+                    className="group/btn relative w-full inline-flex items-center justify-center py-2.5 sm:py-3 font-semibold text-sm sm:text-base rounded-xl bg-green-600 text-white cursor-not-allowed transition-all duration-700 ease-in-out"
+                  >
+                    <span className="relative z-10">Enrolled!</span>
+                  </button>
+                </motion.div>
+              )}
           </div>
         </div>
 

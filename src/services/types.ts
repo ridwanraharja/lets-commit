@@ -34,6 +34,7 @@ export interface Event {
   participant: number;
   maxParticipant: number;
   status: EventState;
+  participantList: string[];
 }
 
 // Event creation/update payload

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Calendar,
@@ -6,6 +6,8 @@ import {
   Users,
   TrendingUp,
   CheckCircle,
+  Clock,
+  Award,
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAccount } from "wagmi";
@@ -14,13 +16,18 @@ import {
   SessionList,
   Session,
   QRGeneratorModal,
+  EventList,
+  DashboardTabs,
 } from "../components";
 import { useDashboardService } from "../hooks/useDashboardService";
+import { useEventService } from "../hooks/useEventService";
 import { useRole } from "../context/RoleContext";
 import {
   mapParticipantDashboard,
   mapOrganizerDashboard,
 } from "../utils/dashboardMapper";
+import { IFeaturedEvent } from "../types/constType";
+import { mapApiEventToFeaturedEvent } from "../utils/eventMapper";
 
 export default function UserDashboardPage() {
   const { role } = useRole();
@@ -31,6 +38,7 @@ export default function UserDashboardPage() {
   const { address } = useAccount();
   const { useGetParticipantDashboard, useGetOrganizerDashboard } =
     useDashboardService();
+  const { useGetEventsByState } = useEventService();
 
   // Only fetch the dashboard that matches the current role
   const participantQuery = useGetParticipantDashboard(
@@ -38,13 +46,41 @@ export default function UserDashboardPage() {
     role === "participant"
   );
 
-  console.log("participantQuery", participantQuery);
   const organizerQuery = useGetOrganizerDashboard(
     address ?? "",
     role === "organizer"
   );
 
-  console.log("organizerQuery", organizerQuery);
+  const { data: onSaleEvents, isLoading: onSaleLoading } =
+    useGetEventsByState("ON_SALE");
+  const { data: onGoingEvents, isLoading: onGoingLoading } =
+    useGetEventsByState("ON_GOING");
+  const { data: finishedEvents, isLoading: finishedLoading } =
+    useGetEventsByState("FINISHED");
+
+  // Combine all events
+  const allEvents: IFeaturedEvent[] = useMemo(() => {
+    const events: IFeaturedEvent[] = [];
+
+    if (onSaleEvents) {
+      events.push(...onSaleEvents.map(mapApiEventToFeaturedEvent));
+    }
+    if (onGoingEvents) {
+      events.push(...onGoingEvents.map(mapApiEventToFeaturedEvent));
+    }
+    if (finishedEvents) {
+      events.push(...finishedEvents.map(mapApiEventToFeaturedEvent));
+    }
+
+    return events;
+  }, [onSaleEvents, onGoingEvents, finishedEvents]);
+
+  const organizerEvents = allEvents.filter(
+    (event) => event.organizer === address?.toLowerCase()
+  );
+
+  const isLoading = onSaleLoading || onGoingLoading || finishedLoading;
+
   const currentQuery =
     role === "participant" ? participantQuery : organizerQuery;
 
@@ -331,53 +367,33 @@ export default function UserDashboardPage() {
               </div>
             </section>
 
-            <section>
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
-                        Upcoming Sessions
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        Your scheduled learning commitments
-                      </p>
-                    </div>
-                    <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
-                  </div>
-                </div>
-                <div className="p-4 sm:p-6">
-                  <SessionList
-                    sessions={participantData.upcomingSessions}
-                    type="participant"
-                  />
-                </div>
-              </div>
-            </section>
-
-            <section>
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
-                        Completed Sessions
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        Your learning history and achievements
-                      </p>
-                    </div>
-                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
-                  </div>
-                </div>
-                <div className="p-4 sm:p-6">
-                  <SessionList
-                    sessions={participantData.completedSessions}
-                    type="participant"
-                  />
-                </div>
-              </div>
-            </section>
+            <DashboardTabs
+              tabs={[
+                {
+                  id: "upcoming",
+                  label: "Upcoming Sessions",
+                  icon: Clock,
+                  content: (
+                    <SessionList
+                      sessions={participantData.upcomingSessions}
+                      type="participant"
+                    />
+                  ),
+                },
+                {
+                  id: "completed",
+                  label: "Completed Sessions",
+                  icon: Award,
+                  content: (
+                    <SessionList
+                      sessions={participantData.completedSessions}
+                      type="participant"
+                    />
+                  ),
+                },
+              ]}
+              defaultTab="upcoming"
+            />
           </div>
         )}
 
@@ -439,54 +455,44 @@ export default function UserDashboardPage() {
               </div>
             </section>
 
-            <section>
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
-                        Active Sessions
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        Manage your upcoming and today's sessions
-                      </p>
-                    </div>
-                    <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
-                  </div>
-                </div>
-                <div className="p-4 sm:p-6">
-                  <SessionList
-                    sessions={organizerData.activeSessions}
-                    type="organizer"
-                    onGenerateQR={handleGenerateQR}
-                  />
-                </div>
-              </div>
-            </section>
-
-            <section>
-              <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50">
-                <div className="p-4 sm:p-6 border-b border-gray-200/50 dark:border-gray-700/50">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white">
-                        Completed Sessions
-                      </h3>
-                      <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
-                        Session history with attendance rates
-                      </p>
-                    </div>
-                    <CheckCircle className="w-5 h-5 sm:w-6 sm:h-6 text-green-600" />
-                  </div>
-                </div>
-                <div className="p-4 sm:p-6">
-                  <SessionList
-                    sessions={organizerData.completedSessions}
-                    type="organizer"
-                  />
-                </div>
-              </div>
-            </section>
+            <DashboardTabs
+              tabs={[
+                {
+                  id: "events",
+                  label: "My Events",
+                  icon: Calendar,
+                  content: (
+                    <EventList events={organizerEvents} isLoading={isLoading} />
+                  ),
+                },
+                {
+                  id: "active",
+                  label: "Active Sessions",
+                  icon: Clock,
+                  content: (
+                    <SessionList
+                      sessions={organizerData.activeSessions}
+                      type="organizer"
+                      onGenerateQR={handleGenerateQR}
+                      sessionType="upcoming"
+                    />
+                  ),
+                },
+                {
+                  id: "completed",
+                  label: "Completed Sessions",
+                  icon: Award,
+                  content: (
+                    <SessionList
+                      sessions={organizerData.completedSessions}
+                      type="organizer"
+                      sessionType="completed"
+                    />
+                  ),
+                },
+              ]}
+              defaultTab="events"
+            />
           </div>
         )}
       </main>

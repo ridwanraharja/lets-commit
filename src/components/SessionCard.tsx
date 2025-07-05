@@ -7,20 +7,26 @@ export interface Session {
   date: string;
   time: string;
   location: string;
-  participants: number;
-  maxParticipants: number;
   status: "upcoming" | "completed" | "active";
   deposit: number;
   attendance?: number;
+  totalParticipants: number;
 }
 
 interface SessionCardProps {
   session: Session;
   type: "participant" | "organizer";
+  sessionType: "upcoming" | "completed";
   onGenerateQR?: (session: Session) => void;
 }
 
-export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
+export function SessionCard({
+  session,
+  type,
+  onGenerateQR,
+  sessionType,
+}: SessionCardProps) {
+  console.log("session", session);
   const getStatusColor = (status: string) => {
     switch (status) {
       case "upcoming":
@@ -109,12 +115,19 @@ export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
             <MapPin className="w-3 h-3 flex-shrink-0" />
             <span className="line-clamp-1">{session.location}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Users className="w-3 h-3 flex-shrink-0" />
-            <span>
-              {session.participants}/{session.maxParticipants}
-            </span>
-          </div>
+          {type === "organizer" && (
+            <div className="flex items-center gap-1">
+              <Users className="w-3 h-3 flex-shrink-0" />
+              {sessionType === "upcoming" && (
+                <span>{session.totalParticipants}</span>
+              )}
+              {sessionType === "completed" && (
+                <span>
+                  {session.attendance}/{session.totalParticipants}
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         <div className="text-right flex-shrink-0">
@@ -132,14 +145,18 @@ export function SessionCard({ session, type, onGenerateQR }: SessionCardProps) {
               Attendance Rate
             </span>
             <span className="font-semibold text-green-600 dark:text-green-400">
-              {session.attendance}%
+              {(session.attendance ?? 0 / session.totalParticipants) * 100}%
             </span>
           </div>
           <div className="mt-1 w-full bg-gray-200/50 dark:bg-gray-700/50 rounded-full h-1.5">
             <motion.div
               className="bg-green-500 h-1.5 rounded-full"
               initial={{ width: 0 }}
-              whileInView={{ width: `${session.attendance}%` }}
+              whileInView={{
+                width: `${
+                  ((session.attendance ?? 0) / session.totalParticipants) * 100
+                }%`,
+              }}
               viewport={{ once: true }}
               transition={{ duration: 1, delay: 0.3 }}
             />

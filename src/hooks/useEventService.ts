@@ -4,6 +4,7 @@ import {
   EventState,
   EventDetailOrganizer,
   EventDetailParticipant,
+  PlatformStatistics,
 } from "../services/types";
 
 export const useEventService = () => {
@@ -35,10 +36,18 @@ export const useEventService = () => {
     });
   };
 
+  const useGetStatistics = () => {
+    return useQuery<PlatformStatistics>({
+      queryKey: ["statistics"],
+      queryFn: () => eventService.getStatistics(),
+    });
+  };
+
   return {
     // Queries
     useGetEventsByState,
     useGetEventById,
     useGetEventDetailForParticipant,
+    useGetStatistics,
   };
 };

@@ -28,11 +28,10 @@ export const mapApiSessionToComponentSession = (
     date,
     time,
     location: apiSession.eventTitle,
-    participants: 0,
-    maxParticipants: 0,
+    totalParticipants: apiSession.totalParticipants || 0,
     status: finalStatus,
     deposit: 0,
-    attendance: type === "completed" ? 85 : undefined,
+    attendance: type === "completed" ? apiSession.attendance : undefined,
   };
 };
 

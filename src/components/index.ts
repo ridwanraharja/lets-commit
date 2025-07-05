@@ -12,3 +12,5 @@ export { SessionForm } from "./SessionForm";
 export { SuccessModal } from "./SuccessModal";
 export { AnimatedBackground } from "./AnimatedBackground";
 export { InfoCard } from "./InfoCard";
+export { default as EventList } from "./EventList";
+export { default as DashboardTabs } from "./DashboardTabs";

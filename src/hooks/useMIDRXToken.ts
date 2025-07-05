@@ -76,11 +76,8 @@ export const useMIDRXToken = () => {
       return null;
     }
 
-    console.log("userBalance", userBalance);
-    const balance = formatEther(userBalance as bigint);
-    console.log("balance", balance);
     return {
-      balance: Number(userBalance) / 100,
+      balance: Number(userBalance) / 10 ** 18,
     };
   };
 

@@ -31,8 +31,6 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
   const [enrollmentSuccess, setEnrollmentSuccess] = useState(false);
   const [showApprovalModal, setShowApprovalModal] = useState(false);
   const { address } = useAccount();
-  console.log(address, event);
-  console.log(event.participants?.includes(address?.toLowerCase() ?? ""));
 
   const { enrollEvent, isConnected } = useLetsCommit();
   const queryClient = useQueryClient();

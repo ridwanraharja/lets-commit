@@ -65,6 +65,8 @@ export interface Session {
   durationInHours: number;
   durationInMinute: number;
   isLinkGenerated?: boolean | null;
+  totalParticipants: number;
+  attendance?: number;
 }
 
 export interface DashboardStatistic {
@@ -177,6 +179,12 @@ export interface EventStatistic {
   avgAttendanceRatePercent?: number;
   sessionAttend?: number;
   availableCommitment?: number | null;
+}
+
+export interface PlatformStatistics {
+  totalEventCreated: number;
+  totalParticipantEnrolled: number;
+  totalBalanceManaged: number;
 }
 
 export interface EventDetailOrganizer {

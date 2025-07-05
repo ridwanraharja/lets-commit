@@ -55,7 +55,23 @@ export const teamMembers = [
       quote: "Great backends are felt, not seen",
       funFact: " Optimizes server performance in his sleep",
       superpower: "Building unbreakable backend foundations"
-    }
+    },
+    {
+      id: "xnaizer",
+      name: "Xnaizer",
+      role: "The Architect",
+      realRole: "System Architect",
+      avatar: "🚀",
+      github: "https://github.com/Xnaizer",
+      bio: "System architect who designs scalable solutions and oversees the technical vision. Transforms complex requirements into elegant system designs.",
+      personality: "The visionary who sees the big picture and orchestrates technical excellence",
+      skills: ["System Design", "Architecture", "Leadership", "Strategy"],
+      color: "from-blue-500 to-cyan-500",
+      bgColor: "bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/30",
+      quote: "Great architecture is invisible until you need to scale",
+      funFact: " Can visualize entire system flows in his head",
+      superpower: "Turning complex problems into simple solutions"
+    },
 ];
 
 export  const ourStory = [
@@ -99,22 +115,7 @@ export  const ourStory = [
       details: "Join us on this journey to make education more engaging and effective for everyone.",
       emotion: "Hope"
     },
-    {
-      id: "xnaizer",
-      name: "Xnaizer",
-      role: "The Architect",
-      realRole: "System Architect",
-      avatar: "🚀",
-      github: "https://github.com/Xnaizer",
-      bio: "System architect who designs scalable solutions and oversees the technical vision. Transforms complex requirements into elegant system designs.",
-      personality: "The visionary who sees the big picture and orchestrates technical excellence",
-      skills: ["System Design", "Architecture", "Leadership", "Strategy"],
-      color: "from-blue-500 to-cyan-500",
-      bgColor: "bg-gradient-to-br from-blue-50 to-cyan-100 dark:from-blue-900/20 dark:to-cyan-900/30",
-      quote: "Great architecture is invisible until you need to scale",
-      funFact: " Can visualize entire system flows in his head",
-      superpower: "Turning complex problems into simple solutions"
-    },
+
   ];
 
 export  const companyVibes = [

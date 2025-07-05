@@ -170,12 +170,12 @@ export function SessionCard({
           )}
         </div>
 
-        <div className="text-right flex-shrink-0">
+        {/* <div className="text-right flex-shrink-0">
           <div className="font-semibold text-gray-900 dark:text-white">
             ${session.deposit}
           </div>
           <div className="text-gray-500 dark:text-gray-400">Deposit</div>
-        </div>
+        </div> */}
       </div>
 
       {session.attendance !== undefined && (

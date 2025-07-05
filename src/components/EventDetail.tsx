@@ -459,7 +459,7 @@ const EventDetail = () => {
                 </h3>
               </div>
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                {formatPrice(event.priceAmount)}
+                {formatPrice(event.priceAmount / 100)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 One-time payment
@@ -474,7 +474,7 @@ const EventDetail = () => {
                 </h3>
               </div>
               <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                {formatPrice(event.commitmentAmount)}
+                {formatPrice(event.commitmentAmount / 100)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Refundable deposit
@@ -489,7 +489,7 @@ const EventDetail = () => {
                 </h3>
               </div>
               <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                {formatPrice(totalPrice)}
+                {formatPrice(totalPrice / 100)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Initial payment required
@@ -616,7 +616,7 @@ const EventDetail = () => {
                       {session.peopleAttend}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                      {formatPrice(getSessionDepositAmount(event))}
+                      {formatPrice(getSessionDepositAmount(event) / 100)}
                     </td>
                     {role !== "organizer" || !isEventOrganizer ? (
                       <td className="px-6 py-4">
@@ -691,6 +691,119 @@ const EventDetail = () => {
           </div>
         </motion.div>
 
+        {/* Participant List Table for Organizers */}
+        {role === "organizer" && isEventOrganizer && (
+          <motion.div
+            className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-gray-200/50 dark:border-gray-700/50 overflow-hidden mt-8"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.7 }}
+          >
+            <div className="p-6 border-b border-gray-200/50 dark:border-gray-700/50">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                Participant List
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400">
+                View all registered participants for this event
+              </p>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-gray-50/50 dark:bg-gray-900/50">
+                  <tr>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      #
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Wallet Address
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Registration Date
+                    </th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider">
+                      Status
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-gray-200/50 dark:divide-gray-700/50">
+                  {event.participantList && event.participantList.length > 0 ? (
+                    event.participantList.map((participant, index) => (
+                      <motion.tr
+                        key={participant}
+                        className="hover:bg-gray-50/50 dark:hover:bg-gray-800/50 transition-colors duration-200"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{
+                          duration: 0.4,
+                          delay: 0.8 + index * 0.05,
+                        }}
+                      >
+                        <td className="px-6 py-4">
+                          <div className="flex items-center">
+                            <span className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm font-medium rounded-full">
+                              {index + 1}
+                            </span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                              {participant.charAt(0).toUpperCase()}
+                            </div>
+                            <div>
+                              <div className="font-medium text-gray-900 dark:text-white">
+                                {participant.slice(0, 6)}...
+                                {participant.slice(-4)}
+                              </div>
+                              <div className="text-sm text-gray-500 dark:text-gray-400">
+                                {participant}
+                              </div>
+                            </div>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4 text-sm text-gray-900 dark:text-white">
+                          <div className="flex items-center gap-1">
+                            <Calendar className="w-4 h-4 text-gray-400" />
+                            <span>Enrolled</span>
+                          </div>
+                        </td>
+                        <td className="px-6 py-4">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300">
+                            <CheckCircle className="w-3 h-3 mr-1" />
+                            Active
+                          </span>
+                        </td>
+                      </motion.tr>
+                    ))
+                  ) : (
+                    <motion.tr
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.4, delay: 0.8 }}
+                    >
+                      <td colSpan={5} className="px-6 py-12 text-center">
+                        <div className="flex flex-col items-center gap-3">
+                          <Users className="w-12 h-12 text-gray-400" />
+                          <div>
+                            <h3 className="text-lg font-medium text-gray-900 dark:text-white">
+                              No Participants Yet
+                            </h3>
+                            <p className="text-gray-500 dark:text-gray-400">
+                              Participants will appear here once they register
+                              for your event.
+                            </p>
+                          </div>
+                        </div>
+                      </td>
+                    </motion.tr>
+                  )}
+                </tbody>
+              </table>
+            </div>
+          </motion.div>
+        )}
+
         <motion.div
           className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8"
           initial={{ opacity: 0, y: 30 }}
@@ -752,8 +865,8 @@ const EventDetail = () => {
                     </p>
                     <p className="text-2xl font-bold text-gray-900 dark:text-white">
                       {event.statistic?.totalRevenue
-                        ? formatPrice(event.statistic.totalRevenue)
-                        : "$0.00"}
+                        ? formatPrice(event.statistic.totalRevenue / 100)
+                        : "0.00 IDRX"}
                     </p>
                   </div>
                   <DollarSign className="w-8 h-8 text-blue-600" />

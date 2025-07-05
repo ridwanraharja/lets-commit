@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import { useAccount } from "wagmi";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   StatCard,
   SessionList,
@@ -38,6 +39,7 @@ export default function UserDashboardPage() {
   const [claimingEventId, setClaimingEventId] = useState<string | null>(null);
 
   const { address } = useAccount();
+  const queryClient = useQueryClient();
   const { useGetParticipantDashboard, useGetOrganizerDashboard } =
     useDashboardService();
   const { useGetEventsByState } = useEventService();
@@ -75,6 +77,8 @@ export default function UserDashboardPage() {
     if (finishedEvents) {
       events.push(...finishedEvents.map(mapApiEventToFeaturedEvent));
     }
+
+    console.log("events", events);
 
     return events;
   }, [onSaleEvents, onGoingEvents, finishedEvents]);
@@ -149,8 +153,12 @@ export default function UserDashboardPage() {
       setClaimingEventId(eventId);
       const eventBigInt = BigInt(eventId);
       await claimFirstPortion(eventBigInt);
-      console.log("Successfully claimed first portion for event:", eventId);
-      // You might want to show a success message or refresh the data here
+
+      if (address) {
+        await queryClient.invalidateQueries({
+          queryKey: ["dashboard", "organizer", address],
+        });
+      }
     } catch (error) {
       console.error("Failed to claim first portion:", error);
       // You might want to show an error message to the user here
@@ -380,21 +388,15 @@ export default function UserDashboardPage() {
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 <StatCard
-                  icon={DollarSign}
-                  title="Total Deposits"
-                  value={participantData.totalDeposits}
-                  color="blue"
-                />
-                <StatCard
                   icon={CheckCircle}
                   title="Available Cashback"
-                  value={participantData.availableCashback}
+                  value={participantData.availableCashback / 100}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Claimed"
-                  value={participantData.totalClaimed}
+                  value={participantData.totalClaimed / 100}
                   color="purple"
                 />
               </div>
@@ -447,25 +449,25 @@ export default function UserDashboardPage() {
                 <StatCard
                   icon={DollarSign}
                   title="Total Revenue"
-                  value={organizerData.totalRevenue}
+                  value={organizerData.totalRevenue / 10000}
                   color="purple"
                 />
                 <StatCard
                   icon={CheckCircle}
                   title="Available Withdrawal"
-                  value={organizerData.availableWithdrawal}
+                  value={organizerData.availableWithdrawal / 10000}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Withdrawn"
-                  value={organizerData.totalWithdrawn}
+                  value={organizerData.totalWithdrawn / 10000}
                   color="blue"
                 />
               </div>
             </section>
 
-            <section>
+            {/* <section>
               <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-xl rounded-xl shadow-sm border border-gray-200/50 dark:border-gray-700/50 p-4 sm:p-6">
                 <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-3 sm:mb-4">
                   Quick Actions
@@ -488,7 +490,7 @@ export default function UserDashboardPage() {
                   </Link>
                 </div>
               </div>
-            </section>
+            </section> */}
 
             <DashboardTabs
               tabs={[
@@ -501,7 +503,7 @@ export default function UserDashboardPage() {
                       events={organizerEvents}
                       isLoading={isLoading}
                       onClaimFirstPortion={handleClaimFirstPortion}
-                      isClaiming={!!claimingEventId}
+                      claimingEventId={claimingEventId}
                     />
                   ),
                 },

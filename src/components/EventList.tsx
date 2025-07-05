@@ -17,14 +17,14 @@ interface EventListProps {
   events: IFeaturedEvent[];
   isLoading?: boolean;
   onClaimFirstPortion?: (eventId: string) => void;
-  isClaiming?: boolean;
+  claimingEventId?: string | null;
 }
 
 export default function EventList({
   events,
   isLoading = false,
   onClaimFirstPortion,
-  isClaiming = false,
+  claimingEventId = null,
 }: EventListProps) {
   const [displayCount, setDisplayCount] = useState(3);
 
@@ -134,13 +134,14 @@ export default function EventList({
                     <span className="text-gray-600 dark:text-gray-400">
                       Price:{" "}
                       <span className="font-semibold text-gray-900 dark:text-white">
-                        {numeral(event.eventPrice).format("0,0")} IDRX
+                        {numeral(event.eventPrice / 100).format("0,0")} IDRX
                       </span>
                     </span>
                     <span className="text-gray-600 dark:text-gray-400">
                       Commitment:{" "}
                       <span className="font-semibold text-orange-600 dark:text-orange-400">
-                        {numeral(event.commitmentPrice).format("0,0")} IDRX
+                        {numeral(event.commitmentPrice / 100).format("0,0")}{" "}
+                        IDRX
                       </span>
                     </span>
                   </div>
@@ -159,17 +160,29 @@ export default function EventList({
                 {onClaimFirstPortion && (
                   <motion.button
                     onClick={() => onClaimFirstPortion(event.id.toString())}
-                    disabled={isClaiming}
+                    disabled={claimingEventId === event.id.toString()}
                     className={`inline-flex items-center px-3 py-2 text-sm font-medium rounded-lg transition-colors ${
-                      isClaiming
+                      claimingEventId === event.id.toString()
                         ? "bg-gray-100 text-gray-400 cursor-not-allowed"
                         : "bg-green-600 text-white hover:bg-green-700"
                     }`}
-                    whileHover={isClaiming ? {} : { scale: 1.05 }}
-                    whileTap={isClaiming ? {} : { scale: 0.95 }}
-                    title={isClaiming ? "Claiming..." : "Claim First Portion"}
+                    whileHover={
+                      claimingEventId === event.id.toString()
+                        ? {}
+                        : { scale: 1.05 }
+                    }
+                    whileTap={
+                      claimingEventId === event.id.toString()
+                        ? {}
+                        : { scale: 0.95 }
+                    }
+                    title={
+                      claimingEventId === event.id.toString()
+                        ? "Claiming..."
+                        : "Claim First Portion"
+                    }
                   >
-                    {isClaiming ? (
+                    {claimingEventId === event.id.toString() ? (
                       <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-1" />
                     ) : (
                       <DollarSign className="w-4 h-4 mr-1" />

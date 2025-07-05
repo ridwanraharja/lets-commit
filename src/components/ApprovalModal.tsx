@@ -50,13 +50,14 @@ export default function ApprovalModal({
     CONTRACT_ADDRESSES.LETS_COMMIT
   );
 
-  const allowance = Number(currentAllowance) / 100;
+  const allowance = Number(currentAllowance);
 
   // Get user balance
   const userBalance = getUserBalance();
+  console.log("userBalance", userBalance);
 
   // Convert total amount to wei (assuming totalAmount is in ETH/MIDRX units)
-  const requiredAmount = totalAmount;
+  const requiredAmount = totalAmount * 100;
 
   useEffect(() => {
     if (isOpen) {
@@ -87,11 +88,16 @@ export default function ApprovalModal({
       return;
     }
 
-    if (userBalance.balance < requiredAmount) {
+    console.log("requiredAmount", requiredAmount);
+    console.log("userBalance.balance", userBalance.balance);
+
+    if (userBalance.balance * 1e16 < requiredAmount / 100) {
       setErrorMessage(
-        `Insufficient MIDRX balance. You need ${totalAmount} MIDRX but have ${userBalance.balance.toFixed(
-          2
-        )} MIDRX`
+        `Insufficient MIDRX balance. You need ${numeral(
+          requiredAmount / 100
+        ).format("0,0")} MIDRX but have ${numeral(
+          userBalance.balance * 1e16
+        ).format("0,0.00")} MIDRX`
       );
       setStep("error");
       return;
@@ -142,6 +148,9 @@ export default function ApprovalModal({
   const isApprovalNeeded = () => {
     return Number(allowance) < requiredAmount;
   };
+
+  console.log("allowance", allowance);
+  console.log("requiredAmount", requiredAmount);
 
   const getAllowanceStatus = () => {
     if (allowance >= requiredAmount) {
@@ -270,7 +279,9 @@ export default function ApprovalModal({
                         <p>
                           Your Balance:{" "}
                           {userBalance
-                            ? numeral(userBalance.balance).format("0,0")
+                            ? numeral(userBalance.balance * 1e16).format(
+                                "0,0.00"
+                              )
                             : "0"}{" "}
                           IDRX
                         </p>

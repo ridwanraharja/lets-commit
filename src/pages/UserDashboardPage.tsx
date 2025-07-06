@@ -87,6 +87,10 @@ export default function UserDashboardPage() {
     (event) => event.organizer === address?.toLowerCase()
   );
 
+  const participantEvents = allEvents.filter((event) =>
+    event.participants?.includes(address?.toLowerCase() ?? "")
+  );
+
   const isLoading = onSaleLoading || onGoingLoading || finishedLoading;
 
   const currentQuery =
@@ -386,7 +390,7 @@ export default function UserDashboardPage() {
                   Your learning progress and financial summary
                 </p>
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6">
                 <StatCard
                   icon={CheckCircle}
                   title="Available Cashback"
@@ -404,6 +408,18 @@ export default function UserDashboardPage() {
 
             <DashboardTabs
               tabs={[
+                {
+                  id: "my-events",
+                  label: "My Events",
+                  icon: Calendar,
+                  content: (
+                    <EventList
+                      events={participantEvents}
+                      isLoading={isLoading}
+                      showParticipantView={true}
+                    />
+                  ),
+                },
                 {
                   id: "upcoming",
                   label: "Upcoming Sessions",

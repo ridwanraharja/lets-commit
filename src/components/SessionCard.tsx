@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, Clock, MapPin, Users, QrCode } from "lucide-react";
+import { Calendar, Clock, Users, QrCode } from "lucide-react";
 import { isSessionActive } from "../utils/contractUtils";
 
 export interface Session {
@@ -91,7 +91,7 @@ export function SessionCard({
       <div className="flex items-start justify-between mb-2 sm:mb-3">
         <div className="flex-1 min-w-0">
           <h3 className="font-semibold text-gray-900 dark:text-white text-sm mb-1 line-clamp-1">
-            {session.title}
+            {session.location} - {session.title}
           </h3>
           <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-xs text-gray-600 dark:text-gray-400">
             <div className="flex items-center gap-1">
@@ -151,10 +151,6 @@ export function SessionCard({
 
       <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs gap-2 sm:gap-0">
         <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 text-gray-600 dark:text-gray-400">
-          <div className="flex items-center gap-1">
-            <MapPin className="w-3 h-3 flex-shrink-0" />
-            <span className="line-clamp-1">{session.location}</span>
-          </div>
           {type === "organizer" && (
             <div className="flex items-center gap-1">
               <Users className="w-3 h-3 flex-shrink-0" />

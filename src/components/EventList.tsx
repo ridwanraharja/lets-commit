@@ -18,6 +18,7 @@ interface EventListProps {
   isLoading?: boolean;
   onClaimFirstPortion?: (eventId: string) => void;
   claimingEventId?: string | null;
+  showParticipantView?: boolean;
 }
 
 export default function EventList({
@@ -25,6 +26,7 @@ export default function EventList({
   isLoading = false,
   onClaimFirstPortion,
   claimingEventId = null,
+  showParticipantView = false,
 }: EventListProps) {
   const [displayCount, setDisplayCount] = useState(3);
 
@@ -59,16 +61,18 @@ export default function EventList({
           <Calendar className="w-8 h-8 text-gray-400" />
         </div>
         <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-          No events found
+          {showParticipantView ? "No events joined" : "No events found"}
         </h3>
         <p className="text-gray-600 dark:text-gray-400 mb-4">
-          You haven't created any events yet.
+          {showParticipantView
+            ? "You haven't joined any events yet. Explore events to get started!"
+            : "You haven't created any events yet."}
         </p>
         <Link
-          to="/create"
+          to={showParticipantView ? "/explore" : "/create"}
           className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
         >
-          Create Your First Event
+          {showParticipantView ? "Explore Events" : "Create Your First Event"}
         </Link>
       </div>
     );
@@ -157,7 +161,7 @@ export default function EventList({
                   View
                 </Link>
 
-                {onClaimFirstPortion && (
+                {onClaimFirstPortion && !showParticipantView && (
                   <motion.button
                     onClick={() => onClaimFirstPortion(event.id.toString())}
                     disabled={claimingEventId === event.id.toString()}

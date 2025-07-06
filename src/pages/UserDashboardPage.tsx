@@ -394,13 +394,13 @@ export default function UserDashboardPage() {
                 <StatCard
                   icon={CheckCircle}
                   title="Available Cashback"
-                  value={participantData.availableCashback / 100}
+                  value={participantData.availableCashback}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Claimed"
-                  value={participantData.totalClaimed / 100}
+                  value={participantData.totalClaimed}
                   color="purple"
                 />
               </div>
@@ -465,19 +465,19 @@ export default function UserDashboardPage() {
                 <StatCard
                   icon={DollarSign}
                   title="Total Revenue"
-                  value={organizerData.totalRevenue / 10000}
+                  value={organizerData.totalRevenue / 100}
                   color="purple"
                 />
                 <StatCard
                   icon={CheckCircle}
                   title="Available Withdrawal"
-                  value={organizerData.availableWithdrawal / 10000}
+                  value={organizerData.availableWithdrawal / 100}
                   color="green"
                 />
                 <StatCard
                   icon={TrendingUp}
                   title="Total Withdrawn"
-                  value={organizerData.totalWithdrawn / 10000}
+                  value={organizerData.totalWithdrawn / 100}
                   color="blue"
                 />
               </div>

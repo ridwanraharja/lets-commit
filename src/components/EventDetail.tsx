@@ -459,7 +459,7 @@ const EventDetail = () => {
                 </h3>
               </div>
               <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                {formatPrice(event.priceAmount / 100)}
+                {formatPrice(event.priceAmount)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 One-time payment
@@ -474,7 +474,7 @@ const EventDetail = () => {
                 </h3>
               </div>
               <p className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                {formatPrice(event.commitmentAmount / 100)}
+                {formatPrice(event.commitmentAmount)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Refundable deposit
@@ -489,7 +489,7 @@ const EventDetail = () => {
                 </h3>
               </div>
               <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                {formatPrice(totalPrice / 100)}
+                {formatPrice(totalPrice)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400">
                 Initial payment required
@@ -616,7 +616,7 @@ const EventDetail = () => {
                       {session.peopleAttend}
                     </td>
                     <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                      {formatPrice(getSessionDepositAmount(event) / 100)}
+                      {formatPrice(getSessionDepositAmount(event))}
                     </td>
                     {role !== "organizer" || !isEventOrganizer ? (
                       <td className="px-6 py-4">
@@ -865,7 +865,7 @@ const EventDetail = () => {
                     </p>
                     <p className="text-2xl font-bold text-gray-900 dark:text-white">
                       {event.statistic?.totalRevenue
-                        ? formatPrice(event.statistic.totalRevenue / 100)
+                        ? formatPrice(event.statistic.totalRevenue)
                         : "0.00 IDRX"}
                     </p>
                   </div>

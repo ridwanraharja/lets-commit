@@ -138,14 +138,13 @@ export default function EventList({
                     <span className="text-gray-600 dark:text-gray-400">
                       Price:{" "}
                       <span className="font-semibold text-gray-900 dark:text-white">
-                        {numeral(event.eventPrice / 100).format("0,0")} IDRX
+                        {numeral(event.eventPrice).format("0,0")} IDRX
                       </span>
                     </span>
                     <span className="text-gray-600 dark:text-gray-400">
                       Commitment:{" "}
                       <span className="font-semibold text-orange-600 dark:text-orange-400">
-                        {numeral(event.commitmentPrice / 100).format("0,0")}{" "}
-                        IDRX
+                        {numeral(event.commitmentPrice).format("0,0")} IDRX
                       </span>
                     </span>
                   </div>

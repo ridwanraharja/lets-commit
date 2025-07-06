@@ -244,8 +244,8 @@ export default function CreatePage() {
         description: eventData.description,
         location: eventData.location,
         imageUri: eventData.imageUri,
-        priceAmount: BigInt(eventFee * 100),
-        commitmentAmount: BigInt(commitmentDeposit * 100),
+        priceAmount: BigInt(eventFee),
+        commitmentAmount: BigInt(commitmentDeposit),
         maxParticipant: maxParticipants,
         startSaleDate: BigInt(Math.floor(startSaleDate.getTime() / 1000)),
         endSaleDate: BigInt(Math.floor(endSaleDate.getTime() / 1000)),
@@ -413,18 +413,37 @@ export default function CreatePage() {
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <FormInput
-                    id="imageUri"
-                    name="imageUri"
-                    type="url"
-                    value={eventData.imageUri}
-                    onChange={handleInputChange}
-                    placeholder="https://example.com/event-image.jpg"
-                    label="Image URI"
-                    icon={Image}
-                    required
-                    helperText="Provide a direct link to your event image (JPG, PNG, or WebP)"
-                  />
+                  <div className="space-y-3">
+                    <FormInput
+                      id="imageUri"
+                      name="imageUri"
+                      type="url"
+                      value={eventData.imageUri}
+                      onChange={handleInputChange}
+                      placeholder="https://example.com/event-image.jpg"
+                      label="Image URI"
+                      icon={Image}
+                      required
+                      helperText="Provide a direct link to your event image (JPG, PNG, or WebP)"
+                    />
+
+                    <motion.button
+                      type="button"
+                      onClick={() => {
+                        setEventData((prev) => ({
+                          ...prev,
+                          imageUri:
+                            "https://blogs.iadb.org/caribbean-dev-trends/wp-content/uploads/sites/34/2017/12/Blockchain1.jpg",
+                        }));
+                      }}
+                      className="w-full flex items-center justify-center gap-2 py-2 px-4 bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/30 dark:to-purple-900/30 border border-blue-300 dark:border-blue-600 rounded-xl text-blue-700 dark:text-blue-300 hover:from-blue-200 hover:to-purple-200 dark:hover:from-blue-900/50 dark:hover:to-purple-900/50 transition-all duration-300 font-medium text-sm"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Image className="w-4 h-4" />
+                      Use Default Blockchain Banner
+                    </motion.button>
+                  </div>
 
                   <FormInput
                     id="maxParticipants"

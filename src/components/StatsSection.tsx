@@ -25,7 +25,7 @@ export default function StatsSection() {
     };
 
     const formatCurrency = (amount: number) => {
-      return `${(amount / 1000000).toFixed(1)}M IDRX`;
+      return `${(amount / 100000000).toFixed(1)}M IDRX`;
     };
 
     return [

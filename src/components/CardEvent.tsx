@@ -204,7 +204,7 @@ export default function CardEvent({ event, index = 0 }: CardEventProps) {
             {event.title}
           </h3>
 
-          <p className="hidden sm:block text-gray-600 dark:text-gray-400 text-sm mb-3 line-clamp-2 leading-relaxed transition-colors duration-700 ease-in-out">
+          <p className="hidden sm:block text-gray-600 dark:text-gray-400 text-sm mb-3 overflow-hidden text-ellipsis whitespace-nowrap transition-colors duration-700 ease-in-out">
             {event.description}
           </p>
 

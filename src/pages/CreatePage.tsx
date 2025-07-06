@@ -79,6 +79,85 @@ export default function CreatePage() {
     { id: "1", title: "", date: "", time: "", duration: "" },
   ]);
 
+  // Function to generate mock data
+  const fillWithMockData = () => {
+    // Generate future dates for sale period
+    const now = new Date();
+    const startSaleDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // Tomorrow
+    const endSaleDate = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000); // 7 days from now
+
+    // Generate session dates (after sale end date)
+    const session1Date = new Date(
+      endSaleDate.getTime() + 2 * 24 * 60 * 60 * 1000
+    ); // 2 days after sale end
+    const session2Date = new Date(
+      session1Date.getTime() + 3 * 24 * 60 * 60 * 1000
+    ); // 3 days after session 1
+    const session3Date = new Date(
+      session2Date.getTime() + 3 * 24 * 60 * 60 * 1000
+    ); // 3 days after session 2
+
+    // Format dates for datetime-local input
+    const formatDateForInput = (date: Date) => {
+      return date.toISOString().slice(0, 16);
+    };
+
+    const formatDateForSession = (date: Date) => {
+      return date.toISOString().split("T")[0];
+    };
+
+    // Set event data
+    setEventData({
+      title: "Web3 Development Masterclass",
+      description:
+        "Comprehensive course covering blockchain fundamentals, smart contracts, DeFi protocols, and NFT development. Learn to build decentralized applications from scratch using Ethereum, Solidity, and modern Web3 tools. Perfect for developers looking to enter the blockchain space.",
+      location: "Virtual Meeting (Zoom) + Tech Hub Jakarta",
+      imageUri:
+        "https://blogs.iadb.org/caribbean-dev-trends/wp-content/uploads/sites/34/2017/12/Blockchain1.jpg",
+      maxParticipants: "25",
+      eventFee: "175000",
+      commitmentDeposit: "100000",
+      startSaleDate: formatDateForInput(startSaleDate),
+      endSaleDate: formatDateForInput(endSaleDate),
+    });
+
+    // Set sessions
+    setSessions([
+      {
+        id: "1",
+        title: "Blockchain Fundamentals & Ethereum Basics",
+        date: formatDateForSession(session1Date),
+        time: "10:00",
+        duration: "2.5",
+      },
+      {
+        id: "2",
+        title: "Smart Contracts with Solidity",
+        date: formatDateForSession(session2Date),
+        time: "14:00",
+        duration: "3.0",
+      },
+      {
+        id: "3",
+        title: "DeFi Protocols & DApp Development",
+        date: formatDateForSession(session3Date),
+        time: "19:00",
+        duration: "2.0",
+      },
+    ]);
+
+    // Set tags
+    setTags([
+      { id: "1", text: "Web3", className: "" },
+      { id: "2", text: "Blockchain", className: "" },
+      { id: "3", text: "Ethereum", className: "" },
+      { id: "4", text: "Solidity", className: "" },
+      { id: "5", text: "DeFi", className: "" },
+    ]);
+
+    setError(null);
+  };
+
   const handleInputChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
@@ -380,6 +459,23 @@ export default function CreatePage() {
               {error}
             </motion.div>
           )}
+
+          {/* Mock Data Button */}
+          <motion.div
+            variants={itemVariants}
+            className="mb-6 flex justify-center"
+          >
+            <motion.button
+              type="button"
+              onClick={fillWithMockData}
+              className="px-6 py-3 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2"
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Sparkles className="w-5 h-5" />
+              Fill with Sample Data
+            </motion.button>
+          </motion.div>
 
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Event Details Card */}

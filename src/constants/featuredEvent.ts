@@ -14,7 +14,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 30,
     organizerName: "CryptoVerse",
     linkImg: "/assets/events/defi-bootcamp.jpg",
-    StatusTags: "ON_SALE"
+    StatusTags: "ON_SALE",
+    organizer: "CryptoVerse",
+    participants: [],
   },
   {
     id: 2,
@@ -29,7 +31,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 80,
     organizerName: "DevChain Academy",
     linkImg: "/assets/events/solidity-beginner.jpg",
-    StatusTags: "ON_SALE"
+    StatusTags: "ON_SALE",
+    organizer: "DevChain Academy",
+    participants: [],
   },
   {
     id: 3,
@@ -44,7 +48,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 18,
     organizerName: "NFT Workshop",
     linkImg: "/assets/events/nft-creator.jpg",
-    StatusTags: "ON_GOING"
+    StatusTags: "ON_GOING",
+    organizer: "NFT Workshop",
+    participants: [],
   },
   {
     id: 4,
@@ -59,7 +65,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 100,
     organizerName: "MetaWorld Team",
     linkImg: "/assets/events/metaverse-jam.jpg",
-    StatusTags: "ON_SALE"
+    StatusTags: "ON_SALE",
+    organizer: "MetaWorld Team",
+    participants: [],
   },
   {
     id: 5,
@@ -74,7 +82,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 30,
     organizerName: "BlockLab",
     linkImg: "/assets/events/blockchain-essentials.jpg",
-    StatusTags: "ON_GOING"
+    StatusTags: "ON_GOING",
+    organizer: "BlockLab",
+    participants: [],
   },
   {
     id: 6,
@@ -89,7 +99,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 50,
     organizerName: "TraderHub",
     linkImg: "/assets/events/trading-bootcamp.jpg",
-    StatusTags: "ON_SALE"
+    StatusTags: "ON_SALE",
+    organizer: "TraderHub",
+    participants: [],
   },
   {
     id: 7,
@@ -104,7 +116,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 150,
     organizerName: "FutureWorks",
     linkImg: "/assets/events/ai-blockchain.jpg",
-    StatusTags: "ON_SALE"
+    StatusTags: "ON_SALE",
+    organizer: "FutureWorks",
+    participants: [],
   },
   {
     id: 8,
@@ -119,7 +133,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 90,
     organizerName: "BuildUp",
     linkImg: "/assets/events/web3-hackathon.jpg",
-    StatusTags: "ON_GOING"
+    StatusTags: "ON_GOING",
+    organizer: "BuildUp",
+    participants: [],
   },
   {
     id: 9,
@@ -134,7 +150,9 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 20,
     organizerName: "YieldMax",
     linkImg: "/assets/events/yield-farming.jpg",
-    StatusTags: "ON_SALE"
+    StatusTags: "ON_SALE",
+    organizer: "YieldMax",
+    participants: [],
   },
   {
     id: 10,
@@ -149,6 +167,8 @@ export const featuredEvents: IFeaturedEvent[] = [
     commitmentPrice: 60,
     organizerName: "GrowthAlliance",
     linkImg: "/assets/events/digital-marketing.jpg",
-    StatusTags: "FINISHED"
-  }
+    StatusTags: "FINISHED",
+    organizer: "GrowthAlliance",
+    participants: [],
+  },
 ];

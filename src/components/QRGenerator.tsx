@@ -44,6 +44,7 @@ export function QRGenerator({
           viewBox={`0 0 256 256`}
           fgColor="#2563eb"
           bgColor="#ffffff"
+          title={`QR Code for ${sessionTitle}`}
         />
       </div>
       <p className="text-sm text-gray-600 dark:text-gray-400 mb-1">
